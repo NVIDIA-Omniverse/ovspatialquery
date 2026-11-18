@@ -1,0 +1,414 @@
+[
+  {
+    "name": "sphinx",
+    "version": "8.2.3",
+    "license": "BSD-2-Clause",
+    "files": [
+      {
+        "path": "_static/basic.css",
+        "sha256": "656ff1bacd6f260fc7d71b97f9c2f1fcbf692dc84bf469cd952034efcb9eefed"
+      },
+      {
+        "path": "_static/doctools.js",
+        "sha256": "2992c09df91826a8d33e3b48b645ee77e457adcf7c712d776a814e1e2c448b43"
+      },
+      {
+        "path": "_static/documentation_options.js",
+        "sha256": "ede2f5fdd91802594c74321ad222becd6355735bfaf983078961ae1b854f7887"
+      },
+      {
+        "path": "_static/file.png",
+        "sha256": "5c4bc9a16aebf38c4b950f59b8e501ca36495328cb9eb622218bce9064a35e3e"
+      },
+      {
+        "path": "_static/language_data.js",
+        "sha256": "3bc311563b7fc5e80fcab2f8629774bf3cb6b30202000df36dff8e695a9023b7"
+      },
+      {
+        "path": "_static/minus.png",
+        "sha256": "47e7fc50db3699f1ca41ce9a2ffa202c00c5d1d5180c55f62ba859b1bd6cc008"
+      },
+      {
+        "path": "_static/plus.png",
+        "sha256": "54115199b96a130cba02147c47c0deb43dcc9b9f08b5162bba8642b34980ac63"
+      },
+      {
+        "path": "_static/searchtools.js",
+        "sha256": "371b49c7f094b525244e2a59d7809a6b946fc1c8791201d10dda1dd191133bb7"
+      },
+      {
+        "path": "_static/sphinx_highlight.js",
+        "sha256": "096231e9c87df80ec3273da9c5b71bc81503206726a07a4dd4de44c256ff859c"
+      }
+    ]
+  },
+  {
+    "name": "nvidia-sphinx-theme",
+    "version": "0.0.9.post1",
+    "license": "LicenseRef-NVIDIA-License-Agreement",
+    "files": [
+      {
+        "path": "_static/favicon.png",
+        "sha256": "c99ac687ff9e5be7d7e4bd058cd7404c438f1920199d921c29b2317630273521"
+      },
+      {
+        "path": "_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg",
+        "sha256": "bb95404594c0733b2c20cd4fea0ad41c8e5005184dabc276461eec10b522a2ec"
+      },
+      {
+        "path": "_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg",
+        "sha256": "5842cb5aae84a708393572dedbcec1c224167d9528efb9d88a8b7da47b0082da"
+      },
+      {
+        "path": "_static/nvidia-logo-horiz-rgb-blk-for-screen.svg",
+        "sha256": "26ded7076d01897171237d75758149430bb7ea59580adaddc459f890cca3dcb3"
+      },
+      {
+        "path": "_static/nvidia-logo-horiz-rgb-wht-for-screen.svg",
+        "sha256": "96df305e4cba28060a8b6c4983748ed9805318e35305df7a4dd8db75b85f1089"
+      },
+      {
+        "path": "_static/scripts/nvidia-sphinx-theme.js",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "_static/styles/nvidia-sphinx-theme.css",
+        "sha256": "1b83894af1f0c9776b32fd8b8fa14210259f009646321e16e304fec7be49c754"
+      },
+      {
+        "path": "_static/styles/nvidia-sphinx-theme.css.map",
+        "sha256": "05a99852a7663f5b36ed5351fd599bae7924f86f64b7d88cfa75e2550e4e64e2"
+      }
+    ]
+  },
+  {
+    "name": "pydata-sphinx-theme",
+    "version": "0.23.0",
+    "license": "BSD-3-Clause",
+    "files": [
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js",
+        "sha256": "ff0b9b19f4cd7531497787cd6236d84a8be8d932d458802d5f28d7311d7f64e3"
+      },
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js.map",
+        "sha256": "b2e4345608961a5c5887d854464f8e22dfc1f34885db06e3474d7108eaf0c1ac"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css",
+        "sha256": "8eeae9e399ce6b87419fde1bb8c0993163fcd083fdf2e5d9ffbfa050726d0ac5"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css.map",
+        "sha256": "38a3ea65d274a5d595776d59e24c4fb2d75df2a9e621c54ec1ec5fd349456a98"
+      },
+      {
+        "path": "_static/styles/theme.css",
+        "sha256": "c5ad46e4d126fbddecf0ece57fc8345279fac39110306ac7e643f0d4505423f7"
+      },
+      {
+        "path": "_static/webpack-macros.html",
+        "sha256": "675c10914c21a0b92be1346e3a8b997854bf4a369285e8c2e3360dad3b352abc"
+      }
+    ]
+  },
+  {
+    "name": "sphinx-design",
+    "version": "0.7.0",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/design-tabs.js",
+        "sha256": "de2467cfca5bb555043369f1eea82c9cd794e70fa0444f216aa4ebb18cefc9f0"
+      },
+      {
+        "path": "_static/sphinx-design.min.css",
+        "sha256": "eb53d5c272ecc4d93a04605b3d42aa6942858e634bb9686d32d576203a0033ba"
+      }
+    ]
+  },
+  {
+    "name": "sphinx-copybutton",
+    "version": "0.5.2",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/check-solid.svg",
+        "sha256": "edfc4de8b5af9662c19d74d0ef059deb00283f6b1ae21dfcc8e052d5617a1c7f"
+      },
+      {
+        "path": "_static/copy-button.svg",
+        "sha256": "8cf972ac6d0873154c8245eab96a509026ee132f03bf68ec79fdfe3fa7b03a05"
+      },
+      {
+        "path": "_static/copybutton.css",
+        "sha256": "0f7c9f303bd3058bdc9db7263fe560c0a41f3526729ce1f00ccab527724c5476"
+      },
+      {
+        "path": "_static/copybutton.js",
+        "sha256": "89ee4163ba2fdd47404883ebc81bf93f696f6ab02aa5795331a8ff7161e9e256"
+      },
+      {
+        "path": "_static/copybutton_funcs.js",
+        "sha256": "4a178ecff5d986b5612029299ac6f4d08c401fe162af30176b501d318b25b753"
+      }
+    ]
+  },
+  {
+    "name": "pygments",
+    "version": "2.21.0",
+    "license": "BSD-2-Clause",
+    "files": [
+      {
+        "path": "_static/pygments.css",
+        "sha256": "85567b0c3f5848ece1757b350de30ba4baebec7dccc60022b83a63a514cb7332"
+      }
+    ]
+  },
+  {
+    "name": "accessible-pygments",
+    "version": "0.0.5",
+    "license": "BSD-3-Clause",
+    "files": [
+      {
+        "path": "_static/pygments.css",
+        "sha256": "85567b0c3f5848ece1757b350de30ba4baebec7dccc60022b83a63a514cb7332"
+      }
+    ]
+  },
+  {
+    "name": "Bootstrap",
+    "version": "5.3.3",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/scripts/bootstrap.js",
+        "sha256": "75d931f3e2c5dff5989b300bec8cc3c3648f21ced093cf4796478f30982f65bd"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.LICENSE.txt",
+        "sha256": "01968560a6c92babbff91a176a5d4d930ca1ea2e3fde3ff20d191ddd939e654d"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.map",
+        "sha256": "ace77c30b4f5d157fbd2b9bdd7f00d9acfe4908511da990addea18f16092aa4d"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css",
+        "sha256": "8eeae9e399ce6b87419fde1bb8c0993163fcd083fdf2e5d9ffbfa050726d0ac5"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css.map",
+        "sha256": "38a3ea65d274a5d595776d59e24c4fb2d75df2a9e621c54ec1ec5fd349456a98"
+      }
+    ]
+  },
+  {
+    "name": "clipboard.js",
+    "version": "2.0.8",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "good-listener",
+    "version": "1.2.2",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "select",
+    "version": "1.1.2",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "delegate",
+    "version": "3.2.0",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "tiny-emitter",
+    "version": "2.1.0",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "Webpack-runtime-clipboard",
+    "version": "5.15.0",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/clipboard.min.js",
+        "sha256": "261ffa06f381039cf7d18984d1364c59f3c2b9b60b1fa05d5f9c8c152e4d5be5"
+      }
+    ]
+  },
+  {
+    "name": "Popper",
+    "version": "2.11.8",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/scripts/bootstrap.js",
+        "sha256": "75d931f3e2c5dff5989b300bec8cc3c3648f21ced093cf4796478f30982f65bd"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.LICENSE.txt",
+        "sha256": "01968560a6c92babbff91a176a5d4d930ca1ea2e3fde3ff20d191ddd939e654d"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.map",
+        "sha256": "ace77c30b4f5d157fbd2b9bdd7f00d9acfe4908511da990addea18f16092aa4d"
+      }
+    ]
+  },
+  {
+    "name": "compare-versions",
+    "version": "5.0.3",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js",
+        "sha256": "ff0b9b19f4cd7531497787cd6236d84a8be8d932d458802d5f28d7311d7f64e3"
+      },
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js.map",
+        "sha256": "b2e4345608961a5c5887d854464f8e22dfc1f34885db06e3474d7108eaf0c1ac"
+      }
+    ]
+  },
+  {
+    "name": "Webpack-runtime",
+    "version": "5.105.1",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/scripts/bootstrap.js",
+        "sha256": "75d931f3e2c5dff5989b300bec8cc3c3648f21ced093cf4796478f30982f65bd"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.LICENSE.txt",
+        "sha256": "01968560a6c92babbff91a176a5d4d930ca1ea2e3fde3ff20d191ddd939e654d"
+      },
+      {
+        "path": "_static/scripts/bootstrap.js.map",
+        "sha256": "ace77c30b4f5d157fbd2b9bdd7f00d9acfe4908511da990addea18f16092aa4d"
+      },
+      {
+        "path": "_static/scripts/fontawesome.js",
+        "sha256": "8ef9ec14c3457f19232fd15e7cd0cca3c7a42b30b9dd007447f3dfcb7e4dbf0a"
+      },
+      {
+        "path": "_static/scripts/fontawesome.js.LICENSE.txt",
+        "sha256": "f2b5b0f622f7677c908f66ec16c06894c4fa574a2d7779075d75145013ad9e66"
+      },
+      {
+        "path": "_static/scripts/fontawesome.js.map",
+        "sha256": "04c24bb872f683f55f6e73ddcab9b220fa21b64afac22d82f5380a8e610e7ab7"
+      },
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js",
+        "sha256": "ff0b9b19f4cd7531497787cd6236d84a8be8d932d458802d5f28d7311d7f64e3"
+      },
+      {
+        "path": "_static/scripts/pydata-sphinx-theme.js.map",
+        "sha256": "b2e4345608961a5c5887d854464f8e22dfc1f34885db06e3474d7108eaf0c1ac"
+      }
+    ]
+  },
+  {
+    "name": "Tabler-icons",
+    "version": "NOASSERTION",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/check-solid.svg",
+        "sha256": "edfc4de8b5af9662c19d74d0ef059deb00283f6b1ae21dfcc8e052d5617a1c7f"
+      },
+      {
+        "path": "_static/copy-button.svg",
+        "sha256": "8cf972ac6d0873154c8245eab96a509026ee132f03bf68ec79fdfe3fa7b03a05"
+      }
+    ]
+  },
+  {
+    "name": "RFS",
+    "version": "10.0.0",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css",
+        "sha256": "8eeae9e399ce6b87419fde1bb8c0993163fcd083fdf2e5d9ffbfa050726d0ac5"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css.map",
+        "sha256": "38a3ea65d274a5d595776d59e24c4fb2d75df2a9e621c54ec1ec5fd349456a98"
+      }
+    ]
+  },
+  {
+    "name": "Font-Awesome",
+    "version": "7.2.0",
+    "license": "MIT AND OFL-1.1 AND CC-BY-4.0",
+    "files": [
+      {
+        "path": "_static/scripts/fontawesome.js",
+        "sha256": "8ef9ec14c3457f19232fd15e7cd0cca3c7a42b30b9dd007447f3dfcb7e4dbf0a"
+      },
+      {
+        "path": "_static/scripts/fontawesome.js.LICENSE.txt",
+        "sha256": "f2b5b0f622f7677c908f66ec16c06894c4fa574a2d7779075d75145013ad9e66"
+      },
+      {
+        "path": "_static/scripts/fontawesome.js.map",
+        "sha256": "04c24bb872f683f55f6e73ddcab9b220fa21b64afac22d82f5380a8e610e7ab7"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css",
+        "sha256": "8eeae9e399ce6b87419fde1bb8c0993163fcd083fdf2e5d9ffbfa050726d0ac5"
+      },
+      {
+        "path": "_static/styles/pydata-sphinx-theme.css.map",
+        "sha256": "38a3ea65d274a5d595776d59e24c4fb2d75df2a9e621c54ec1ec5fd349456a98"
+      },
+      {
+        "path": "_static/vendor/fontawesome/webfonts/fa-brands-400.woff2",
+        "sha256": "70c632ba73c7ad942141bb2f56994b8eddf0a284c01aab9f21e0cd10021530c4"
+      },
+      {
+        "path": "_static/vendor/fontawesome/webfonts/fa-regular-400.woff2",
+        "sha256": "81aaa8342d90df0a3c0b87655e2c31a71941f0dd351fb9fb1ca5d692e744f6d0"
+      },
+      {
+        "path": "_static/vendor/fontawesome/webfonts/fa-solid-900.woff2",
+        "sha256": "ff58a6b0a01dbce082458f6e5a58719df4e80e0c2b50f744bb5871e21eca6878"
+      }
+    ]
+  }
+]

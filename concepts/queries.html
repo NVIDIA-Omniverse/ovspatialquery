@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Queries and Results &#8212; ovspatialquery</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/ovsq/ovsq.css?v=b3c2b5e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+
+
+    <script src="../_static/documentation_options.js?v=c7fef49e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="../_static/ovsq/anim.js?v=81228ec5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-concept.js?v=f5e1a203"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-plan.js?v=9fe63f9b"></script>
+    <script defer="defer" src="../_static/ovsq/anims/box-sweep.js?v=8297c094"></script>
+    <script defer="defer" src="../_static/ovsq/anims/candidate-exact.js?v=06349d6d"></script>
+    <script defer="defer" src="../_static/ovsq/anims/cuda-ordering.js?v=2a84c909"></script>
+    <script defer="defer" src="../_static/ovsq/anims/first-query.js?v=a60129d5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/model-map.js?v=dae7ab51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/overlap-modes.js?v=9c39d887"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-exclusions.js?v=f4d592f3"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-scene.js?v=c532d33f"></script>
+    <script defer="defer" src="../_static/ovsq/anims/pair-reporter.js?v=2bd60276"></script>
+    <script defer="defer" src="../_static/ovsq/anims/query-families.js?v=b8a5c307"></script>
+    <script defer="defer" src="../_static/ovsq/anims/raycast-modes.js?v=c05d3b51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/sphere-sweep.js?v=17df453a"></script>
+    <script defer="defer" src="../_static/ovsq/anims/version-window.js?v=75e183b8"></script>
+    <script defer="defer" src="../_static/ovsq/anims/views-bits.js?v=7407af61"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'concepts/queries';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Batches" href="batches.html" />
+    <link rel="prev" title="Populations, Versions, and Views" href="populations.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../first-query.html">Your First Query</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Concepts</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="populations.html">Populations, Versions, and Views</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Queries and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batches.html">Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="limits.html">Budgets, Lifetimes, and Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-ovstage.html">ovstage Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-explicit.html">Explicit Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/python.html">Python Package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents.html">Coding Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Concepts</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Queries and Results</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="queries-and-results">
+<h1>Queries and Results<a class="headerlink" href="#queries-and-results" title="Link to this heading">#</a></h1>
+<p>A query asks one question about one version of a population or view. This page describes the
+four query families, how a query chooses its version, the two kinds of result, and the fields
+that every query shares.</p>
+<section id="query-families">
+<h2>Query Families<a class="headerlink" href="#query-families" title="Link to this heading">#</a></h2>
+<p>Query shapes and stored geometry are separate vocabularies. A population stores five geometry
+families: sphere, box, capsule, convex hull, and triangle mesh. Every query family works against
+all five.</p>
+<p>Each query family supports one or more hit modes, as the following table shows:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Hit Modes of Each Query Family</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Query Family</p></th>
+<th class="head"><p>Closest</p></th>
+<th class="head"><p>Any</p></th>
+<th class="head"><p>Multiple</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Raycast</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sphere sweep</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Box sweep</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Overlap</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The three hit modes answer three different questions:</p>
+<ul class="simple">
+<li><p><strong>Closest</strong> reports the first contact along the path, or no hit.</p></li>
+<li><p><strong>Any</strong> reports one hit and makes no promise about which one. Use it when you only need to know
+whether something is there.</p></li>
+<li><p><strong>Multiple</strong> reports every hit up to a capacity that you choose, in no particular order. It
+also reports whether more hits existed.</p></li>
+</ul>
+<p>Every call in this section runs on the calling thread and returns when the answer is ready. In
+C, each call is a function that takes the instance and a descriptor. In Python, each call is a
+method of <a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target" title="ovspatialquery.instance.Target"><code class="xref py py-class docutils literal notranslate"><span class="pre">Target</span></code></a>, which <code class="docutils literal notranslate"><span class="pre">population.target</span></code> and
+<code class="docutils literal notranslate"><span class="pre">view.target</span></code> return.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To run many queries of one family at once, on the CPU or on a CUDA device, use a
+<a class="reference internal" href="batches.html"><span class="std std-doc">batch plan</span></a>.</p>
+</div>
+<section id="raycasts">
+<h3>Raycasts<a class="headerlink" href="#raycasts" title="Link to this heading">#</a></h3>
+<p>A ray has an <code class="docutils literal notranslate"><span class="pre">origin</span></code>, a <code class="docutils literal notranslate"><span class="pre">unit_direction</span></code>, and a closed interval from <code class="docutils literal notranslate"><span class="pre">min_distance</span></code> to
+<code class="docutils literal notranslate"><span class="pre">max_distance</span></code> along that direction. The following figure casts the same ray in each of the three
+hit modes:</p>
+<figure class="ovsq-anim" data-anim="raycast-modes" data-w="760" data-h="370"><div class="ovsq-anim-stage" role="img" aria-label="Top view of three lanes, each casting the same ray along +x past box 10, sphere 11, and box 12. raycast_closest stops on box 10 at distance 2.20. raycast_any reports sphere 11 at distance 4.43, which is a hit but not the nearest one. raycast_multiple runs to max_distance and stores all three hits, with stored_hit_count = 3 and truncated = false for a capacity of 4."><noscript><p class="ovsq-anim-noscript">Top view of three lanes, each casting the same ray along +x past box 10, sphere 11, and box 12. raycast_closest stops on box 10 at distance 2.20. raycast_any reports sphere 11 at distance 4.43, which is a hit but not the nearest one. raycast_multiple runs to max_distance and stores all three hits, with stored_hit_count = 3 and truncated = false for a capacity of 4.</p></noscript></div><figcaption>One ray in the three hit modes. The hit distances are computed by the figure.</figcaption></figure><p>Each mode has one C function and one Python method, as the following table shows:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Raycast Calls</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>C Function</p></th>
+<th class="head"><p>Python Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Closest</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_raycast_closest_sync" title="ovspatialquery_raycast_closest_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_raycast_closest_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.raycast_closest" title="ovspatialquery.instance.Target.raycast_closest"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raycast_closest</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Any</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_raycast_any_sync" title="ovspatialquery_raycast_any_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_raycast_any_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.raycast_any" title="ovspatialquery.instance.Target.raycast_any"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raycast_any</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Multiple</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_raycast_multiple_sync" title="ovspatialquery_raycast_multiple_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_raycast_multiple_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.raycast_multiple" title="ovspatialquery.instance.Target.raycast_multiple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raycast_multiple</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The multiple mode writes hits into storage that you size. In C, you pass an array of
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_raycast_hit_t" title="ovspatialquery_raycast_hit_t"><code class="xref c c-struct docutils literal notranslate"><span class="pre">ovspatialquery_raycast_hit_t</span></code></a> rows and its <code class="docutils literal notranslate"><span class="pre">capacity</span></code>, and <code class="docutils literal notranslate"><span class="pre">stored_hit_count</span></code> says how
+many rows are valid. In Python, <code class="docutils literal notranslate"><span class="pre">raycast_multiple</span></code> takes a <code class="docutils literal notranslate"><span class="pre">capacity</span></code> and returns a
+<a class="reference internal" href="../reference/python.html#ovspatialquery.MultipleResult" title="ovspatialquery.MultipleResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleResult</span></code></a>. In both, <code class="docutils literal notranslate"><span class="pre">truncated</span></code> is true when more
+hits existed than fit, and the stored hits are then the nearest ones.</p>
+<p>A ray can cross a triangle mesh more than once, for example through both walls of a closed mesh
+or both sides of a U shape. By default the multiple mode reports every triangle the ray crosses,
+each hit with its own source face, so you see every surface along the ray. A single-sided mesh
+reports only the crossings through its front faces unless the query sets <code class="docutils literal notranslate"><span class="pre">MESH_BOTH_SIDES</span></code> (refer
+to <a class="reference internal" href="#sweeps-and-single-sided-meshes">Sweeps and Single-Sided Meshes</a>). A ray through a shared edge
+or vertex can report each triangle that shares it. Spheres, boxes, capsules, and convex hulls
+report one hit each.</p>
+<p>When you only need to know which objects the ray reaches and where it reaches each one first,
+set <code class="docutils literal notranslate"><span class="pre">mesh_hits</span></code> to <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_mesh_hits_t.OVSPATIALQUERY_MESH_HITS_NEAREST" title="OVSPATIALQUERY_MESH_HITS_NEAREST"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">OVSPATIALQUERY_MESH_HITS_NEAREST</span></code></a> in C, or pass
+<code class="docutils literal notranslate"><span class="pre">mesh_hits=MeshHits.NEAREST</span></code> in Python. Each object then reports one hit, its nearest contact,
+and the query does less work on meshes. Every crossing needs a ray with no width, so a multiple
+raycast with a nonzero <code class="docutils literal notranslate"><span class="pre">contact_tolerance</span></code> must ask for <code class="docutils literal notranslate"><span class="pre">NEAREST</span></code>; otherwise it fails with
+<code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code>.</p>
+</section>
+<section id="sphere-sweeps">
+<h3>Sphere Sweeps<a class="headerlink" href="#sphere-sweeps" title="Link to this heading">#</a></h3>
+<p>A sphere sweep moves a sphere of <code class="docutils literal notranslate"><span class="pre">radius</span></code> from <code class="docutils literal notranslate"><span class="pre">center</span></code> along <code class="docutils literal notranslate"><span class="pre">unit_direction</span></code>, over the interval
+from <code class="docutils literal notranslate"><span class="pre">min_distance</span></code> to <code class="docutils literal notranslate"><span class="pre">max_distance</span></code>. The closest sweep reports the first contact. The following
+figure sweeps a sphere past two boxes:</p>
+<figure class="ovsq-anim" data-anim="sphere-sweep" data-w="760" data-h="312"><div class="ovsq-anim-stage" role="img" aria-label="Top view. A sphere of radius 0.7 moves along +x and stops when it touches the top-left corner of box 20, at distance 3.43. The figure marks query_position, the sphere&#x27;s center at contact, and object_position, the contact point on box 20. Box 21 lies farther along the path and is not reported."><noscript><p class="ovsq-anim-noscript">Top view. A sphere of radius 0.7 moves along +x and stops when it touches the top-left corner of box 20, at distance 3.43. The figure marks query_position, the sphere&#x27;s center at contact, and object_position, the contact point on box 20. Box 21 lies farther along the path and is not reported.</p></noscript></div><figcaption>A sphere sweep stops at its first contact. The distance and both points are computed by the figure.</figcaption></figure><p>An exact sphere sweep hit reports the following values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query_position</span></code> is the sphere’s center at contact.</p></li>
+<li><p>The contact point on the object is <code class="docutils literal notranslate"><span class="pre">object_position</span></code> in C and <code class="docutils literal notranslate"><span class="pre">position</span></code> in Python.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">distance</span></code> is how far the center traveled from <code class="docutils literal notranslate"><span class="pre">center</span></code>.</p></li>
+</ul>
+<p>The call is <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_sphere_closest_sync" title="ovspatialquery_sweep_sphere_closest_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_sphere_closest_sync()</span></code></a> in C and
+<a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_sphere_closest" title="ovspatialquery.instance.Target.sweep_sphere_closest"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_sphere_closest</span></code></a> in Python.</p>
+</section>
+<section id="box-sweeps">
+<h3>Box Sweeps<a class="headerlink" href="#box-sweeps" title="Link to this heading">#</a></h3>
+<p>A box sweep moves an oriented box along a straight path. The box has <code class="docutils literal notranslate"><span class="pre">half_extents</span></code> and a
+<code class="docutils literal notranslate"><span class="pre">rotation_xyzw</span></code> quaternion, and it keeps that orientation along the whole path. A hit reports
+the same values as a sphere sweep hit. The following figure sweeps a rotated box toward two boxes:</p>
+<figure class="ovsq-anim" data-anim="box-sweep" data-w="760" data-h="312"><div class="ovsq-anim-stage" role="img" aria-label="Top view. A box turned 25 degrees moves along +x without rotating. Its lower edge touches the top-left corner of box 30 at distance 3.80. The figure marks query_position, the moving box&#x27;s center at contact, and object_position, the contact point on box 30. Box 31 lies farther along the path and is not reported."><noscript><p class="ovsq-anim-noscript">Top view. A box turned 25 degrees moves along +x without rotating. Its lower edge touches the top-left corner of box 30 at distance 3.80. The figure marks query_position, the moving box&#x27;s center at contact, and object_position, the contact point on box 30. Box 31 lies farther along the path and is not reported.</p></noscript></div><figcaption>A box sweep translates the box and never rotates it. The contact is computed by the figure.</figcaption></figure><p>The call is <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_box_closest_sync" title="ovspatialquery_sweep_box_closest_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_box_closest_sync()</span></code></a> in C and
+<a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_box_closest" title="ovspatialquery.instance.Target.sweep_box_closest"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_box_closest</span></code></a> in Python.</p>
+</section>
+<section id="sweep-hit-modes">
+<h3>Sweep Hit Modes<a class="headerlink" href="#sweep-hit-modes" title="Link to this heading">#</a></h3>
+<p>Sphere and box sweeps have the any and multiple modes of raycasts too. The following table lists
+their calls:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sweep</p></th>
+<th class="head"><p>C</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sphere, any</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_sphere_any_sync" title="ovspatialquery_sweep_sphere_any_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_sphere_any_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_sphere_any" title="ovspatialquery.instance.Target.sweep_sphere_any"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_sphere_any</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sphere, multiple</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_sphere_multiple_sync" title="ovspatialquery_sweep_sphere_multiple_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_sphere_multiple_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_sphere_multiple" title="ovspatialquery.instance.Target.sweep_sphere_multiple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_sphere_multiple</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Box, any</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_box_any_sync" title="ovspatialquery_sweep_box_any_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_box_any_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_box_any" title="ovspatialquery.instance.Target.sweep_box_any"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_box_any</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Box, multiple</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sweep_box_multiple_sync" title="ovspatialquery_sweep_box_multiple_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_sweep_box_multiple_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.sweep_box_multiple" title="ovspatialquery.instance.Target.sweep_box_multiple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sweep_box_multiple</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An any sweep returns a hit of whichever object it finds first, with the same values a closest
+sweep reports for that object. It makes no promise that the object is the nearest one.</p>
+<p>A multiple sweep reports one hit per object it reaches, at that object’s first contact. A
+triangle mesh reports one hit, not one per triangle, the same way PhysX’s sweeps do. An object
+the shape already touches or overlaps at <code class="docutils literal notranslate"><span class="pre">min_distance</span></code> is reported at <code class="docutils literal notranslate"><span class="pre">min_distance</span></code>. In C, you
+pass an array of <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_sphere_sweep_hit_t" title="ovspatialquery_sphere_sweep_hit_t"><code class="xref c c-struct docutils literal notranslate"><span class="pre">ovspatialquery_sphere_sweep_hit_t</span></code></a> rows and its <code class="docutils literal notranslate"><span class="pre">capacity</span></code>, which box
+sweeps share. In Python, the call takes a <code class="docutils literal notranslate"><span class="pre">capacity</span></code> and returns a
+<a class="reference internal" href="../reference/python.html#ovspatialquery.MultipleResult" title="ovspatialquery.MultipleResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleResult</span></code></a>. As for raycasts, <code class="docutils literal notranslate"><span class="pre">truncated</span></code> is true
+when more objects were reached than fit, and the stored hits are then the nearest ones.</p>
+</section>
+<section id="sweeps-and-single-sided-meshes">
+<h3>Sweeps and Single-Sided Meshes<a class="headerlink" href="#sweeps-and-single-sided-meshes" title="Link to this heading">#</a></h3>
+<p>A sweep decides per triangle whether a single-sided mesh can stop it, from the triangle’s front
+normal <code class="docutils literal notranslate"><span class="pre">(v1</span> <span class="pre">-</span> <span class="pre">v0)</span> <span class="pre">x</span> <span class="pre">(v2</span> <span class="pre">-</span> <span class="pre">v0)</span></code> and the sweep’s <code class="docutils literal notranslate"><span class="pre">unit_direction</span></code>, the same way PhysX’s sweeps do:</p>
+<ul class="simple">
+<li><p>A triangle whose front normal points along the motion is ignored, so a sphere or box resting on
+a floor can leave it.</p></li>
+<li><p>A sphere also meets a triangle it moves exactly parallel to; a box ignores it.</p></li>
+<li><p>Every other triangle stops the sweep wherever the shape first touches it, on its face, an edge
+or a vertex, from either side. A shape falling past the open edge of a floor tile stops at the
+edge, and a sweep that starts touching such a triangle reports it at <code class="docutils literal notranslate"><span class="pre">min_distance</span></code>, even with
+its center below the tile.</p></li>
+</ul>
+<p>Double-sided triangles always count. A sphere’s contact from behind reports a normal that points
+from the contact toward the sphere’s center.</p>
+<p>To let one query see a single-sided mesh from behind without republishing it, set
+<code class="docutils literal notranslate"><span class="pre">QueryFlag.MESH_BOTH_SIDES</span></code> in one of these places:</p>
+<ul class="simple">
+<li><p>On a single query, pass <code class="docutils literal notranslate"><span class="pre">both_sides=True</span></code> or <code class="docutils literal notranslate"><span class="pre">query_flags=QueryFlag.MESH_BOTH_SIDES</span></code> to
+<code class="docutils literal notranslate"><span class="pre">RaycastQuery</span></code>, <code class="docutils literal notranslate"><span class="pre">SphereSweepQuery</span></code>, or <code class="docutils literal notranslate"><span class="pre">BoxSweepQuery</span></code>.</p></li>
+<li><p>On a raycast, sphere-sweep, or box-sweep plan, pass the same argument to <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>. It applies
+to every row of that launch.</p></li>
+<li><p>In C, set <code class="docutils literal notranslate"><span class="pre">OVSPATIALQUERY_QUERY_MESH_BOTH_SIDES</span></code> in <code class="docutils literal notranslate"><span class="pre">query_flags</span></code>.</p></li>
+</ul>
+<p>Every triangle then counts from both sides, as PhysX’s <code class="docutils literal notranslate"><span class="pre">eMESH_BOTH_SIDES</span></code> makes it. A ray also
+reports back faces. On a single-sided mesh, its normal stays the triangle’s front normal, as PhysX
+reports it, so a normal that points along the ray marks a back-face hit. A double-sided mesh still
+reports the normal facing the ray. A sweep ignores no triangle. Other shapes, bounds-candidate
+precision, and overlaps ignore the flag, and a flag bit this version does not know is refused with
+<code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">rotation_xyzw</span></code> stores the quaternion with <code class="docutils literal notranslate"><span class="pre">w</span></code> last, so the identity rotation is <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code>.
+The value <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> is a valid half turn about x, so passing it as the identity fails
+silently. A quaternion that is not unit length returns <code class="docutils literal notranslate"><span class="pre">INVALID_ARGUMENT</span></code>.</p>
+</div>
+</section>
+<section id="overlaps">
+<h3>Overlaps<a class="headerlink" href="#overlaps" title="Link to this heading">#</a></h3>
+<p>An overlap tests one query shape at one pose and reports the objects that it touches. The shape
+is a sphere, an oriented box, or an axis-aligned box (AABB). An overlap has no path, so its hits
+carry the object’s identity and no distance or contact point. The following figure tests the
+same sphere in both hit modes:</p>
+<figure class="ovsq-anim" data-anim="overlap-modes" data-w="760" data-h="330"><div class="ovsq-anim-stage" role="img" aria-label="Two top views of the same scene. A query sphere touches sphere 41, capsule 42, and box 43, and misses box 40. overlap_any reports one of the touched objects, object 43. overlap_multiple stores all three, with stored_hit_count = 3 and truncated = false."><noscript><p class="ovsq-anim-noscript">Two top views of the same scene. A query sphere touches sphere 41, capsule 42, and box 43, and misses box 40. overlap_any reports one of the touched objects, object 43. overlap_multiple stores all three, with stored_hit_count = 3 and truncated = false.</p></noscript></div><figcaption>One query sphere in both overlap hit modes. Which objects it touches is computed by the figure.</figcaption></figure><p>Each mode has one C function and one Python method, as the following table shows:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Overlap Calls</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>C Function</p></th>
+<th class="head"><p>Python Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Any</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_overlap_any_sync" title="ovspatialquery_overlap_any_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_overlap_any_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.overlap_any" title="ovspatialquery.instance.Target.overlap_any"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overlap_any</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple</p></td>
+<td><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_overlap_multiple_sync" title="ovspatialquery_overlap_multiple_sync"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_overlap_multiple_sync()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../reference/python.html#ovspatialquery.instance.Target.overlap_multiple" title="ovspatialquery.instance.Target.overlap_multiple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">overlap_multiple</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In C, the shape is an <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_overlap_shape_t" title="ovspatialquery_overlap_shape_t"><code class="xref c c-struct docutils literal notranslate"><span class="pre">ovspatialquery_overlap_shape_t</span></code></a> tagged <code class="docutils literal notranslate"><span class="pre">SPHERE</span></code>, <code class="docutils literal notranslate"><span class="pre">BOX</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">AABB</span></code>. In Python, the query’s <code class="docutils literal notranslate"><span class="pre">shape</span></code> is a <a class="reference internal" href="../reference/python.html#ovspatialquery.Sphere" title="ovspatialquery.Sphere"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sphere</span></code></a>, an
+<a class="reference internal" href="../reference/python.html#ovspatialquery.OrientedBox" title="ovspatialquery.OrientedBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrientedBox</span></code></a>, or an <a class="reference internal" href="../reference/python.html#ovspatialquery.Aabb" title="ovspatialquery.Aabb"><code class="xref py py-class docutils literal notranslate"><span class="pre">Aabb</span></code></a>.
+The multiple mode sizes its storage and reports <code class="docutils literal notranslate"><span class="pre">truncated</span></code> as a raycast does.</p>
+</section>
+</section>
+<section id="version-selection">
+<h2>Version Selection<a class="headerlink" href="#version-selection" title="Link to this heading">#</a></h2>
+<p>Every query names one target, a population or a view, and one version of that target. The
+version selection is one of two kinds:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_ordinal_selection_kind_t.OVSPATIALQUERY_ORDINAL_HEAD" title="ovspatialquery_ordinal_selection_kind_t.OVSPATIALQUERY_ORDINAL_HEAD"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">HEAD</span></code></a>
+reads the newest version at the moment the call admits the query.</p></li>
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_ordinal_selection_kind_t.OVSPATIALQUERY_ORDINAL_RETAINED_EXACT" title="ovspatialquery_ordinal_selection_kind_t.OVSPATIALQUERY_ORDINAL_RETAINED_EXACT"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">RETAINED_EXACT</span></code></a>
+reads one exact ordinal, which is the head or a retained earlier head. Any other ordinal
+returns <code class="docutils literal notranslate"><span class="pre">ORDINAL_NOT_RETAINED</span></code>.</p></li>
+</ul>
+<p>In Python, the version is the query’s <code class="docutils literal notranslate"><span class="pre">ordinal</span></code> field:
+<a class="reference internal" href="../reference/python.html#ovspatialquery.OrdinalSelection.head" title="ovspatialquery.OrdinalSelection.head"><code class="xref py py-meth docutils literal notranslate"><span class="pre">OrdinalSelection.head()</span></code></a> (the default) or
+<code class="docutils literal notranslate"><span class="pre">OrdinalSelection.retained_exact(101)</span></code>. Every result reports <code class="docutils literal notranslate"><span class="pre">source_ordinal</span></code>, the version that
+it read. A query that asked for the head therefore knows which version it got.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>How many earlier heads a population keeps is fixed when you create it. For details, refer to
+<a class="reference internal" href="populations.html"><span class="std std-doc">populations and their versions</span></a>.</p>
+</div>
+</section>
+<section id="result-types">
+<h2>Result Types<a class="headerlink" href="#result-types" title="Link to this heading">#</a></h2>
+<p>A query asks for one precision, which decides what kind of result it returns:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_BOUNDS_CANDIDATE" title="ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_BOUNDS_CANDIDATE"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">BOUNDS_CANDIDATE</span></code></a>
+stops where the query meets an object’s published bounding box.</p></li>
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_EXACT" title="ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_EXACT"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">EXACT</span></code></a> tests the
+stored surface.</p></li>
+</ul>
+<p>The two answers are different record arms with different field names. The <code class="docutils literal notranslate"><span class="pre">truth</span></code> tag says which
+arm a row holds, so a candidate is never mistaken for a surface point. The following figure casts
+the same ray at both precisions:</p>
+<figure class="ovsq-anim" data-anim="candidate-exact" data-w="760" data-h="510"><div class="ovsq-anim-stage" role="img" aria-label="The same ray hits the same quad mesh twice. With BOUNDS_CANDIDATE it stops on the mesh&#x27;s bounding box and reports bounds_position and distance only. With EXACT it stops on the surface and reports the position, the authored face index, three of that face&#x27;s corner indices, and barycentric weights."><noscript><p class="ovsq-anim-noscript">The same ray hits the same quad mesh twice. With BOUNDS_CANDIDATE it stops on the mesh&#x27;s bounding box and reports bounds_position and distance only. With EXACT it stops on the surface and reports the position, the authored face index, three of that face&#x27;s corner indices, and barycentric weights.</p></noscript></div><figcaption>The same ray and mesh at both precisions. The hit points and the record values are computed by the figure.</figcaption></figure><p>An exact hit on a triangle mesh names the face as it was authored in USD. For a quad, the hit
+reports the quad’s index, three of its four corners, and barycentric weights over those corners.
+The triangles that the library builds internally never appear in a result.</p>
+<p>An explicit triangle mesh reports the submitted triangle’s index and the corners 0, 1, and 2 by
+default. If you triangulated polygons yourself, register each triangle’s polygon index in
+<code class="docutils literal notranslate"><span class="pre">source_face_indices</span></code> and its three corners within that polygon in <code class="docutils literal notranslate"><span class="pre">source_face_corner_indices</span></code>.
+Its hits then report the polygon and its corners, as an ovstage mesh does. Per-face materials
+must then agree across the triangles of one polygon.</p>
+<p>In Python, single queries default to <code class="docutils literal notranslate"><span class="pre">EXACT</span></code>. Batch plans default to <code class="docutils literal notranslate"><span class="pre">BOUNDS_CANDIDATE</span></code>, because
+a version prepared only on a CUDA device can be read only at that precision. In C, a zeroed
+descriptor selects <code class="docutils literal notranslate"><span class="pre">BOUNDS_CANDIDATE</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Raycasts also accept
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_EXACT_SINGLE" title="ovspatialquery_query_precision_t.OVSPATIALQUERY_QUERY_EXACT_SINGLE"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">EXACT_SINGLE</span></code></a>.
+It lets the library evaluate surfaces in single precision, which can change whether a ray hits,
+its distance, or its face near numerical boundaries. Its results are still exact surface hits.
+Sweeps and overlaps return <code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code> for it.</p>
+</div>
+</section>
+<section id="query-fields">
+<h2>Query Fields<a class="headerlink" href="#query-fields" title="Link to this heading">#</a></h2>
+<p>Each query also carries the following fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query_bits</span></code> accepts only objects whose
+<a class="reference internal" href="populations.html#views-and-participation-bits"><span class="std std-ref">participation bits</span></a> intersect these bits. Zero
+accepts every object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_distance</span></code> and <code class="docutils literal notranslate"><span class="pre">max_distance</span></code> bound the part of a ray or sweep that counts. A sweep that
+already touches an object at <code class="docutils literal notranslate"><span class="pre">min_distance</span></code> reports that object at <code class="docutils literal notranslate"><span class="pre">min_distance</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contact_tolerance</span></code> grows the query shape by a distance in caller units before the contact
+test.</p></li>
+</ul>
+</section>
+<section id="coordinate-precision">
+<h2>Coordinate Precision<a class="headerlink" href="#coordinate-precision" title="Link to this heading">#</a></h2>
+<p>World positions and distances are double precision. Directions, normals, and sweep rotations are
+single precision. Overlap <code class="docutils literal notranslate"><span class="pre">BOX</span></code> rotations also accept <code class="docutils literal notranslate"><span class="pre">float64[Q,4]</span></code> and retain double precision
+for those rows. Stored local vertices are <code class="docutils literal notranslate"><span class="pre">float32</span></code>. Every coordinate, size, and distance must lie
+within ±2⁶⁰ caller units. Outside that range, a call returns <code class="docutils literal notranslate"><span class="pre">INVALID_ARGUMENT</span></code> and a batch row
+reports <code class="docutils literal notranslate"><span class="pre">BATCH_ROW_INVALID_ARGUMENT</span></code>, instead of rounding. Results near edges and touching
+surfaces can differ between implementations, and the library promises no universal error bound.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="populations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Populations, Versions, and Views</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="batches.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Batches</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-families">Query Families</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raycasts">Raycasts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sphere-sweeps">Sphere Sweeps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#box-sweeps">Box Sweeps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sweep-hit-modes">Sweep Hit Modes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeps-and-single-sided-meshes">Sweeps and Single-Sided Meshes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaps">Overlaps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-selection">Version Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result-types">Result Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-fields">Query Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-precision">Coordinate Precision</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA CORPORATION &amp; AFFILIATES.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

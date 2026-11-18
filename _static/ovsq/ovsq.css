@@ -1,0 +1,56 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Animated figures. Colors match OvsqAnim's palette in anim.js. */
+.ovsq-anim { margin: 1.75rem 0; }
+.ovsq-anim-stage {
+  position: relative; width: 100%; border-radius: 12px; overflow: hidden;
+  background: #fbfcfd; border: 1px solid #dde3ea;
+  box-shadow: 0 1px 2px rgba(16, 24, 32, .06), 0 8px 24px -12px rgba(16, 24, 32, .18);
+}
+html[data-theme="dark"] .ovsq-anim-stage {
+  background: radial-gradient(120% 90% at 50% 0%, #151c24 0%, #10151b 70%); border-color: #26303b;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px -16px rgba(0, 0, 0, .6);
+}
+/* Below this width text in a figure gets too small to read; scroll the figure instead. */
+@media (max-width: 640px) {
+  .ovsq-anim { overflow-x: auto; }
+  .ovsq-anim-stage { min-width: 600px; }
+  .ovsq-anim figcaption { position: sticky; left: 0; max-width: calc(100vw - 2rem); }
+}
+.ovsq-anim-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ovsq-anim-noscript { padding: 1.5rem; margin: 0; color: var(--pst-color-text-muted); }
+.ovsq-anim figcaption {
+  margin-top: .6rem; font-size: .9rem; color: var(--pst-color-text-muted); text-align: center;
+}
+.ovsq-anim-toggle, .ovsq-anim-restart {
+  position: absolute; bottom: 10px; z-index: 2; min-width: 34px; height: 28px; padding: 0 10px;
+  font: 600 12px/1 var(--pst-font-family-monospace, monospace); letter-spacing: -1px;
+  color: var(--pst-color-text-base); background: var(--pst-color-surface);
+  border: 1px solid var(--pst-color-border); border-radius: 8px; cursor: pointer;
+  opacity: 0; transition: opacity .2s;
+}
+.ovsq-anim-toggle { right: 10px; }
+.ovsq-anim-restart { right: 52px; font-size: 15px; letter-spacing: 0; }
+.ovsq-anim-stage:hover button, .ovsq-anim-stage button:focus-visible, .ovsq-anim.is-paused button { opacity: .92; }
+.ovsq-anim-stage button:hover { border-color: var(--pst-color-primary); color: var(--pst-color-primary); }
+
+/* Concept cards: one colored tag per term, matching the figure colors in anim.js. */
+.ovsq-nouns { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: .9rem; margin: 1.25rem 0 2rem; }
+.ovsq-noun {
+  --c: #5a8f00; padding: .8rem 1rem; border-radius: 12px; border: 1px solid var(--pst-color-border);
+  border-left: 4px solid var(--c); background: var(--pst-color-surface);
+}
+.ovsq-noun p { margin: .45rem 0 0; font-size: .92rem; line-height: 1.45; }
+.ovsq-tag {
+  display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .78rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+}
+.ovsq-noun.green { --c: #5a8f00; } .ovsq-noun.blue { --c: #1f7fd1; } .ovsq-noun.teal { --c: #14998b; }
+.ovsq-noun.amber { --c: #b06f06; } .ovsq-noun.violet { --c: #7a52cc; } .ovsq-noun.gray { --c: #5f6b78; }
+html[data-theme="dark"] .ovsq-noun.green { --c: #76b900; } html[data-theme="dark"] .ovsq-noun.blue { --c: #4fb3ff; }
+html[data-theme="dark"] .ovsq-noun.teal { --c: #3fd1c1; } html[data-theme="dark"] .ovsq-noun.amber { --c: #ffb547; }
+html[data-theme="dark"] .ovsq-noun.violet { --c: #b48cff; } html[data-theme="dark"] .ovsq-noun.gray { --c: #aab6c3; }
