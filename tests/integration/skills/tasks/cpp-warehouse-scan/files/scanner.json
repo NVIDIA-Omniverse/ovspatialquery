@@ -1,0 +1,28 @@
+{
+  "position": [
+    21.3,
+    18.0,
+    1.6
+  ],
+  "yaw_deg": 35.0,
+  "horizontal_fov_deg": 110.0,
+  "vertical_fov_deg": 50.0,
+  "columns": 128,
+  "rows": 128,
+  "max_range_m": 40.0,
+  "histogram_edges_m": [
+    0.0,
+    2.0,
+    4.0,
+    6.0,
+    8.0,
+    10.0,
+    15.0,
+    20.0,
+    25.0,
+    30.0,
+    40.0
+  ],
+  "repeats": 10,
+  "top_racks": 5
+}

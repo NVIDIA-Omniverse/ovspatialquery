@@ -1,0 +1,163 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+    metersPerUnit = 1
+)
+
+def Xform "World"
+{
+    def Cube "Floor"
+    {
+        double size = 1.0
+        double3 xformOp:translate = (0.0, -0.25, 0.0)
+        float3 xformOp:scale = (60.0, 0.5, 20.0)
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Xform "Editor"
+    {
+        def Sphere "Probe"
+        {
+            double radius = 0.7
+            double3 xformOp:translate = (-13.0, 1.5, 0.0)
+            float3[] extent = [(-0.7, -0.7, -0.7), (0.7, 0.7, 0.7)]
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Cube "Gizmo"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (15.0, 1.5, 0.0)
+            float3 xformOp:scale = (0.3, 3.0, 5.0)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+    def Xform "Env"
+    {
+        def Cube "Wall"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (-11.0, 2.0, -1.5)
+            float3 xformOp:scale = (0.4, 2.0, 2.0)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+        def Cube "Pillar"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (-9.0, 1.0, 1.2)
+            float3 xformOp:scale = (0.6, 2.0, 0.6)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+        def Xform "Lights"
+        {
+            def Sphere "Lamp"
+            {
+                double radius = 0.5
+                double3 xformOp:translate = (-7.0, 2.3, 0.0)
+                float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+    def Xform "Environment"
+    {
+        def Sphere "Rock"
+        {
+            double radius = 0.8
+            double3 xformOp:translate = (-5.0, 0.8, -1.0)
+            float3[] extent = [(-0.8, -0.8, -0.8), (0.8, 0.8, 0.8)]
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Cube "Fence"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (-3.0, 0.75, 1.5)
+            float3 xformOp:scale = (0.2, 1.5, 2.0)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+    def Xform "Props"
+    {
+        def Cube "Crate"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (-1.0, 0.6, -0.5)
+            float3 xformOp:scale = (1.2, 1.2, 1.2)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+        def Sphere "Barrel"
+        {
+            double radius = 0.6
+            double3 xformOp:translate = (1.0, 1.8, 0.8)
+            float3[] extent = [(-0.6, -0.6, -0.6), (0.6, 0.6, 0.6)]
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Scaffolding"
+        {
+            def Cube "Plank"
+            {
+                double size = 1.0
+                double3 xformOp:translate = (3.0, 1.5, -1.0)
+                float3 xformOp:scale = (0.3, 2.4, 2.4)
+                float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+            def Xform "Ladder"
+            {
+                def Cube "Rung"
+                {
+                    double size = 1.0
+                    double3 xformOp:translate = (5.0, 1.2, 1.0)
+                    float3 xformOp:scale = (0.3, 0.4, 2.0)
+                    float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+            }
+        }
+    }
+    def Xform "PropsArchive"
+    {
+        def Cube "OldCrate"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (7.0, 0.5, 0.0)
+            float3 xformOp:scale = (1.0, 1.0, 1.0)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+    def Xform "Robot"
+    {
+        def Sphere "Body"
+        {
+            double radius = 0.8
+            double3 xformOp:translate = (9.0, 1.5, -1.2)
+            float3[] extent = [(-0.8, -0.8, -0.8), (0.8, 0.8, 0.8)]
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Cube "Arm"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (11.0, 1.5, 1.0)
+            float3 xformOp:scale = (0.3, 2.0, 0.6)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+    def Xform "RobotDock"
+    {
+        def Cube "Dock"
+        {
+            double size = 1.0
+            double3 xformOp:translate = (13.0, 1.5, 0.0)
+            float3 xformOp:scale = (0.5, 3.0, 5.0)
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+}

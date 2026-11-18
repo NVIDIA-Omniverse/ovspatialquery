@@ -1,0 +1,150 @@
+{
+  "skill_name": "ovspatialquery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a USD scene with some crates and a floor. In Python, find which crate a ray from the robot's camera hits first and how far away it is. Ignore the floor.",
+      "expected_output": "A Python program that opens the USD into an Ovstage stage, seals ordinals 1 and 2 around compute_hierarchy, builds a population whose filter selects only the crate gprims, publishes ordinal 2, runs an EXACT closest raycast with a unit direction, and maps the hit object_id to a prim path.",
+      "files": [],
+      "assertions": [
+        "Uses ovspatialquery with an Ovstage population (Library.open(require_ovstage=True), instance.ovstage(...).create_population)",
+        "Publishes the newest sealed ordinal (2 after compute_hierarchy) rather than ordinal 1 or an unsealed one",
+        "Selects crates with exact usd-path IN paths or PREFIX ANDed with usd-prim-type, never a bare PREFIX over Xforms or an empty filter",
+        "Keeps exact precision (the RaycastQuery default) rather than switching to BOUNDS_CANDIDATE",
+        "Normalizes the ray direction before the query",
+        "Converts hit.object_id to a path with ovstage.PathDictionary(stage).path_to_string (or ovsq.Scene.path)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Simulate a 2D lidar with 1080 beams on a USD warehouse every frame and give me the range per beam. It needs to be fast.",
+      "expected_output": "Creates one raycast plan (or ovsq.RaycastBatch) sized for 1080 rays with EXACT precision and DISTANCE result field, and reuses it every frame with float64 origins, float32 unit directions and float64 distance limits, reading hit_ranges and the exact distance column.",
+      "files": [],
+      "assertions": [
+        "Uses a reusable batch raycast plan instead of 1080 single raycast_closest calls",
+        "Creates the plan once and enqueues it per frame, closing each launch's operation before the next",
+        "Sets precision=QueryPrecision.EXACT on the plan (plans default to BOUNDS_CANDIDATE) and requests BatchResultField.DISTANCE",
+        "Uses the required input dtypes: float64 origins and limits, float32 unit directions",
+        "Sizes hit_capacity_per_slot for all rays and checks per-row status or truncation"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My USD has robots animated with time samples and some zone boxes. For every frame from 0 to 100 I want to know which robot entered or left which zone.",
+      "expected_output": "Loads the stage, publishes robots and zones populations, creates a pair reporter between them, and for each frame writes update_from_usd_time at a new sealed ordinal with the time converted to seconds, republishes the robots with enqueue_update(previous, new), advances the reporter and reads entered and exited pairs.",
+      "files": [],
+      "assertions": [
+        "Converts time codes to seconds with the layer's timeCodesPerSecond before update_from_usd_time",
+        "Writes each frame at a new, larger Ovstage ordinal and seals it with advance_write_floor before publishing",
+        "Uses enqueue_update with the previous published ordinal as base",
+        "Uses instance.create_pair_reporter and checks the outcome is ADVANCED before reading entered_pairs/exited_pairs",
+        "Republishes before every advance (an advance with no newer publication is STALE_ORDINAL)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write a C program, built with CMake against the installed ovspatialquery SDK, that loads a USD file through Ovstage and prints the closest hit of a ray.",
+      "expected_output": "A CMake project using find_package(ovspatialquery CONFIG) with the SDK root on CMAKE_PREFIX_PATH, find_package(ovstage CONFIG) from the ovstage package's lib/cmake, linking ovstage::ovstage and libm, and a C program that opens the USD with the Ovstage C API, seals ordinals, creates the Ovstage population with a usd-path filter, publishes, destroys the publish operation, runs ovspatialquery_raycast_closest_sync with EXACT precision, and cleans up in order.",
+      "files": [],
+      "assertions": [
+        "Uses find_package(ovspatialquery CONFIG) with the SDK root on CMAKE_PREFIX_PATH and links ovspatialquery::ovspatialquery",
+        "Links ovstage::ovstage (or configures the static runtime root) and libm",
+        "Destroys the publication operation before destroying the population",
+        "Converts the hit identity to a path through the Ovstage path dictionary",
+        "Checks status codes and reports ovspatialquery_get_last_error on failure"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Our warehouse USD uses instanceable references for its racks. My ovspatialquery population filters on usd-path PREFIX /World/Racks/ and usd-prim-type IN [Cube], and publishes zero objects. Why?",
+      "expected_output": "Explains that prims inside native instances are instance proxies whose Ovstage type is CubeInstance, and that explicit filters keep Ovstage's type names, so a Cube predicate selects only authored cubes; fix by adding CubeInstance (or using ovsq.gprims_under), keeping the stage opened with the ALL or RENDERING domain, and checking object_count after publishing. Does not suggest de-instancing the USD.",
+      "files": [],
+      "assertions": [
+        "Identifies the CubeInstance type of instance proxies as the cause",
+        "Adds CubeInstance to the type predicate (or uses ovsq.gprims_under) instead of de-instancing",
+        "Recommends checking fetch_population_update().object_count"
+      ]
+    },
+    {
+      "id": 6,
+      "expected_skill": null,
+      "prompt": "Set up a PhysX rigid-body simulation of falling boxes in my USD scene and step it 100 times.",
+      "expected_output": "Does not use the ovspatialquery skill: physics simulation is ovphysx's job; ovspatialquery only answers geometric queries.",
+      "files": [],
+      "assertions": [
+        "Does not select the ovspatialquery skill for rigid-body simulation",
+        "Points to a physics library (ovphysx or PhysX) instead"
+      ]
+    },
+    {
+      "id": 7,
+      "expected_skill": null,
+      "prompt": "Render my USD stage to a PNG with RTX.",
+      "expected_output": "Does not use the ovspatialquery skill: rendering is ovrtx's job.",
+      "files": [],
+      "assertions": [
+        "Does not select the ovspatialquery skill for rendering",
+        "Points to ovrtx for rendering"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Our PhysX scene queries filter with PxFilterData (all four words are in use). I'm porting the raycasts to ovspatialquery in Python. How do I keep the same filtering?",
+      "expected_output": "Maps each shape's PxFilterData to one 128-bit Python int, word0 lowest (w0 | w1 << 32 | w2 << 64 | w3 << 96), installs it with set_participation_map before the publication, with default_bits=0 for shapes that have no filter data, and passes each ray's filter data as query_bits (an int for single queries, a uint64[n,2] column for a plan). Notes that zero query bits accept everything, as in PhysX.",
+      "files": [],
+      "assertions": [
+        "Uses all 128 bits: word2 and word3 land in bits 64-127",
+        "Sets default_bits=0 so shapes without filter data are rejected by nonzero queries",
+        "Uses a uint64[n,2] query_bits column for batched rays, not a 1-D column"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "My ovspatialquery publication of a USD stage succeeds, but rays pass straight through a sphere I squashed with xformOp:scale (1, 1, 0.3), and excluded_object_count is 3. What is going on, and how do I see which prims were dropped?",
+      "expected_output": "Explains that stage content never fails an Ovstage publication: prims that cannot be published exactly are left out and listed in the publication result. Reads excluded_objects (object ids, turned into paths with the stage's PathDictionary or ovsq.exclusions) with exclusion_reasons (OvstageExclusionReason). A Sphere or Capsule under non-uniform scale is UNSUPPORTED_SHAPE and is not approximated; fixes are uniform scale or authoring the shape as a Mesh, which follows any transform exactly. Other likely rows are UNSUPPORTED_TYPE for Xforms a usd-path PREFIX matched, fixed by selecting only gprims.",
+      "files": [],
+      "assertions": [
+        "Says the publication succeeded on purpose and lists exclusions instead of failing",
+        "Reads excluded_objects with exclusion_reasons and maps ids to prim paths",
+        "Identifies UNSUPPORTED_SHAPE for the non-uniformly scaled Sphere and suggests uniform scale or a Mesh"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Two tools query the same USD stage from Python with ovspatialquery. The navigation tool must see every shape except those under /World/Robot and /World/Props/Scaffolding; the grasp tool only what is under /World/Props, minus the scaffolding. My usd-path PREFIX filter on /World/Props also picks up /World/PropsArchive, and I can't find a way to say 'except'. How should I set this up?",
+      "expected_output": "One Ovstage population and one view per tool, both views created before the publication with include_paths and exclude_paths keywords (a path scope): navigation with exclude_paths only, grasp with include_paths=['/World/Props'] and exclude_paths=['/World/Props/Scaffolding']. Explains that the nearest listed path at or above a prim decides, that paths compare by element so /World/Props does not cover /World/PropsArchive, that a filter is an AND of tests with no NOT and PREFIX compares bytes, and that scoped-out prims are simply not selected and never listed in excluded_objects. Because the scopes are on views, the publication's object_count still counts the whole population; it checks each view by querying it, for example with overlap_multiple over a box covering the scene.",
+      "files": [],
+      "assertions": [
+        "Uses include_paths / exclude_paths on create_view (or create_population), not a usd-path PREFIX filter or a hand-built path list",
+        "Keeps one population and creates a view per tool before the publication",
+        "Explains that scope paths match by element, so /World/Props does not select /World/PropsArchive",
+        "Does not expect scoped-out prims in excluded_objects, and checks a view scope by querying the view rather than by the publication's object_count"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "In my ovspatialquery population every robot must be invisible to every view, so I added /World/Robots to each view's exclude_paths. One view also has include_paths=['/World/Robots/Arm0/Gripper'], and its rays still hit that gripper. Why?",
+      "expected_output": "Explains the scope rule: walking up from a prim, the nearest path listed in either list decides, so the deeper include of /World/Robots/Arm0/Gripper beats the shallower exclude of /World/Robots and re-includes the gripper in that view. A view's scope only narrows its population's objects, so the fix is to put /World/Robots in the population's exclude_paths (create_population), where no view can bring it back, and drop it from the views.",
+      "files": [],
+      "assertions": [
+        "Says the nearest listed ancestor-or-self decides, so the deeper include wins over the exclude",
+        "Moves the exclusion to the population's exclude_paths",
+        "States that a view cannot re-include what its population left out"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Our physics engine runs on the GPU and writes the poses of 50,000 rigid boxes into device memory every step. In C++, I want ovspatialquery to answer 1,000 overlap queries per step against those poses, and I want to benchmark it fairly against our own broadphase. How should the per-step loop look?",
+      "expected_output": "An instance with a CUDA device budget; an explicit population with pending_publication_capacity above one whose first set and every POSES update use OVSPATIALQUERY_PREPARE_ON_DEVICE from CUDA rows already in device memory (borrowed DLPack columns, no copy), with the device's primary context current; a CUDA overlap plan at BOUNDS precision with several result slots, launched each step with ORDINAL_ADMITTED_EXACT on the caller's stream right after the publication, with query columns uploaded once; results consumed on the device on the same stream, operations retired by polling with destroy_op_after_cuda behind a consumer event; BUSY and RESULT_CAPACITY treated as back-pressure; timing with CUDA events and throughput over the whole loop rather than host time around waits.",
+      "files": [],
+      "assertions": [
+        "Gives the instance a CUDA device budget and creates the overlap plan on the CUDA device",
+        "Publishes CUDA rows with PREPARE_ON_DEVICE and sets pending_publication_capacity above one, without waiting on the host for each publication",
+        "Launches each step with ORDINAL_ADMITTED_EXACT and the publication's ordinal on the caller's CUDA stream",
+        "Keeps query inputs and results on the device: no per-step host upload, no per-step device-to-host copy of results",
+        "Retires launches with destroy_op_after_cuda after a consumer event, polling status rather than waiting on the newest launch",
+        "Uses BOUNDS precision (or ON_DEVICE_HOST_READABLE for EXACT) and times the loop with CUDA events or steady-state throughput"
+      ]
+    }
+  ]
+}

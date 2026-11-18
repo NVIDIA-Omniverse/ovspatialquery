@@ -1,0 +1,95 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+    metersPerUnit = 1
+    startTimeCode = 0
+    endTimeCode = 4
+    timeCodesPerSecond = 2
+)
+
+def Xform "World"
+{
+    def Cube "Floor"
+    {
+        double size = 2
+        float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+        double3 xformOp:translate = (3, -1.2, 4)
+        float3 xformOp:scale = (12, 0.1, 12)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Xform "Zones"
+    {
+        def Cube "Dock"
+        {
+            double size = 2
+            float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+            double3 xformOp:translate = (0, 0, 0)
+            float xformOp:rotateY = 0
+            float3 xformOp:scale = (2, 1, 2)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+        }
+        def Cube "Charge"
+        {
+            double size = 2
+            float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+            double3 xformOp:translate = (6, 0, 0)
+            float xformOp:rotateY = 0
+            float3 xformOp:scale = (1, 1, 1)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+        }
+        def Cube "Inspect"
+        {
+            double size = 2
+            float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+            double3 xformOp:translate = (0, 0, 6)
+            float xformOp:rotateY = 45
+            float3 xformOp:scale = (1.5, 1, 1.5)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:scale"]
+        }
+    }
+
+    def Xform "Robots"
+    {
+        double3 xformOp:translate = (1, 0.5, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+        def Cube "Rover"
+        {
+            double size = 0.8
+            float3[] extent = [(-0.4, -0.4, -0.4), (0.4, 0.4, 0.4)]
+            double3 xformOp:translate.timeSamples = {
+                0: (-1, 0, 0),
+                1: (2, 0, 0),
+                2: (5, 0, 0),
+                3: (5, 0, 0),
+                4: (-1, 0, 0)
+            }
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Sphere "Drone"
+        {
+            double radius = 0.4
+            float3[] extent = [(-0.4, -0.4, -0.4), (0.4, 0.4, 0.4)]
+            double3 xformOp:translate.timeSamples = {
+                0: (-1, 0, 9),
+                2: (-1, 0, 5),
+                4: (-1, 0, 1)
+            }
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Sphere "Crawler"
+        {
+            double radius = 0.4
+            float3[] extent = [(-0.4, -0.4, -0.4), (0.4, 0.4, 0.4)]
+            double3 xformOp:translate.timeSamples = {
+                0: (6.3, 0, 1.3),
+                1: (6.3, 0, 1.3),
+                2: (1.3, 0, 3.7),
+                3: (1.3, 0, 3.7),
+                4: (9, 0, 10)
+            }
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "purpose": "Additional Ovstage runtimes the companion is qualified against at run time (ADR-0069), beyond the build SDK (deps/ovstage-sdk-lock.json) and the application lock's release; swapped in without rebuilding. Ovstage 0.3 is listed here since the application lock moved to 0.4 with ovRTX 0.7.",
+  "runtimes": [
+    {
+      "version": "0.3.0.1791986420",
+      "platform": "manylinux_2_35_x86_64",
+      "url": "https://files.pythonhosted.org/packages/c8/d1/bebef33ec7c2fd2f7e776109092517b9ab2a4374fccca29b6c3351be77aa/ovstage-0.3.0.1791986420-py3-none-manylinux_2_35_x86_64.whl",
+      "sha256": "35aa0c10c47549c495e65896356ce3b910041d2eaa602888f092f7e300586cf8"
+    },
+    {
+      "version": "0.3.0.1791986420",
+      "platform": "win_amd64",
+      "url": "https://files.pythonhosted.org/packages/65/73/445749e2534e8fbd78a9f2ad2cc44d83cfd121a9bbdf459737c06c27adcd/ovstage-0.3.0.1791986420-py3-none-win_amd64.whl",
+      "sha256": "400df4b7dc916edefa6f832aa11b674deb8a4d6831bba9ad3849169236b80c46"
+    }
+  ]
+}

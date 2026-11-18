@@ -1,0 +1,91 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+cmake_minimum_required(VERSION 3.24)
+include("${CMAKE_CURRENT_LIST_DIR}/prepare_nested_build.cmake")
+
+foreach(OVSPATIALQUERY_REQUIRED_VARIABLE
+        OVSPATIALQUERY_SOURCE_DIR
+        OVSPATIALQUERY_BUILD_DIR
+        OVSPATIALQUERY_BUILD_CONFIG
+        OVSPATIALQUERY_INSTALL_ROOT
+        OVSPATIALQUERY_CONSUMER_BUILD
+        OVSPATIALQUERY_OVSTAGE_SDK_DIR
+        OVSPATIALQUERY_GENERATOR)
+    if(NOT DEFINED ${OVSPATIALQUERY_REQUIRED_VARIABLE})
+        message(FATAL_ERROR "${OVSPATIALQUERY_REQUIRED_VARIABLE} is required")
+    endif()
+endforeach()
+
+# Consume the built product. Rebuilding here would replace transferred binaries
+# and invalidate qualification of the CPU-produced SDK/wheel.
+execute_process(
+    COMMAND "${CMAKE_COMMAND}" --install "${OVSPATIALQUERY_BUILD_DIR}"
+        --config "${OVSPATIALQUERY_BUILD_CONFIG}"
+        --prefix "${OVSPATIALQUERY_INSTALL_ROOT}"
+    RESULT_VARIABLE OVSPATIALQUERY_INSTALL_RESULT)
+if(NOT OVSPATIALQUERY_INSTALL_RESULT EQUAL 0)
+    message(FATAL_ERROR "Companion install failed: ${OVSPATIALQUERY_INSTALL_RESULT}")
+endif()
+
+ovspatialquery_nested_generator_args(OVSPATIALQUERY_GENERATOR_ARGS ON)
+ovspatialquery_prepare_nested_build("${OVSPATIALQUERY_CONSUMER_BUILD}"
+    "${OVSPATIALQUERY_GENERATOR}")
+# This tree outlives an Ovstage pin change, so its cache can still name the
+# previous SDK's ovstage_DIR. Seed one that fails if the consumer uses it.
+set(OVSPATIALQUERY_STALE_OVSTAGE_DIR "${OVSPATIALQUERY_CONSUMER_BUILD}/stale-ovstage")
+file(WRITE "${OVSPATIALQUERY_STALE_OVSTAGE_DIR}/ovstageConfig.cmake"
+    "message(FATAL_ERROR \"The consumer used a cached ovstage_DIR from a previous pin "
+    "instead of OVSPATIALQUERY_OVSTAGE_SDK_DIR\")\n")
+execute_process(
+    COMMAND "${CMAKE_COMMAND}"
+        -S "${OVSPATIALQUERY_SOURCE_DIR}/tests/integration/ovstage/installed_consumers"
+        -B "${OVSPATIALQUERY_CONSUMER_BUILD}"
+        ${OVSPATIALQUERY_GENERATOR_ARGS}
+        "-DCMAKE_BUILD_TYPE=${OVSPATIALQUERY_BUILD_CONFIG}"
+        "-DOVSPATIALQUERY_INSTALL_ROOT=${OVSPATIALQUERY_INSTALL_ROOT}"
+        "-DOVSPATIALQUERY_OVSTAGE_SDK_DIR=${OVSPATIALQUERY_OVSTAGE_SDK_DIR}"
+        "-Dovstage_DIR=${OVSPATIALQUERY_STALE_OVSTAGE_DIR}"
+    RESULT_VARIABLE OVSPATIALQUERY_CONFIGURE_RESULT)
+if(NOT OVSPATIALQUERY_CONFIGURE_RESULT EQUAL 0)
+    message(FATAL_ERROR "Installed consumer configure failed: ${OVSPATIALQUERY_CONFIGURE_RESULT}")
+endif()
+execute_process(
+    COMMAND "${CMAKE_COMMAND}" --build "${OVSPATIALQUERY_CONSUMER_BUILD}"
+        --config "${OVSPATIALQUERY_BUILD_CONFIG}"
+    RESULT_VARIABLE OVSPATIALQUERY_BUILD_RESULT)
+if(NOT OVSPATIALQUERY_BUILD_RESULT EQUAL 0)
+    message(FATAL_ERROR "Installed consumer build failed: ${OVSPATIALQUERY_BUILD_RESULT}")
+endif()
+
+if(WIN32)
+    set(OVSPATIALQUERY_RUNTIME_VARIABLE
+        "PATH=${OVSPATIALQUERY_OVSTAGE_SDK_DIR}/bin/plugins;${OVSPATIALQUERY_OVSTAGE_SDK_DIR}/bin;${OVSPATIALQUERY_INSTALL_ROOT}/bin;$ENV{PATH}")
+    if(EXISTS
+            "${OVSPATIALQUERY_CONSUMER_BUILD}/${OVSPATIALQUERY_BUILD_CONFIG}/ovspatialquery_ovstage_installed_c.exe")
+        set(OVSPATIALQUERY_EXECUTABLE_DIR
+            "${OVSPATIALQUERY_CONSUMER_BUILD}/${OVSPATIALQUERY_BUILD_CONFIG}")
+    else()
+        set(OVSPATIALQUERY_EXECUTABLE_DIR
+            "${OVSPATIALQUERY_CONSUMER_BUILD}")
+    endif()
+    set(OVSPATIALQUERY_EXECUTABLE_SUFFIX ".exe")
+else()
+    set(OVSPATIALQUERY_RUNTIME_VARIABLE
+        "LD_LIBRARY_PATH=${OVSPATIALQUERY_OVSTAGE_SDK_DIR}/bin/plugins:${OVSPATIALQUERY_OVSTAGE_SDK_DIR}/bin:${OVSPATIALQUERY_INSTALL_ROOT}/lib:$ENV{LD_LIBRARY_PATH}")
+    set(OVSPATIALQUERY_EXECUTABLE_DIR "${OVSPATIALQUERY_CONSUMER_BUILD}")
+    set(OVSPATIALQUERY_EXECUTABLE_SUFFIX "")
+endif()
+foreach(OVSPATIALQUERY_LANGUAGE c)
+    execute_process(
+        COMMAND "${CMAKE_COMMAND}" -E env "${OVSPATIALQUERY_RUNTIME_VARIABLE}"
+            "${OVSPATIALQUERY_EXECUTABLE_DIR}/ovspatialquery_ovstage_installed_${OVSPATIALQUERY_LANGUAGE}${OVSPATIALQUERY_EXECUTABLE_SUFFIX}"
+        RESULT_VARIABLE OVSPATIALQUERY_RUN_RESULT)
+    if(NOT OVSPATIALQUERY_RUN_RESULT EQUAL 0)
+        message(FATAL_ERROR
+            "Installed ovstage ${OVSPATIALQUERY_LANGUAGE} consumer failed: "
+            "${OVSPATIALQUERY_RUN_RESULT}")
+    endif()
+endforeach()
+
+message(STATUS "Portable installed ovstage C consumer passed")

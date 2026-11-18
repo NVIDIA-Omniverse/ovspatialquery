@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+cmake_minimum_required(VERSION 3.24)
+
+foreach(OVSPATIALQUERY_REQUIRED_VARIABLE
+        OVSPATIALQUERY_BUILD_DIR
+        OVSPATIALQUERY_BUILD_CONFIG
+        OVSPATIALQUERY_INSTALL_ROOT
+        OVSPATIALQUERY_C_EXECUTABLE
+        OVSPATIALQUERY_CPP_EXECUTABLE)
+    if(NOT DEFINED ${OVSPATIALQUERY_REQUIRED_VARIABLE})
+        message(FATAL_ERROR "${OVSPATIALQUERY_REQUIRED_VARIABLE} is required")
+    endif()
+endforeach()
+
+foreach(OVSPATIALQUERY_CONSUMER_TARGET
+        ovspatialquery_installed_c_consumer
+        ovspatialquery_installed_cpp_consumer)
+    execute_process(
+        COMMAND "${CMAKE_COMMAND}" --build "${OVSPATIALQUERY_BUILD_DIR}"
+            --config "${OVSPATIALQUERY_BUILD_CONFIG}"
+            --target "${OVSPATIALQUERY_CONSUMER_TARGET}"
+        RESULT_VARIABLE OVSPATIALQUERY_BUILD_RESULT
+        OUTPUT_VARIABLE OVSPATIALQUERY_BUILD_OUTPUT
+        ERROR_VARIABLE OVSPATIALQUERY_BUILD_ERROR)
+    if(NOT OVSPATIALQUERY_BUILD_RESULT EQUAL 0)
+        message(FATAL_ERROR
+            "Installed consumer ${OVSPATIALQUERY_CONSUMER_TARGET} failed to build: "
+            "${OVSPATIALQUERY_BUILD_OUTPUT}${OVSPATIALQUERY_BUILD_ERROR}")
+    endif()
+endforeach()
+
+if(WIN32)
+    set(OVSPATIALQUERY_RUNTIME_ENVIRONMENT "PATH=${OVSPATIALQUERY_INSTALL_ROOT}/bin;$ENV{PATH}")
+else()
+    set(OVSPATIALQUERY_RUNTIME_ENVIRONMENT
+        "LD_LIBRARY_PATH=${OVSPATIALQUERY_INSTALL_ROOT}/lib:$ENV{LD_LIBRARY_PATH}")
+endif()
+foreach(OVSPATIALQUERY_CONSUMER_EXECUTABLE
+        "${OVSPATIALQUERY_C_EXECUTABLE}"
+        "${OVSPATIALQUERY_CPP_EXECUTABLE}")
+    execute_process(
+        COMMAND "${CMAKE_COMMAND}" -E env
+            "${OVSPATIALQUERY_RUNTIME_ENVIRONMENT}"
+            "${OVSPATIALQUERY_CONSUMER_EXECUTABLE}"
+        RESULT_VARIABLE OVSPATIALQUERY_RUN_RESULT)
+    if(NOT OVSPATIALQUERY_RUN_RESULT EQUAL 0)
+        message(FATAL_ERROR
+            "Installed consumer ${OVSPATIALQUERY_CONSUMER_EXECUTABLE} failed: "
+            "${OVSPATIALQUERY_RUN_RESULT}")
+    endif()
+endforeach()
+
+message(STATUS "Installed native consumers passed")

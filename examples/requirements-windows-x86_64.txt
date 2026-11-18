@@ -1,0 +1,5 @@
+ovstage @ https://files.pythonhosted.org/packages/2f/05/b1792a891ebda88345716f01e7260410063e9bdbd955a5b3dffb0bd513ae/ovstage-0.4.0.1794520352-py3-none-win_amd64.whl --hash=sha256:c611727f27ba21222649137ffaed83c35ece44374e8e6686c660d1fa21b2d4ab
+ovrtx @ https://pypi.nvidia.com/ovrtx/ovrtx-0.7.0.1794596436-py3-none-win_amd64.whl --hash=sha256:fc5407494f95c91d01692913d7424b6cbe00d64242589989352971aebfc4170b
+warp-lang==1.18.0 --hash=sha256:090962bfae7dd22ade0d8e0258f41635e0e58980f15bcc9e7a7d312819dfe440 --hash=sha256:1769e55746739f2e244a2b412123003c462ec3d977dfb5f420f924a8553d30aa --hash=sha256:d76ab8c7d4f4897405fa0a744d38812fc44cfc8162c40e658dc9ca7790b6a645
+# Required by warp-lang; the lessons do not import NumPy.
+numpy @ https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl --hash=sha256:c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2

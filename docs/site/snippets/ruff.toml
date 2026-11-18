@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Programs shown in the guide must fit its code column without scrolling.
+extend = "../../../ruff.toml"
+line-length = 90

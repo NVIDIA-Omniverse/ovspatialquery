@@ -1,0 +1,17 @@
+/* SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* GNU ld version script for libovspatialquery.so.
+ *
+ * Hidden visibility keeps the engine's own symbols in, but libstdc++ template
+ * instantiations carry default visibility and would still be exported, so the
+ * linker also needs this script.  It names no symbol: everything with the
+ * public C prefix is global, everything else local.  The installed-exports
+ * test compares the resulting export list with the public headers. */
+{
+    global:
+        ovspatialquery_*;
+    local:
+        *;
+};

@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+interface:
+  display_name: "ovspatialquery"
+  short_description: "Raycasts, sweeps, overlaps and pair tracking over USD scenes"
+  default_prompt: "Use $ovspatialquery to build a spatial-query program over my USD scene."

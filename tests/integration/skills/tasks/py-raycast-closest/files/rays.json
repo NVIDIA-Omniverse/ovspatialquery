@@ -1,0 +1,158 @@
+{
+  "rays": [
+    {
+      "id": "box_front",
+      "origin": [
+        -2.0,
+        0.5,
+        0.0
+      ],
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "ball_front",
+      "origin": [
+        4.0,
+        1.0,
+        -5.0
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "ball_occludes_box",
+      "origin": [
+        8.0,
+        1.0,
+        0.0
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "ball_oblique",
+      "origin": [
+        4.0,
+        4.0,
+        -3.0
+      ],
+      "direction": [
+        0.0,
+        -3.0,
+        3.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "ball_corner_then_box",
+      "origin": [
+        7.0,
+        0.15,
+        0.85
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "ball_corner_then_floor",
+      "origin": [
+        4.85,
+        5.0,
+        0.85
+      ],
+      "direction": [
+        0.0,
+        -2.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "crate_top",
+      "origin": [
+        -4.0,
+        5.0,
+        2.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "crate_side",
+      "origin": [
+        -8.0,
+        0.5,
+        2.0
+      ],
+      "direction": [
+        2.0,
+        0.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "floor_only",
+      "origin": [
+        2.0,
+        5.0,
+        5.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    },
+    {
+      "id": "too_short",
+      "origin": [
+        4.0,
+        1.0,
+        -5.0
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "max_distance": 3.5
+    },
+    {
+      "id": "sky",
+      "origin": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "direction": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "max_distance": 20.0
+    }
+  ]
+}

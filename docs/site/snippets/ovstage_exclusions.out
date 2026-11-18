@@ -1,0 +1,5 @@
+published 2 excluded 2
+  excluded /World/Egg UNSUPPORTED_SHAPE
+  excluded /World/Post UNSUPPORTED_TYPE
+ray at y 0.0 hit /World/Crate at distance 3.5
+ray at y 3.25 hit /World/Ramp at distance 6.625

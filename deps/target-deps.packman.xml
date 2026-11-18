@@ -1,0 +1,9 @@
+<project toolsVersion="5.6">
+  <!-- Public package endpoint used by the released ovphysx 0.8.0 source. -->
+  <remote name="physx-public" type="https" packageLocation="d4i3qtqj3r0z5.cloudfront.net/${name}@${version}" />
+  <dependency name="physx" linkPath="../_build/target-deps/physx">
+    <package name="physxsdk" version="5.13.0.aa39b064-release-ovphysx-0.8-static-windows-x86_64" remotes="physx-public" platforms="windows-x86_64" />
+    <package name="physxsdk" version="5.13.0.aa39b064-release-ovphysx-0.8-linux-x86_64" remotes="physx-public" platforms="linux-x86_64 manylinux_2_35_x86_64" />
+    <package name="physxsdk" version="5.13.0.aa39b064-release-ovphysx-0.8-linux-aarch64" remotes="physx-public" platforms="linux-aarch64 manylinux_2_35_aarch64" />
+  </dependency>
+</project>

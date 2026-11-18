@@ -1,0 +1,143 @@
+{
+  "objects": [
+    {
+      "path": "/World/Crates/Crate_01",
+      "category": "crate",
+      "kind": "box",
+      "center": [
+        3.0,
+        0.5,
+        0.0
+      ],
+      "yaw_degrees": 0.0,
+      "half_extents": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "path": "/World/Crates/Crate_02",
+      "category": "crate",
+      "kind": "box",
+      "center": [
+        7.0,
+        0.5,
+        0.85
+      ],
+      "yaw_degrees": 45.0,
+      "half_extents": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "path": "/World/Crates/Crate_03",
+      "category": "crate",
+      "kind": "box",
+      "center": [
+        10.8,
+        0.4,
+        -0.7
+      ],
+      "yaw_degrees": 30.0,
+      "half_extents": [
+        0.6,
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "path": "/World/Crates/Drum_04",
+      "category": "crate",
+      "kind": "sphere",
+      "center": [
+        14.0,
+        0.45,
+        0.55
+      ],
+      "radius": 0.45
+    },
+    {
+      "path": "/World/Crates/Crate_05",
+      "category": "crate",
+      "kind": "box",
+      "center": [
+        18.0,
+        0.5,
+        -0.1
+      ],
+      "yaw_degrees": 20.0,
+      "half_extents": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "path": "/World/Shelves/Shelf_L1",
+      "category": "shelf",
+      "kind": "box",
+      "center": [
+        5.0,
+        1.0,
+        -1.7
+      ],
+      "yaw_degrees": 0.0,
+      "half_extents": [
+        1.5,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "path": "/World/Shelves/Shelf_R1",
+      "category": "shelf",
+      "kind": "box",
+      "center": [
+        9.0,
+        1.0,
+        1.8
+      ],
+      "yaw_degrees": -8.0,
+      "half_extents": [
+        1.25,
+        1.0,
+        0.25
+      ]
+    },
+    {
+      "path": "/World/Shelves/Shelf_L2",
+      "category": "shelf",
+      "kind": "box",
+      "center": [
+        12.5,
+        1.0,
+        -1.75
+      ],
+      "yaw_degrees": 5.0,
+      "half_extents": [
+        1.5,
+        1.0,
+        0.2
+      ]
+    },
+    {
+      "path": "/World/Shelves/Shelf_R2",
+      "category": "shelf",
+      "kind": "box",
+      "center": [
+        16.0,
+        1.0,
+        1.75
+      ],
+      "yaw_degrees": 0.0,
+      "half_extents": [
+        1.5,
+        1.0,
+        0.25
+      ]
+    }
+  ]
+}

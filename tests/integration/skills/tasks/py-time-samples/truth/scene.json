@@ -1,0 +1,66 @@
+{
+  "time_codes_per_second": 24.0,
+  "ray": {
+    "origin": [
+      -5.0,
+      0.0,
+      0.0
+    ],
+    "direction": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "max_distance": 100.0
+  },
+  "population_paths": [
+    "/World/Rig/Mover",
+    "/World/Wall"
+  ],
+  "objects": {
+    "/World/Rig/Mover": {
+      "kind": "cube",
+      "size": 1.0,
+      "parent_translate": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "translate_samples": {
+        "0.0": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "10.0": [
+          10.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "/World/Wall": {
+      "kind": "cube",
+      "size": 1.0,
+      "translate": [
+        7.0,
+        0.0,
+        0.0
+      ]
+    },
+    "/World/Guide": {
+      "kind": "sphere",
+      "radius": 0.25,
+      "translate": [
+        -2.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "time_codes": {
+    "first": 0.0,
+    "second": 10.0,
+    "third": 5.0
+  }
+}

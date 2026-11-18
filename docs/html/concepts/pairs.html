@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pair Discovery &#8212; ovspatialquery</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/ovsq/ovsq.css?v=b3c2b5e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+
+
+    <script src="../_static/documentation_options.js?v=c7fef49e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="../_static/ovsq/anim.js?v=81228ec5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-concept.js?v=f5e1a203"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-plan.js?v=9fe63f9b"></script>
+    <script defer="defer" src="../_static/ovsq/anims/box-sweep.js?v=8297c094"></script>
+    <script defer="defer" src="../_static/ovsq/anims/candidate-exact.js?v=06349d6d"></script>
+    <script defer="defer" src="../_static/ovsq/anims/cuda-ordering.js?v=2a84c909"></script>
+    <script defer="defer" src="../_static/ovsq/anims/first-query.js?v=a60129d5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/model-map.js?v=dae7ab51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/overlap-modes.js?v=9c39d887"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-exclusions.js?v=f4d592f3"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-scene.js?v=c532d33f"></script>
+    <script defer="defer" src="../_static/ovsq/anims/pair-reporter.js?v=2bd60276"></script>
+    <script defer="defer" src="../_static/ovsq/anims/query-families.js?v=b8a5c307"></script>
+    <script defer="defer" src="../_static/ovsq/anims/raycast-modes.js?v=c05d3b51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/sphere-sweep.js?v=17df453a"></script>
+    <script defer="defer" src="../_static/ovsq/anims/version-window.js?v=75e183b8"></script>
+    <script defer="defer" src="../_static/ovsq/anims/views-bits.js?v=7407af61"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'concepts/pairs';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Budgets, Lifetimes, and Errors" href="limits.html" />
+    <link rel="prev" title="Batches" href="batches.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../first-query.html">Your First Query</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Concepts</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="populations.html">Populations, Versions, and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batches.html">Batches</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="limits.html">Budgets, Lifetimes, and Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-ovstage.html">ovstage Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-explicit.html">Explicit Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/python.html">Python Package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents.html">Coding Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Concepts</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Pair Discovery</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pair-discovery">
+<h1>Pair Discovery<a class="headerlink" href="#pair-discovery" title="Link to this heading">#</a></h1>
+<p>Pair discovery finds which objects of one target touch which objects of another, by their
+published world bounding boxes. Use it to learn which moving objects are near which obstacles,
+or which objects cross from one region into another, without querying every object.</p>
+<p>Pair discovery provides two tools:</p>
+<ul class="simple">
+<li><p>A <strong>pair snapshot</strong> answers one instant: every pair at the versions you name. It keeps nothing.</p></li>
+<li><p>A <strong>pair reporter</strong> answers change. It keeps one accepted set of pairs, and each time you
+advance it to newer versions, it reports which pairs <strong>entered</strong> and which <strong>exited</strong>.</p></li>
+</ul>
+<p>The following figure shows a reporter advancing while two robots move past a fixed scene:</p>
+<figure class="ovsq-anim" data-anim="pair-reporter" data-w="760" data-h="430"><div class="ovsq-anim-stage" role="img" aria-label="Top view of a scene population at ordinal 20 with two shelves, a cone, and a dock, and a robots population whose two robots move. After each robots publication the reporter advances. At 101 robot A entering shelf A&#x27;s box is reported as entered; at 104 robot A touching shelf B enters and shelf A exits; at 110 shelf B exits; at 112 the dock enters. Robot B brushes the cone between two publications, and the reporter never reports it."><noscript><p class="ovsq-anim-noscript">Top view of a scene population at ordinal 20 with two shelves, a cone, and a dock, and a robots population whose two robots move. After each robots publication the reporter advances. At 101 robot A entering shelf A&#x27;s box is reported as entered; at 104 robot A touching shelf B enters and shelf A exits; at 110 shelf B exits; at 112 the dock enters. Robot B brushes the cone between two publications, and the reporter never reports it.</p></noscript></div><figcaption>The reporter compares its baseline with the new endpoints only. A contact that starts and ends between two advances is never reported.</figcaption></figure><section id="snapshot-and-reporter-example">
+<h2>Snapshot and Reporter Example<a class="headerlink" href="#snapshot-and-reporter-example" title="Link to this heading">#</a></h2>
+<p>The following program puts a shelf and a cone in one population and a robot in another. It takes
+one snapshot and then advances one reporter twice:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovspatialquery</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ExplicitUpdateKind</span><span class="p">,</span>
+    <span class="n">GeometryType</span><span class="p">,</span>
+    <span class="n">Library</span><span class="p">,</span>
+    <span class="n">PairReporterConfig</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">wp</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">LOG_WARNING</span>  <span class="c1"># skip Warp's start-up banner</span>
+<span class="n">CPU</span> <span class="o">=</span> <span class="s2">"cpu"</span>  <span class="c1"># this program keeps its input arrays on the CPU</span>
+<span class="n">IDENTITY</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">advance</span><span class="p">(</span><span class="n">reporter</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">reporter</span><span class="o">.</span><span class="n">advance</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">as</span> <span class="n">operation</span><span class="p">:</span>  <span class="c1"># both endpoints at their head</span>
+        <span class="n">operation</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">fetch_pair_reporter</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"advance (</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">first_source_ordinal</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">second_source_ordinal</span><span class="si">}</span><span class="s2">):"</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">"entered </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">entered_pairs</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">"exited </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">exited_pairs</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">"active </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">accepted_active_pair_count</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">with</span> <span class="n">Library</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">explicit</span><span class="p">()</span>
+    <span class="n">adapter</span><span class="o">.</span><span class="n">register_boxes</span><span class="p">(</span>
+        <span class="n">definition_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">half_extents</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">publish</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">ordinal</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
+        <span class="n">population</span><span class="o">.</span><span class="n">enqueue_set</span><span class="p">(</span>
+            <span class="n">ordinal</span><span class="p">,</span>
+            <span class="n">object_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+            <span class="n">geometry_types</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">BOX</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span>
+            <span class="p">),</span>
+            <span class="n">geometry_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+            <span class="n">translations</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+            <span class="n">rotations_xyzw</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">IDENTITY</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="c1"># Two populations on their own clocks:</span>
+    <span class="c1"># a shelf (1) and a cone (2), and one robot (7).</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">create_population</span><span class="p">()</span>
+    <span class="n">publish</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="n">robots</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">create_population</span><span class="p">()</span>
+    <span class="n">publish</span><span class="p">(</span><span class="n">robots</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+    <span class="c1"># A snapshot answers one instant and keeps nothing.</span>
+    <span class="n">snapshot</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">query_pairs</span><span class="p">(</span><span class="n">robots</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">scene</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ordinals</span> <span class="o">=</span> <span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">first_source_ordinal</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">second_source_ordinal</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"snapshot"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">rows</span><span class="p">),</span> <span class="s2">"at"</span><span class="p">,</span> <span class="n">ordinals</span><span class="p">)</span>
+
+    <span class="c1"># A reporter keeps one baseline and reports what changed at each advance.</span>
+    <span class="n">reporter</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">create_pair_reporter</span><span class="p">(</span>
+        <span class="n">PairReporterConfig</span><span class="p">(</span>
+            <span class="n">first</span><span class="o">=</span><span class="n">robots</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">second</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">active_pair_capacity</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">delta_pair_capacity</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">advance</span><span class="p">(</span><span class="n">reporter</span><span class="p">)</span>
+
+    <span class="c1"># The robot moves next to the cone: publish only its pose as robots ordinal 104.</span>
+    <span class="n">robots</span><span class="o">.</span><span class="n">enqueue_update</span><span class="p">(</span>
+        <span class="mi">100</span><span class="p">,</span>
+        <span class="mi">104</span><span class="p">,</span>
+        <span class="n">kind</span><span class="o">=</span><span class="n">ExplicitUpdateKind</span><span class="o">.</span><span class="n">POSES</span><span class="p">,</span>
+        <span class="n">object_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">translations</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">rotations_xyzw</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">IDENTITY</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+    <span class="n">advance</span><span class="p">(</span><span class="n">reporter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The snapshot finds the robot at the shelf. The reporter reports that pair entering, and then,
+after a pose update, the cone entering and the shelf exiting. The program prints this output:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>snapshot [(7, 1)] at (100, 20)
+advance (100, 20): entered [[7, 1]] exited [] active 1
+advance (104, 20): entered [[7, 2]] exited [[7, 1]] active 1
+</pre></div>
+</div>
+</div>
+</section>
+<section id="pair-rules">
+<h2>Pair Rules<a class="headerlink" href="#pair-rules" title="Link to this heading">#</a></h2>
+<p>Pair snapshots and pair reporters follow these rules:</p>
+<ul class="simple">
+<li><p><strong>Bounding boxes only.</strong> Two objects form a pair when their published world AABBs overlap,
+grown by <code class="docutils literal notranslate"><span class="pre">contact_tolerance</span></code>. Pair discovery makes no claim about exact shapes. If you need
+one, run an exact query on the pair.</p></li>
+<li><p><strong>Two endpoints, two clocks.</strong> Each side is a population or view with its own ordinal. Ordinals
+of different populations have no relation to each other. Two endpoints in the same population
+must select the same ordinal, or the call returns <code class="docutils literal notranslate"><span class="pre">ORDINAL_MISMATCH</span></code>.</p></li>
+<li><p><strong>Roles.</strong> Rows are <code class="docutils literal notranslate"><span class="pre">(first,</span> <span class="pre">second)</span></code> object IDs. Two different targets keep their roles. When
+both sides are the same target, ordinal, and bits, each unordered pair appears once with the
+smaller ID first, and an object never pairs with itself.</p></li>
+<li><p><strong>Forward only.</strong> An advance must move at least one endpoint forward and neither backward. An
+older ordinal returns <code class="docutils literal notranslate"><span class="pre">BACKWARD_ORDINAL</span></code>, and no progress returns <code class="docutils literal notranslate"><span class="pre">STALE_ORDINAL</span></code>. Either way,
+the reporter keeps its baseline. The first advance reports every current pair as entered. To start over, destroy the reporter and
+create a new one.</p></li>
+<li><p><strong>Capacity.</strong> A reporter has a capacity for active pairs and for each delta. An advance that
+exceeds either reports <a class="reference internal" href="../reference/c-pairs.html#c.ovspatialquery_pair_reporter_outcome_t.OVSPATIALQUERY_PAIR_REPORTER_ACTIVE_CAPACITY" title="ovspatialquery_pair_reporter_outcome_t.OVSPATIALQUERY_PAIR_REPORTER_ACTIVE_CAPACITY"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">ACTIVE_CAPACITY</span></code></a> or <a class="reference internal" href="../reference/c-pairs.html#c.ovspatialquery_pair_reporter_outcome_t.OVSPATIALQUERY_PAIR_REPORTER_DELTA_CAPACITY" title="ovspatialquery_pair_reporter_outcome_t.OVSPATIALQUERY_PAIR_REPORTER_DELTA_CAPACITY"><code class="xref c c-enumerator docutils literal notranslate"><span class="pre">DELTA_CAPACITY</span></code></a> with empty deltas and keeps the old
+baseline. Grow the capacity with <a class="reference internal" href="../reference/c-pairs.html#c.ovspatialquery_grow_pair_reporter_capacity" title="ovspatialquery_grow_pair_reporter_capacity"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_grow_pair_reporter_capacity()</span></code></a> and
+advance again.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pair discovery lives in its own header, <a class="reference internal" href="../reference/c-pairs.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">ovspatialquery_pairs.h</span></code></span></a>.
+Unlike the core header, it does not promise backward compatibility between releases.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="batches.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Batches</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="limits.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Budgets, Lifetimes, and Errors</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-and-reporter-example">Snapshot and Reporter Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pair-rules">Pair Rules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA CORPORATION &amp; AFFILIATES.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

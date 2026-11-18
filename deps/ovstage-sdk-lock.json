@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "purpose": "The Ovstage SDK the companion is built against (ADR-0069): its headers, CMake package and libraries for the native companion tests. The application lock keeps its own Ovstage for the venv, which the Python tests use; the companion serves both at run time. The wheels are Ovstage's published PyPI release. Platforms may pin different builds of one release while Ovstage publishes some platforms later; the data-plane layout of every pinned build must match (tools/ci/ovstage_layout_probe.cpp).",
+  "platforms": {
+    "manylinux_2_35_x86_64": {
+      "version": "0.4.0.1794520352",
+      "filename": "ovstage-0.4.0.1794520352-py3-none-manylinux_2_35_x86_64.whl",
+      "url": "https://files.pythonhosted.org/packages/19/26/add7902c6f0d78358a736d4cd993cb1cfb6e5e627d0b4c3c9d90b14e8192/ovstage-0.4.0.1794520352-py3-none-manylinux_2_35_x86_64.whl",
+      "sha256": "7473a79763af4f8fe8dc70cbd4d99468d822a8f96a0c58891c25801390958f0a"
+    },
+    "manylinux_2_35_aarch64": {
+      "version": "0.4.0.1794520352",
+      "filename": "ovstage-0.4.0.1794520352-py3-none-manylinux_2_35_aarch64.whl",
+      "url": "https://files.pythonhosted.org/packages/c4/5f/68eb2aa9649d3fc46391b3f08bd7f93e86c4d4c0c51f9b2ab048caecf619/ovstage-0.4.0.1794520352-py3-none-manylinux_2_35_aarch64.whl",
+      "sha256": "b63c91a11d04e07c30b7ee31647e2a00918f0b1ded3dd4e939326d31cda4e462"
+    },
+    "windows-x86_64": {
+      "version": "0.4.0.1794520352",
+      "filename": "ovstage-0.4.0.1794520352-py3-none-win_amd64.whl",
+      "url": "https://files.pythonhosted.org/packages/2f/05/b1792a891ebda88345716f01e7260410063e9bdbd955a5b3dffb0bd513ae/ovstage-0.4.0.1794520352-py3-none-win_amd64.whl",
+      "sha256": "c611727f27ba21222649137ffaed83c35ece44374e8e6686c660d1fa21b2d4ab"
+    }
+  }
+}

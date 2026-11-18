@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+cmake_minimum_required(VERSION 3.24)
+
+foreach(OVSPATIALQUERY_REQUIRED_VARIABLE
+        OVSPATIALQUERY_BUILD_DIR
+        OVSPATIALQUERY_BUILD_CONFIG)
+    if(NOT DEFINED ${OVSPATIALQUERY_REQUIRED_VARIABLE})
+        message(FATAL_ERROR "${OVSPATIALQUERY_REQUIRED_VARIABLE} is required")
+    endif()
+endforeach()
+include("${CMAKE_CURRENT_LIST_DIR}/install_root_guard.cmake")
+
+get_filename_component(OVSPATIALQUERY_NORMALIZED_BUILD_DIR "${OVSPATIALQUERY_BUILD_DIR}" ABSOLUTE)
+
+file(REMOVE_RECURSE "${OVSPATIALQUERY_NORMALIZED_INSTALL_ROOT}")
+execute_process(
+    COMMAND "${CMAKE_COMMAND}"
+        --install "${OVSPATIALQUERY_NORMALIZED_BUILD_DIR}"
+        --config "${OVSPATIALQUERY_BUILD_CONFIG}"
+        --prefix "${OVSPATIALQUERY_NORMALIZED_INSTALL_ROOT}"
+    RESULT_VARIABLE OVSPATIALQUERY_INSTALL_RESULT
+)
+if(NOT OVSPATIALQUERY_INSTALL_RESULT EQUAL 0)
+    message(FATAL_ERROR "ovspatialquery install failed: ${OVSPATIALQUERY_INSTALL_RESULT}")
+endif()
+
+message(STATUS "Installed ovspatialquery artifacts at ${OVSPATIALQUERY_NORMALIZED_INSTALL_ROOT}")

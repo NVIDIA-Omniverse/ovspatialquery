@@ -1,0 +1,17 @@
+<project toolsVersion="5.6">
+  
+  <remote name="packman-public" type="https" packageLocation="d4i3qtqj3r0z5.cloudfront.net/${name}@${version}" />
+  <dependency name="cmake" linkPath="../_build/target-deps/cmake">
+    <package name="cmake-windows-x86_64" version="3.25.1" platforms="windows-x86_64" remotes="packman-public" />
+    <package name="cmake-linux-x86_64" version="3.25.1" platforms="linux-x86_64 manylinux_2_35_x86_64" remotes="packman-public" />
+    <package name="cmake-linux-aarch64" version="3.25.1" platforms="linux-aarch64 manylinux_2_35_aarch64" remotes="packman-public" />
+  </dependency>
+  
+  <dependency name="clang" linkPath="../_build/target-deps/clang" tags="compiler">
+    <package name="clang-linux-x86_64" version="14.0.0" platforms="linux-x86_64 manylinux_2_35_x86_64" remotes="packman-public" />
+  </dependency>
+  
+  <dependency name="ninja" linkPath="../_build/target-deps/ninja" tags="compiler">
+    <package name="ninja" version="1.10.2+pipeline2996563-windows-x86_64" platforms="windows-x86_64" remotes="packman-public" />
+  </dependency>
+</project>

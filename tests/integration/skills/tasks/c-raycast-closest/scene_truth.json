@@ -1,0 +1,86 @@
+{
+  "obstacles": [
+    {
+      "path": "/World/Obstacles/Crate",
+      "type": "box",
+      "center": [
+        5.0,
+        0.0,
+        1.0
+      ],
+      "half": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rot_z_deg": 0.0
+    },
+    {
+      "path": "/World/Obstacles/Ball",
+      "type": "sphere",
+      "center": [
+        0.0,
+        8.0,
+        0.5
+      ],
+      "radius": 1.5
+    },
+    {
+      "path": "/World/Obstacles/Shelf/Board",
+      "type": "box",
+      "center": [
+        -8.0,
+        0.0,
+        0.5
+      ],
+      "half": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rot_z_deg": 0.0
+    },
+    {
+      "path": "/World/Obstacles/Pillar",
+      "type": "box",
+      "center": [
+        0.0,
+        -6.0,
+        1.0
+      ],
+      "half": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rot_z_deg": 45.0
+    }
+  ],
+  "ignored": [
+    {
+      "path": "/World/Decor/Lamp",
+      "type": "sphere",
+      "center": [
+        2.5,
+        0.0,
+        0.5
+      ],
+      "radius": 0.5
+    },
+    {
+      "path": "/World/Floor",
+      "type": "box",
+      "center": [
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "half": [
+        50.0,
+        50.0,
+        0.1
+      ],
+      "rot_z_deg": 0.0
+    }
+  ]
+}

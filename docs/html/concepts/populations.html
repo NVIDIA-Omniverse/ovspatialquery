@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Populations, Versions, and Views &#8212; ovspatialquery</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/ovsq/ovsq.css?v=b3c2b5e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+
+
+    <script src="../_static/documentation_options.js?v=c7fef49e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="../_static/ovsq/anim.js?v=81228ec5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-concept.js?v=f5e1a203"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-plan.js?v=9fe63f9b"></script>
+    <script defer="defer" src="../_static/ovsq/anims/box-sweep.js?v=8297c094"></script>
+    <script defer="defer" src="../_static/ovsq/anims/candidate-exact.js?v=06349d6d"></script>
+    <script defer="defer" src="../_static/ovsq/anims/cuda-ordering.js?v=2a84c909"></script>
+    <script defer="defer" src="../_static/ovsq/anims/first-query.js?v=a60129d5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/model-map.js?v=dae7ab51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/overlap-modes.js?v=9c39d887"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-exclusions.js?v=f4d592f3"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-scene.js?v=c532d33f"></script>
+    <script defer="defer" src="../_static/ovsq/anims/pair-reporter.js?v=2bd60276"></script>
+    <script defer="defer" src="../_static/ovsq/anims/query-families.js?v=b8a5c307"></script>
+    <script defer="defer" src="../_static/ovsq/anims/raycast-modes.js?v=c05d3b51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/sphere-sweep.js?v=17df453a"></script>
+    <script defer="defer" src="../_static/ovsq/anims/version-window.js?v=75e183b8"></script>
+    <script defer="defer" src="../_static/ovsq/anims/views-bits.js?v=7407af61"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'concepts/populations';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Queries and Results" href="queries.html" />
+    <link rel="prev" title="Concepts" href="index.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../first-query.html">Your First Query</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Concepts</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Populations, Versions, and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batches.html">Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="limits.html">Budgets, Lifetimes, and Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-ovstage.html">ovstage Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-explicit.html">Explicit Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/python.html">Python Package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents.html">Coding Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Concepts</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Populations, Versions, and Views</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="populations-versions-and-views">
+<h1>Populations, Versions, and Views<a class="headerlink" href="#populations-versions-and-views" title="Link to this heading">#</a></h1>
+<p>A population is the set of objects that queries read. This page explains where its objects come
+from, how it publishes versions, and how views and participation bits narrow what a query sees.</p>
+<section id="population-sources">
+<h2>Population Sources<a class="headerlink" href="#population-sources" title="Link to this heading">#</a></h2>
+<p>There are two ways to feed objects into ovspatialquery. You choose one when you create a
+population:</p>
+<ol class="arabic simple">
+<li><p><strong>An ovstage population</strong> reads prims from an ovstage stage through an ovstage filter. Each
+time you publish, it reads the selected prims’ shapes and world transforms from the stage.
+This is the usual way, and it is declared in <code class="docutils literal notranslate"><span class="pre">ovspatialquery_ovstage.h</span></code>.</p></li>
+<li><p><strong>An explicit population</strong> bypasses ovstage. Your program registers shapes once and then
+publishes rows of arrays: object IDs, shapes, and poses. Use it for geometry that does not
+live in a stage. It is declared in <code class="docutils literal notranslate"><span class="pre">ovspatialquery_explicit.h</span></code>.</p></li>
+</ol>
+<p>The following table compares the two sources:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>ovstage Population</p></th>
+<th class="head"><p>Explicit Population</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Objects</p></td>
+<td><p>Prims selected by an ovstage filter and an optional path scope. An empty filter selects every <code class="docutils literal notranslate"><span class="pre">Sphere</span></code>, <code class="docutils literal notranslate"><span class="pre">Cube</span></code>, <code class="docutils literal notranslate"><span class="pre">Capsule</span></code>, and <code class="docutils literal notranslate"><span class="pre">Mesh</span></code>.</p></td>
+<td><p>Rows of arrays you supply</p></td>
+</tr>
+<tr class="row-odd"><td><p>Geometry</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cube</span></code>, <code class="docutils literal notranslate"><span class="pre">Sphere</span></code>, <code class="docutils literal notranslate"><span class="pre">Capsule</span></code>, <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> (as its authored faces), and convex hulls from <code class="docutils literal notranslate"><span class="pre">physics:approximation</span> <span class="pre">=</span> <span class="pre">&quot;convexHull&quot;</span></code></p></td>
+<td><p>Definitions registered once: sphere, box, capsule, convex hull, triangle mesh</p></td>
+</tr>
+<tr class="row-even"><td><p>Object ID</p></td>
+<td><p>The prim’s path token, stable for the population’s lifetime</p></td>
+<td><p>A nonzero <code class="docutils literal notranslate"><span class="pre">uint64</span></code> you choose and never reuse</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ordinals</p></td>
+<td><p>The ovstage ordinal that sealed the state</p></td>
+<td><p>Chosen by you. Each update must be larger than the last.</p></td>
+</tr>
+<tr class="row-even"><td><p>Update</p></td>
+<td><p>A complete new snapshot of the filtered prims</p></td>
+<td><p>A delta: complete rows, poses only, or poses and bits</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>You can create as many populations as you have publishers. A scene that an editor changes
+rarely and robot bodies that move every frame belong in two populations, because their versions
+advance on different clocks.</p>
+</section>
+<section id="what-an-ovstage-population-publishes">
+<h2>What an ovstage Population Publishes<a class="headerlink" href="#what-an-ovstage-population-publishes" title="Link to this heading">#</a></h2>
+<p>An ovstage population publishes whatever stage you give it, including content that was never
+prepared for queries. Each publication turns every selected prim into one object, or leaves the
+prim out and says why. The only prims it leaves out silently are the instancing prims that
+<a class="reference internal" href="#instances">Instances</a> lists. Stage content never makes a publication fail; only your call or
+setup can, as <a class="reference internal" href="#excluded-prims">Excluded Prims</a> lists.</p>
+<section id="transforms">
+<h3>Transforms<a class="headerlink" href="#transforms" title="Link to this heading">#</a></h3>
+<p>Each prim’s world matrix is applied exactly, including non-uniform scale, shear, and mirroring.
+The library does not reduce it to a translation, a rotation, and per-axis scales, which would drop
+shear, so a sheared surface stays where the stage puts it. Each prim type follows its transform
+as far as the result stays exact:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>USD Prim</p></th>
+<th class="head"><p>Uniform Scale or Mirror</p></th>
+<th class="head"><p>Non-Uniform Scale</p></th>
+<th class="head"><p>Shear</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Mesh</span></code>, convex hull</p></td>
+<td><p>exact</p></td>
+<td><p>exact</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Cube</span></code></p></td>
+<td><p>box</p></td>
+<td><p>box</p></td>
+<td><p>convex hull of its eight corners</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sphere</span></code>, <code class="docutils literal notranslate"><span class="pre">Capsule</span></code></p></td>
+<td><p>exact</p></td>
+<td><p>excluded</p></td>
+<td><p>excluded</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">Sphere</span></code> or <code class="docutils literal notranslate"><span class="pre">Capsule</span></code> under non-uniform scale is left out with the reason <code class="docutils literal notranslate"><span class="pre">UNSUPPORTED_SHAPE</span></code>,
+because an ellipsoid is neither shape. Scales that agree within a relative 2⁻²⁰, as float32
+transforms often do, count as uniform.</p>
+</section>
+<section id="meshes">
+<h3>Meshes<a class="headerlink" href="#meshes" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> is queried as its authored faces, whatever its <code class="docutils literal notranslate"><span class="pre">subdivisionScheme</span></code>. The faces listed in
+<code class="docutils literal notranslate"><span class="pre">holeIndices</span></code> are left out. A <code class="docutils literal notranslate"><span class="pre">leftHanded</span></code> mesh, or a mirrored one, keeps its authored front
+faces, so single-sided meshes face the way the stage shows them. An exact hit reports the
+authored face and its corner indices, as described in
+<a class="reference internal" href="queries.html#result-types"><span class="std std-ref">Result Types</span></a>.</p>
+<p>A mesh with <code class="docutils literal notranslate"><span class="pre">physics:approximation</span> <span class="pre">=</span> <span class="pre">&quot;convexHull&quot;</span></code> is published as the convex hull a PhysX
+simulation of the stage collides with: the hull PhysX cooks for that collider under a vertex limit.
+The limit is the mesh’s <code class="docutils literal notranslate"><span class="pre">physxConvexHullCollision:hullVertexLimit</span></code>, an <code class="docutils literal notranslate"><span class="pre">int</span></code>, clamped to 8 to 64;
+it is 64 when the stage has none, a negative one, or one stored as another type. The limit is read even where the mesh does not apply
+<code class="docutils literal notranslate"><span class="pre">PhysxConvexHullCollisionAPI</span></code>, which a simulation requires before it reads it. That hull has at most
+that many vertices and can leave some of the mesh’s points outside; refer to
+<a class="reference internal" href="limits.html#convex-hulls"><span class="std std-ref">Convex Hulls</span></a>. These properties, and the material bindings that
+<a class="reference internal" href="#identity">Identity</a> describes, are read only if the stage holds them. The <code class="docutils literal notranslate"><span class="pre">RENDERING</span></code> domain does
+not populate them, so open the stage with a selector for every prim’s <code class="docutils literal notranslate"><span class="pre">physics</span></code>,
+<code class="docutils literal notranslate"><span class="pre">physxConvexHullCollision</span></code>, and <code class="docutils literal notranslate"><span class="pre">material:binding</span></code> properties. Without them, a mesh publishes as its
+faces and reports no physics material, and a convex hull uses the limit 64. The following code opens
+a stage that way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">population</span>
+<span class="n">physics</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span>
+    <span class="n">prim_predicate</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">PrimPredicate</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
+    <span class="n">property_predicate</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">PropertyPredicate</span><span class="o">.</span><span class="n">in_namespace</span><span class="p">(</span>
+        <span class="s2">"physics"</span><span class="p">,</span> <span class="s2">"physxConvexHullCollision"</span><span class="p">,</span> <span class="s2">"material:binding"</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">desc</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">Desc</span><span class="p">(</span><span class="n">domains</span><span class="o">=</span><span class="n">ovstage</span><span class="o">.</span><span class="n">PopulationDomain</span><span class="o">.</span><span class="n">RENDERING</span><span class="p">,</span> <span class="n">selectors</span><span class="o">=</span><span class="p">[</span><span class="n">physics</span><span class="p">])</span>
+<span class="n">population</span><span class="o">.</span><span class="n">open_usd_from_string_with_desc</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">SCENE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">desc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A convex hull mesh for which PhysX cooks no hull is excluded, not replaced by a box. Refer to
+<a class="reference internal" href="limits.html#convex-hulls"><span class="std std-ref">Convex Hulls</span></a>.</p>
+</div>
+</section>
+<section id="bounding-boxes">
+<h3>Bounding Boxes<a class="headerlink" href="#bounding-boxes" title="Link to this heading">#</a></h3>
+<p>Each object’s published bounding box is computed from its shape and its world matrix. ovstage’s
+world bounds (<code class="docutils literal notranslate"><span class="pre">_worldExtent</span></code>) only decide whether a prim has a spatial source. A stale or
+inaccurate authored <code class="docutils literal notranslate"><span class="pre">extent</span></code> therefore changes no box and excludes no prim. Bounds candidates
+and <a class="reference internal" href="pairs.html"><span class="std std-doc">pairs</span></a> use these boxes.</p>
+</section>
+<section id="instances">
+<h3>Instances<a class="headerlink" href="#instances" title="Link to this heading">#</a></h3>
+<p>Instancing publishes each instance, never the prims that only define what instances draw:</p>
+<ol class="arabic simple">
+<li><p>Each selected prim inside a native instance (<code class="docutils literal notranslate"><span class="pre">instanceable</span> <span class="pre">=</span> <span class="pre">true</span></code>) is published like any other
+prim, at its own instance-proxy path and world matrix: one object, or an exclusion. The empty
+filter selects these proxies. An explicit filter selects them by <code class="docutils literal notranslate"><span class="pre">usd-path</span></code> or by an instance
+type such as <code class="docutils literal notranslate"><span class="pre">CubeInstance</span></code>; <code class="docutils literal notranslate"><span class="pre">usd-prim-type</span> <span class="pre">IN</span> <span class="pre">[Cube]</span></code> selects authored cubes only.</p></li>
+<li><p>ovstage writes proxy rows only when the stage is opened with <code class="docutils literal notranslate"><span class="pre">RENDERING</span></code>. Without
+them, a publication that selects a prototype copy returns <code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code>.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">PointInstancer</span></code>’s prototype prims, and ovstage’s copies of them, are never published. The
+point instances are not published either.</p></li>
+</ol>
+<p>These prims are left out without being listed as exclusions.</p>
+</section>
+<section id="excluded-prims">
+<h3>Excluded Prims<a class="headerlink" href="#excluded-prims" title="Link to this heading">#</a></h3>
+<p>A prim that the population cannot publish exactly is left out of the version, and the
+publication result lists it. The publication still succeeds and still becomes the head.
+Publishing fails only for errors in your call or setup. Such errors include an invalid handle or
+ordinal, an unsupported ovstage version, a budget, a lost device, and native instances on a stage
+opened without the domain that writes their proxy rows.</p>
+<p>Each excluded prim carries one of these reasons:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Reason</p></th>
+<th class="head"><p>When</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NO_SPATIAL_SOURCE</span></code></p></td>
+<td><p>ovstage keeps no world bounds for a prim of a published type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UNSUPPORTED_TYPE</span></code></p></td>
+<td><p>The filter selected a prim type that is not published, such as an <code class="docutils literal notranslate"><span class="pre">Xform</span></code>, a <code class="docutils literal notranslate"><span class="pre">Cylinder</span></code>, or a <code class="docutils literal notranslate"><span class="pre">Scope</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UNSUPPORTED_SHAPE</span></code></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">Sphere</span></code> or <code class="docutils literal notranslate"><span class="pre">Capsule</span></code> has non-uniform scale or shear.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MALFORMED_GEOMETRY</span></code></p></td>
+<td><p>Invalid topology, points, or transform, such as a zero scale, a hull without volume, or a mesh whose faces are all holes. A convex hull mesh for which PhysX cooks no hull is excluded rather than replaced by a box.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RESHAPE_PENDING</span></code></p></td>
+<td><p>Only for a version prepared on a CUDA device: the prim’s proportions changed, and it returns at the next publication.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following figure shows a program that selects four prims and publishes two of them:</p>
+<figure class="ovsq-anim" data-anim="ovstage-exclusions" data-w="760" data-h="400"><div class="ovsq-anim-stage" role="img" aria-label="Left, the stage: /World is an Xform; /World/Crate a Cube of size 2 scaled (0.5, 1, 1) at (4, 0, 0); /World/Egg a Sphere of radius 0.5 scaled (1, 2, 1) at (4, 3, 0); /World/Post a Cylinder at (8, 0, 0); /World/Ramp a sheared Cube of size 1 at (7, 3, 0). The filter usd-path PREFIX &quot;/World/&quot; selects the four prims under /World. enqueue_set(2) succeeds: the Crate is published as a box and the Ramp as a convex hull, while the Egg is excluded as UNSUPPORTED_SHAPE and the Post as UNSUPPORTED_TYPE. Right, a top view: a ray along y = 0 hits the Crate at 3.5, and a ray along y = 3.25 passes through the excluded Egg and hits the Ramp&#x27;s sheared face at 6.625."><noscript><p class="ovsq-anim-noscript">Left, the stage: /World is an Xform; /World/Crate a Cube of size 2 scaled (0.5, 1, 1) at (4, 0, 0); /World/Egg a Sphere of radius 0.5 scaled (1, 2, 1) at (4, 3, 0); /World/Post a Cylinder at (8, 0, 0); /World/Ramp a sheared Cube of size 1 at (7, 3, 0). The filter usd-path PREFIX &quot;/World/&quot; selects the four prims under /World. enqueue_set(2) succeeds: the Crate is published as a box and the Ramp as a convex hull, while the Egg is excluded as UNSUPPORTED_SHAPE and the Post as UNSUPPORTED_TYPE. Right, a top view: a ray along y = 0 hits the Crate at 3.5, and a ray along y = 3.25 passes through the excluded Egg and hits the Ramp&#x27;s sheared face at 6.625.</p></noscript></div><figcaption>One publication keeps the stretched and the sheared Cube exactly and lists the two prims it leaves out.</figcaption></figure><p>The program publishes the stage, prints the exclusions, and casts both rays:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ovstage</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovspatialquery</span><span class="w"> </span><span class="kn">import</span> <span class="n">Library</span><span class="p">,</span> <span class="n">OvstageExclusionReason</span><span class="p">,</span> <span class="n">RaycastQuery</span>
+
+<span class="n">SCENE</span> <span class="o">=</span> <span class="s2">"""#usda 1.0</span>
+<span class="s2">def Xform "World"</span>
+<span class="s2">{</span>
+<span class="s2">    def Cube "Crate"</span>
+<span class="s2">    {</span>
+<span class="s2">        double size = 2</span>
+<span class="s2">        double3 xformOp:translate = (4, 0, 0)</span>
+<span class="s2">        float3 xformOp:scale = (0.5, 1, 1)</span>
+<span class="s2">        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]</span>
+<span class="s2">    }</span>
+<span class="s2">    def Sphere "Egg"</span>
+<span class="s2">    {</span>
+<span class="s2">        double radius = 0.5</span>
+<span class="s2">        double3 xformOp:translate = (4, 3, 0)</span>
+<span class="s2">        float3 xformOp:scale = (1, 2, 1)</span>
+<span class="s2">        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]</span>
+<span class="s2">    }</span>
+<span class="s2">    def Cylinder "Post"</span>
+<span class="s2">    {</span>
+<span class="s2">        double3 xformOp:translate = (8, 0, 0)</span>
+<span class="s2">        uniform token[] xformOpOrder = ["xformOp:translate"]</span>
+<span class="s2">    }</span>
+<span class="s2">    def Cube "Ramp"</span>
+<span class="s2">    {</span>
+<span class="s2">        double size = 1</span>
+<span class="s2">        matrix4d xformOp:transform = (</span>
+<span class="s2">            (1, 0, 0, 0), (0.5, 1, 0, 0), (0, 0, 1, 0), (7, 3, 0, 1)</span>
+<span class="s2">        )</span>
+<span class="s2">        uniform token[] xformOpOrder = ["xformOp:transform"]</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">"""</span>
+
+<span class="n">stage</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">Stage</span><span class="p">(</span><span class="s2">"exclusions"</span><span class="p">)</span>
+<span class="n">RENDERING</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">PopulationDomain</span><span class="o">.</span><span class="n">RENDERING</span>
+<span class="n">ovstage</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">open_usd_from_string</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">SCENE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">RENDERING</span><span class="p">)</span>
+<span class="n">stage</span><span class="o">.</span><span class="n">advance_write_floor</span><span class="p">(</span><span class="n">ordinal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="n">stage</span><span class="o">.</span><span class="n">compute_hierarchy</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">HierarchyComputationModel</span><span class="o">.</span><span class="n">DEFAULT_CPU</span><span class="p">)</span>
+<span class="n">stage</span><span class="o">.</span><span class="n">advance_write_floor</span><span class="p">(</span><span class="n">ordinal</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">PathDictionary</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">ovstage</span><span class="o">.</span><span class="n">Predicate</span><span class="p">(</span><span class="s2">"usd-path"</span><span class="p">,</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">FilterOp</span><span class="o">.</span><span class="n">PREFIX</span><span class="p">,</span> <span class="p">[</span><span class="s2">"/World/"</span><span class="p">])]</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">Library</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">require_ovstage</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">ovstage</span><span class="p">(</span><span class="n">ovstage</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span><span class="o">.</span><span class="n">create_population</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+
+    <span class="c1"># The publication succeeds and lists every prim it left out.</span>
+    <span class="k">with</span> <span class="n">population</span><span class="o">.</span><span class="n">enqueue_set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">publication</span><span class="p">:</span>
+        <span class="n">publication</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">publication</span><span class="o">.</span><span class="n">fetch_population_update</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"published"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">object_count</span><span class="p">,</span> <span class="s2">"excluded"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">excluded_object_count</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">reason</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">excluded_objects</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">exclusion_reasons</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">OvstageExclusionReason</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"  excluded"</span><span class="p">,</span> <span class="n">paths</span><span class="o">.</span><span class="n">path_to_string</span><span class="p">(</span><span class="n">ovstage</span><span class="o">.</span><span class="n">PrimPath</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">object_id</span><span class="p">))),</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># One ray along +x past the Crate, one past the Egg to the sheared Ramp.</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">):</span>
+        <span class="n">ray</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">raycast_closest</span><span class="p">(</span>
+            <span class="n">RaycastQuery</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">unit_direction</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">path_to_string</span><span class="p">(</span><span class="n">ovstage</span><span class="o">.</span><span class="n">PrimPath</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">hit</span><span class="o">.</span><span class="n">object_id</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"ray at y"</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">"hit"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="s2">"at distance"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">hit</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Destroy the stage once nothing uses it, rather than at interpreter exit.</span>
+<span class="n">stage</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It prints this output:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>published 2 excluded 2
+  excluded /World/Egg UNSUPPORTED_SHAPE
+  excluded /World/Post UNSUPPORTED_TYPE
+ray at y 0.0 hit /World/Crate at distance 3.5
+ray at y 3.25 hit /World/Ramp at distance 6.625
+</pre></div>
+</div>
+</div>
+<p>Notice the following about this program:</p>
+<ol class="arabic simple">
+<li><p>The result’s <code class="docutils literal notranslate"><span class="pre">excluded_objects</span></code> holds the object IDs, sorted by value, and
+<code class="docutils literal notranslate"><span class="pre">exclusion_reasons</span></code> the reason of each, in
+<a class="reference internal" href="../reference/python.html#ovspatialquery.OvstageExclusionReason" title="ovspatialquery.OvstageExclusionReason"><code class="xref py py-class docutils literal notranslate"><span class="pre">OvstageExclusionReason</span></code></a>. Both have
+<code class="docutils literal notranslate"><span class="pre">excluded_object_count</span></code> rows. In Python they are <code class="docutils literal notranslate"><span class="pre">array.array</span></code> copies that stay readable
+after the operation closes. <code class="docutils literal notranslate"><span class="pre">numpy.asarray</span></code> reads them without copying.</p></li>
+<li><p>In C, <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_population_update_result_t" title="ovspatialquery_population_update_result_t"><code class="xref c c-struct docutils literal notranslate"><span class="pre">ovspatialquery_population_update_result_t</span></code></a> holds the same columns as two
+host DLPack tensors, <code class="docutils literal notranslate"><span class="pre">uint64</span></code> and <code class="docutils literal notranslate"><span class="pre">int32</span></code>. They stay valid until you destroy the operation.</p></li>
+<li><p>The list is complete for every publication, not a change from the previous one. A prim that
+becomes publishable again, for example after its scale turns uniform, returns at the next
+publication.</p></li>
+<li><p>An excluded prim is absent from the version, so the second ray passes the Egg. The stretched
+Crate is an exact box, and the ray meets the Ramp’s sheared face at 7 − 0.5 + 0.5 × 0.25.</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If your program must not query a version with exclusions, check <code class="docutils literal notranslate"><span class="pre">excluded_object_count</span></code> after
+each publication. Keep reading the last version without exclusions by its exact ordinal, as
+<a class="reference internal" href="queries.html#version-selection"><span class="std std-ref">Version Selection</span></a> describes, while it is still retained.</p>
+</div>
+</section>
+</section>
+<section id="versions-and-retention">
+<h2>Versions and Retention<a class="headerlink" href="#versions-and-retention" title="Link to this heading">#</a></h2>
+<p>Each publication captures one sealed state and becomes a <strong>version</strong> labeled with that state’s
+<strong>ordinal</strong>. The newest is the <strong>head</strong>. Publication is atomic: a version becomes the head in
+one step or nothing changes.</p>
+<p>The population also keeps the latest <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_population_desc_t.retained_ordinal_capacity" title="ovspatialquery_population_desc_t.retained_ordinal_capacity"><code class="xref c c-member docutils literal notranslate"><span class="pre">retained_ordinal_capacity</span></code></a> prior heads, so a query can
+select an older state by its exact ordinal. A delayed sensor reads the world as it was when its
+data was captured, without a copy and without a global switch. The following figure shows a
+population that retains two prior versions:</p>
+<figure class="ovsq-anim" data-anim="version-window" data-w="760" data-h="400"><div class="ovsq-anim-stage" role="img" aria-label="ovstage seals ordinals 100 to 111; six of them are published. With a retention capacity of two, the population keeps the head and two prior versions and evicts older ones. A batch operation that selected ordinal 101 keeps it alive after it leaves the window, but a new query for 101 fails with API_ORDINAL_NOT_RETAINED. A sensor always reads the head."><noscript><p class="ovsq-anim-noscript">ovstage seals ordinals 100 to 111; six of them are published. With a retention capacity of two, the population keeps the head and two prior versions and evicts older ones. A batch operation that selected ordinal 101 keeps it alive after it leaves the window, but a new query for 101 fails with API_ORDINAL_NOT_RETAINED. A sensor always reads the head.</p></noscript></div><figcaption>Retention decides what can be selected. An operation keeps alive what it already selected.</figcaption></figure><p>The figure shows three rules:</p>
+<ul class="simple">
+<li><p>Ordinals are the source’s numbers. Ordinals that were sealed but never published (102, 103)
+are never replayed, and a population never renumbers them.</p></li>
+<li><p>An admitted operation keeps the version it selected until it is destroyed, even after that
+version leaves the retention window.</p></li>
+<li><p>Leaving the window ends selection. A new query for that ordinal returns
+<code class="docutils literal notranslate"><span class="pre">ORDINAL_NOT_RETAINED</span></code>.</p></li>
+</ul>
+<p>Choose <a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_population_desc_t.retained_ordinal_capacity" title="ovspatialquery_population_desc_t.retained_ordinal_capacity"><code class="xref c c-member docutils literal notranslate"><span class="pre">retained_ordinal_capacity</span></code></a> when you create the population. It cannot change later. The
+head and every retained version count against the instance’s memory budget. A publication that
+does not fit fails atomically instead of evicting a version a reader can still select.</p>
+</section>
+<section id="views-and-participation-bits">
+<h2>Views and Participation Bits<a class="headerlink" href="#views-and-participation-bits" title="Link to this heading">#</a></h2>
+<p>Two tools narrow what a query can see, and they answer different questions:</p>
+<p>A <strong>view</strong> is a stable subset of one population, defined once by a filter: an ovstage filter for
+an ovstage population, or a list of object IDs for an explicit one. It shares every version and
+all acceleration data of its population and copies nothing. Use a view for a subset many queries
+share, such as the surfaces a robot can drive on.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>An ovstage view becomes ready with the next publication of its population, so create it before
+you publish.</p>
+</div>
+<p>An ovstage filter is an AND of tests, so it cannot select “everything under <code class="docutils literal notranslate"><span class="pre">/World</span></code> except
+<code class="docutils literal notranslate"><span class="pre">/World/Scaffolding</span></code>.” A <strong>scope</strong> can. It is an include list and an exclude list of prim paths,
+which <code class="docutils literal notranslate"><span class="pre">create_population</span></code> and <code class="docutils literal notranslate"><span class="pre">create_view</span></code> take beside the filter. For each prim, the nearest
+listed path at or above it decides. An include admits the prim, and an exclude removes it. When
+one path is in both lists, the exclude wins. An include below an exclude brings that subtree back.
+Paths compare by element, so <code class="docutils literal notranslate"><span class="pre">/World/Env</span></code> does not cover <code class="docutils literal notranslate"><span class="pre">/World/Environment</span></code>. With no includes,
+the scope starts from every prim the filter selects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">props</span> <span class="o">=</span> <span class="n">population</span><span class="o">.</span><span class="n">create_view</span><span class="p">(</span><span class="n">ovstage</span><span class="o">.</span><span class="n">Filter</span><span class="p">([]),</span> <span class="n">exclude_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"/World/Scaffolding"</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>A prim outside the scope is not selected, as if the filter had rejected it, so it is never
+listed in <code class="docutils literal notranslate"><span class="pre">excluded_objects</span></code>. In C, the scope is the <code class="docutils literal notranslate"><span class="pre">scope</span></code> member of the population and view
+descriptors, and its entries are path tokens from the stage’s path dictionary. A scope is fixed
+when you create the population or view; create another view for another scope.</p>
+<p><strong>Participation bits</strong> are 128 bits per object, captured with each publication. A query passes
+<code class="docutils literal notranslate"><span class="pre">query_bits</span></code>, and accepts an object when the two share at least one set bit. Zero accepts
+everything. This is the test and the width of the PhysX <code class="docutils literal notranslate"><span class="pre">PxFilterData</span></code> scene-query filter. Use
+bits for categories that change per query, such as “obstacles only.”</p>
+<p>In Python, a bits value is an <code class="docutils literal notranslate"><span class="pre">int</span></code> from 0 to <code class="docutils literal notranslate"><span class="pre">2**128</span> <span class="pre">-</span> <span class="pre">1</span></code>. In C, it is an
+<code class="docutils literal notranslate"><span class="pre">ovspatialquery_participation_bits_t</span></code> whose <code class="docutils literal notranslate"><span class="pre">words[0]</span></code> holds bits 0 to 63 and <code class="docutils literal notranslate"><span class="pre">words[1]</span></code> holds bits
+64 to 127. A column of bits, one row per query or object, is a <code class="docutils literal notranslate"><span class="pre">uint64[N,2]</span></code> array in the same word
+order.</p>
+<p>The following figure casts one ray three ways: against the population, with obstacle bits, and
+through a view:</p>
+<figure class="ovsq-anim" data-anim="views-bits" data-w="760" data-h="370"><div class="ovsq-anim-stage" role="img" aria-label="A side view with a ground slab, a ramp, a robot, a crate, and a wall. One ray from a sensor runs through all three phases. Querying the population with query_bits 0 hits the robot first. With query_bits OBSTACLE the robot is rejected and the ray stops on the crate. Through the view drivable_surfaces, which holds only the ground and the ramp, the ray passes the robot and the crate and stops on the ramp."><noscript><p class="ovsq-anim-noscript">A side view with a ground slab, a ramp, a robot, a crate, and a wall. One ray from a sensor runs through all three phases. Querying the population with query_bits 0 hits the robot first. With query_bits OBSTACLE the robot is rejected and the ray stops on the crate. Through the view drivable_surfaces, which holds only the ground and the ramp, the ray passes the robot and the crate and stops on the ramp.</p></noscript></div><figcaption>The same ray against the population, the population with OBSTACLE bits, and a view.</figcaption></figure><p>For an ovstage population, you assign bits with a participation table: listed prim paths get
+their bits and every other object gets a default. In Python,
+<code class="docutils literal notranslate"><span class="pre">population.set_participation_map(default_bits,</span> <span class="pre">{&quot;/World/Crate&quot;:</span> <span class="pre">OBSTACLE})</span></code> takes prim path
+strings or path tokens. Without a table, every object has all 128 bits set. For an explicit
+population, the bits are an optional column of the publication, all bits set by default. Either way,
+a version keeps the bits it was published with, so a query against a retained ordinal sees the
+categories of that moment.</p>
+</section>
+<section id="identity">
+<h2>Identity<a class="headerlink" href="#identity" title="Link to this heading">#</a></h2>
+<p>Every hit carries two identities and a material:</p>
+<ul class="simple">
+<li><p>The <strong>object ID</strong> names the source object within its population. For ovstage, it is the prim’s
+path token, which <code class="docutils literal notranslate"><span class="pre">ovstage.PathDictionary(stage).path_to_string(ovstage.PrimPath(object_id))</span></code> turns back into a
+path. ovstage 0.3 has no <code class="docutils literal notranslate"><span class="pre">PrimPath</span></code> and takes <code class="docutils literal notranslate"><span class="pre">object_id</span></code> itself. A prim re-created at the same path keeps its ID. IDs from different populations are not
+comparable.</p></li>
+<li><p>The <strong>geometry reference</strong> names one immutable stored shape and is comparable across every
+population of an instance. Two prims that share a prototype share a reference. Editing its
+geometry gives later publications a different reference. Retained versions keep their
+original geometry references and stored shapes.</p></li>
+<li><p>The <strong>material</strong>, <code class="docutils literal notranslate"><span class="pre">material_id</span></code>, is the value the population assigns to the reported surface.
+Zero means none. For ovstage, it is the path value of the bound physics material, else of the
+bound material. An exact hit on a mesh face reports the binding of a face subset that lists the
+face, and the mesh’s material when no such binding counts. A subset’s physics binding always
+counts, and its other binding only when the mesh has no physics binding. For an explicit
+population, you supply the values as optional columns. A version keeps the materials it was
+published with. An ovstage version prepared on a CUDA device, and an explicit publication from
+CUDA columns, report zero.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Concepts</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="queries.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Queries and Results</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-sources">Population Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-an-ovstage-population-publishes">What an ovstage Population Publishes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transforms">Transforms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#meshes">Meshes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounding-boxes">Bounding Boxes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instances">Instances</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#excluded-prims">Excluded Prims</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#versions-and-retention">Versions and Retention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#views-and-participation-bits">Views and Participation Bits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identity">Identity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA CORPORATION &amp; AFFILIATES.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

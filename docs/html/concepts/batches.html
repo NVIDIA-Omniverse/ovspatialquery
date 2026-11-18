@@ -1,0 +1,1228 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Batches &#8212; ovspatialquery</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/ovsq/ovsq.css?v=b3c2b5e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+
+
+    <script src="../_static/documentation_options.js?v=c7fef49e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="../_static/ovsq/anim.js?v=81228ec5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-concept.js?v=f5e1a203"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-plan.js?v=9fe63f9b"></script>
+    <script defer="defer" src="../_static/ovsq/anims/box-sweep.js?v=8297c094"></script>
+    <script defer="defer" src="../_static/ovsq/anims/candidate-exact.js?v=06349d6d"></script>
+    <script defer="defer" src="../_static/ovsq/anims/cuda-ordering.js?v=2a84c909"></script>
+    <script defer="defer" src="../_static/ovsq/anims/first-query.js?v=a60129d5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/model-map.js?v=dae7ab51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/overlap-modes.js?v=9c39d887"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-exclusions.js?v=f4d592f3"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-scene.js?v=c532d33f"></script>
+    <script defer="defer" src="../_static/ovsq/anims/pair-reporter.js?v=2bd60276"></script>
+    <script defer="defer" src="../_static/ovsq/anims/query-families.js?v=b8a5c307"></script>
+    <script defer="defer" src="../_static/ovsq/anims/raycast-modes.js?v=c05d3b51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/sphere-sweep.js?v=17df453a"></script>
+    <script defer="defer" src="../_static/ovsq/anims/version-window.js?v=75e183b8"></script>
+    <script defer="defer" src="../_static/ovsq/anims/views-bits.js?v=7407af61"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'concepts/batches';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pair Discovery" href="pairs.html" />
+    <link rel="prev" title="Queries and Results" href="queries.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../first-query.html">Your First Query</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Concepts</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="populations.html">Populations, Versions, and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Queries and Results</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="limits.html">Budgets, Lifetimes, and Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-ovstage.html">ovstage Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-explicit.html">Explicit Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/c-pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/python.html">Python Package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents.html">Coding Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Concepts</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Batches</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="batches">
+<h1>Batches<a class="headerlink" href="#batches" title="Link to this heading">#</a></h1>
+<p>A synchronous call answers one query on the calling thread. A <strong>batch plan</strong> answers many queries
+of one family per launch, on the CPU or on one CUDA device. It returns its results as DLPack
+columns that a CUDA consumer can read without a round trip through the host.</p>
+<p>The following figure compares four rays cast one call at a time with the same four rays enqueued
+as one launch of a plan, on the CPU and on a CUDA device:</p>
+<figure class="ovsq-anim" data-anim="batch-concept" data-w="760" data-h="370"><div class="ovsq-anim-stage" role="img" aria-label="Three timelines. Top, one call per query: four raycast_closest calls run one after another, and each pays a per-call overhead before its ray&#x27;s work. Middle, a CPU plan launch: one operation pays the overhead once, then its CPU job and an idle worker of the instance each evaluate two of rows 0 to 3, finishing after the overhead and two rows of work. A note marks this lane as illustrative: a CPU launch splits its rows only from 128 rows. Bottom, a CUDA plan launch: one operation pays the overhead once and runs rows 0 to 3 in parallel on the device, finishing after the overhead and one row of work. Each launch writes one result slot. The widths are illustrative, not measured."><noscript><p class="ovsq-anim-noscript">Three timelines. Top, one call per query: four raycast_closest calls run one after another, and each pays a per-call overhead before its ray&#x27;s work. Middle, a CPU plan launch: one operation pays the overhead once, then its CPU job and an idle worker of the instance each evaluate two of rows 0 to 3, finishing after the overhead and two rows of work. A note marks this lane as illustrative: a CPU launch splits its rows only from 128 rows. Bottom, a CUDA plan launch: one operation pays the overhead once and runs rows 0 to 3 in parallel on the device, finishing after the overhead and one row of work. Each launch writes one result slot. The widths are illustrative, not measured.</p></noscript></div><figcaption>A launch pays the overhead once, and its rows can run in parallel on idle CPU workers or on a CUDA device.</figcaption></figure><p>The work for each row is the same in every lane. A CPU launch runs as one job. When a launch has
+128 rows or more, the instance’s idle workers evaluate parts of it beside that job. A shorter
+launch, such as the four rows in the figure, evaluates its rows in order. The results are the same as evaluating the rows in
+order, including which rows are truncated when the slot is full. Separate launches, from one plan
+or several, run at the same time on up to
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_instance_desc_t.max_cpu_concurrency" title="ovspatialquery_instance_desc_t.max_cpu_concurrency"><code class="xref c c-member docutils literal notranslate"><span class="pre">max_cpu_concurrency</span></code></a> workers. A
+worker that is helping another launch moves to a waiting launch first, and the instance starts no
+other threads. A CUDA launch evaluates its rows in parallel on the device. How much a batch saves
+depends on the row count, the device, the free workers, and the scene, so measure it for your
+workload.</p>
+<section id="plan-lifecycle">
+<h2>Plan Lifecycle<a class="headerlink" href="#plan-lifecycle" title="Link to this heading">#</a></h2>
+<p>A plan is created once and then launched many times. Each launch goes through these steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Create a plan.</strong> The plan fixes the family (raycast, sphere sweep, box sweep, or overlap), the
+target, the device, and the precision. It also fixes the maximum rows per launch and the
+number of <strong>result slots</strong> it reserves.</p></li>
+<li><p><strong>Enqueue a launch</strong> with this frame’s rows and the population version to read. Admission
+pins the version and takes a free slot. The call returns an <strong>operation</strong>, the handle of the
+pending work, and a <strong>reservation</strong>, which describes the columns that the results land in.</p></li>
+<li><p><strong>Wait for the operation, then fetch the results.</strong> The fetched columns are the reservation’s
+storage. Per-query columns keep <code class="docutils literal notranslate"><span class="pre">Q</span></code> rows. Per-hit columns contain only the <code class="docutils literal notranslate"><span class="pre">H</span></code> stored hits.</p></li>
+<li><p><strong>Destroy the operation</strong> to return its slot to the plan. While every slot is in use, the
+next launch is refused with <code class="docutils literal notranslate"><span class="pre">RESULT_CAPACITY</span></code>.</p></li>
+</ol>
+<p>The following figure shows two result slots shared by three launches. Operation 1 is the launch
+of the program in <a class="reference internal" href="#raycast-batch-example">Raycast Batch Example</a>:</p>
+<figure class="ovsq-anim" data-anim="batch-plan" data-w="760" data-h="440"><div class="ovsq-anim-stage" role="img" aria-label="A raycast plan with two result slots. Operation 1 and operation 2 each take a slot. A third launch while both are owned is refused with RESULT_CAPACITY. Fetching operation 1 shows per-query columns query_status, hit_offsets, and hit_counts for four rays, one of which misses with a count of 0, and per-hit columns object_ids and distances for the three stored hits at 3.50, 5.50, and 9.50. Destroying operation 1 frees slot 0 and a new operation takes it."><noscript><p class="ovsq-anim-noscript">A raycast plan with two result slots. Operation 1 and operation 2 each take a slot. A third launch while both are owned is refused with RESULT_CAPACITY. Fetching operation 1 shows per-query columns query_status, hit_offsets, and hit_counts for four rays, one of which misses with a count of 0, and per-hit columns object_ids and distances for the three stored hits at 3.50, 5.50, and 9.50. Destroying operation 1 frees slot 0 and a new operation takes it.</p></noscript></div><figcaption>Slots bound how many launches&#x27; results can exist at once. A miss is a count of zero.</figcaption></figure><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A version is an immutable snapshot of a population, numbered by its ordinal. For how a launch
+selects one and how long it stays readable, refer to
+<a class="reference internal" href="populations.html#versions-and-retention"><span class="std std-ref">Versions and Retention</span></a>.</p>
+</div>
+</section>
+<section id="raycast-batch-example">
+<h2>Raycast Batch Example<a class="headerlink" href="#raycast-batch-example" title="Link to this heading">#</a></h2>
+<p>The following program casts four rays through a CPU plan. Ray 2 misses because nothing lies on
+its line.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovspatialquery</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchResultField</span><span class="p">,</span>
+    <span class="n">GeometryType</span><span class="p">,</span>
+    <span class="n">HitMode</span><span class="p">,</span>
+    <span class="n">Library</span><span class="p">,</span>
+    <span class="n">QueryPrecision</span><span class="p">,</span>
+    <span class="n">RaycastPlanConfig</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">wp</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">LOG_WARNING</span>  <span class="c1"># skip Warp's start-up banner</span>
+<span class="n">CPU</span> <span class="o">=</span> <span class="s2">"cpu"</span>  <span class="c1"># this program and its plan run on the CPU</span>
+
+<span class="k">with</span> <span class="n">Library</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="c1"># A row of four unit boxes at x = 4, 6, 8, 10 on y = 0, 1, 2, 3.</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">explicit</span><span class="p">()</span>
+    <span class="n">adapter</span><span class="o">.</span><span class="n">register_boxes</span><span class="p">(</span>
+        <span class="n">definition_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">half_extents</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">create_population</span><span class="p">()</span>
+    <span class="n">population</span><span class="o">.</span><span class="n">enqueue_set</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">object_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_types</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">BOX</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">translations</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span>
+        <span class="p">),</span>
+        <span class="n">rotations_xyzw</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="c1"># The plan fixes the family, target, device and capacities once.</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">create_raycast_plan</span><span class="p">(</span>
+        <span class="n">RaycastPlanConfig</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">hit_mode</span><span class="o">=</span><span class="n">HitMode</span><span class="o">.</span><span class="n">CLOSEST</span><span class="p">,</span>
+            <span class="n">precision</span><span class="o">=</span><span class="n">QueryPrecision</span><span class="o">.</span><span class="n">EXACT</span><span class="p">,</span>
+            <span class="n">maximum_query_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">maximum_hits_per_query</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">hit_capacity_per_slot</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">result_slot_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">result_fields</span><span class="o">=</span><span class="n">BatchResultField</span><span class="o">.</span><span class="n">DISTANCE</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Each launch passes its rows as columns and reads the head by default.</span>
+    <span class="c1"># Ray 2 misses: nothing lies on y = 5.</span>
+    <span class="n">operation</span><span class="p">,</span> <span class="n">reservation</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span>
+        <span class="n">origins</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span>
+        <span class="p">),</span>
+        <span class="n">unit_directions</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">max_distances</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Leaving the block closes the operation, which returns its result slot to</span>
+    <span class="c1"># the plan. For a CPU result, to_numpy() copies the columns so they outlive it.</span>
+    <span class="k">with</span> <span class="n">operation</span><span class="p">:</span>
+        <span class="n">operation</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">fetch_raycast_batch</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">counts</span><span class="p">,</span> <span class="n">offsets</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_counts</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_offsets</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"source ordinal"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">source_ordinal</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">: miss"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">exact</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">: object </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">object_ids</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It prints this output:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source ordinal 1
+ray 0: object 20 at 3.50
+ray 1: object 21 at 5.50
+ray 2: miss
+ray 3: object 23 at 9.50
+</pre></div>
+</div>
+</div>
+</section>
+<section id="input-columns">
+<h2>Input Columns<a class="headerlink" href="#input-columns" title="Link to this heading">#</a></h2>
+<p>A launch passes one tensor per input column, and every column has <code class="docutils literal notranslate"><span class="pre">Q</span></code> rows. In Python, each
+column is a keyword argument of the plan’s <code class="docutils literal notranslate"><span class="pre">enqueue</span></code> and accepts any array that implements
+<code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code>. The wrapper checks dtypes, shapes, devices, and row counts before it calls the
+library.</p>
+<p>By default, the operation borrows the columns and keeps them alive until it is closed, so the
+library reads them without a copy. With <code class="docutils literal notranslate"><span class="pre">copy=True</span></code>, CPU inputs are copied before <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>
+returns, so you can change those arrays immediately. CUDA copies are queued on <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code>.
+Later writes on that stream follow the copy. Before writing from another stream, record an
+event on <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code> after <code class="docutils literal notranslate"><span class="pre">enqueue</span></code> returns and make the writing stream wait for it.</p>
+<p>Each family takes the columns in the following tables:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Raycast</label><div class="sd-tab-content docutils">
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Raycast Input Columns</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">origins</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Required. Start point of each ray.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">unit_directions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32[Q,3]</span></code></p></td>
+<td><p>Required. Unit-length direction of each ray.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Required. End of each ray’s distance interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Optional. Start of each ray’s distance interval.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">query_bits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q,2]</span></code></p></td>
+<td><p>Optional. Bits matched against each object’s bits.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_hits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q]</span></code></p></td>
+<td><p>Optional. Hit limit per row, for <code class="docutils literal notranslate"><span class="pre">MULTIPLE</span></code> plans only.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Sphere Sweep</label><div class="sd-tab-content docutils">
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Sphere Sweep Input Columns</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">centers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Required. Start center of each sphere.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">unit_directions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32[Q,3]</span></code></p></td>
+<td><p>Required. Unit-length direction of each sweep.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Required. End of each sweep’s distance interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Optional. Start of each sweep’s distance interval.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">radii</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Optional. Radius per row, replacing the plan’s radius.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">query_bits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q,2]</span></code></p></td>
+<td><p>Optional. Bits matched against each object’s bits.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Box Sweep</label><div class="sd-tab-content docutils">
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Box Sweep Input Columns</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">centers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Required. Start center of each box.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rotations_xyzw</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32[Q,4]</span></code></p></td>
+<td><p>Required. Orientation of each box as a unit quaternion.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unit_directions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32[Q,3]</span></code></p></td>
+<td><p>Required. Unit-length direction of each sweep.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Required. End of each sweep’s distance interval.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_distances</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Optional. Start of each sweep’s distance interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">half_extents</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Optional. Half extents per row, replacing the plan’s.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">query_bits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q,2]</span></code></p></td>
+<td><p>Optional. Bits matched against each object’s bits.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Overlap</label><div class="sd-tab-content docutils">
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Overlap Input Columns</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">translations</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Required. Center of each query shape.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rotations_xyzw</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32[Q,4]</span></code> or <code class="docutils literal notranslate"><span class="pre">float64[Q,4]</span></code></p></td>
+<td><p>Required for <code class="docutils literal notranslate"><span class="pre">BOX</span></code> plans. Omitted for <code class="docutils literal notranslate"><span class="pre">SPHERE</span></code> and <code class="docutils literal notranslate"><span class="pre">AABB</span></code> plans.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">half_extents</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q,3]</span></code></p></td>
+<td><p>Optional for <code class="docutils literal notranslate"><span class="pre">BOX</span></code> and <code class="docutils literal notranslate"><span class="pre">AABB</span></code> plans. Replaces the plan’s half extents.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">radii</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64[Q]</span></code></p></td>
+<td><p>Optional for <code class="docutils literal notranslate"><span class="pre">SPHERE</span></code> plans. Replaces the plan’s radius.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">query_bits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q,2]</span></code></p></td>
+<td><p>Optional. Bits matched against each object’s bits.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_hits</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64[Q]</span></code></p></td>
+<td><p>Optional. Hit limit per row, for <code class="docutils literal notranslate"><span class="pre">MULTIPLE</span></code> plans only.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Column 0 of <code class="docutils literal notranslate"><span class="pre">query_bits</span></code> holds bits 0 to 63 and column 1 bits 64 to 127. A row whose two words
+are zero accepts every object. For how query bits and object bits
+select objects, refer to <a class="reference internal" href="populations.html#views-and-participation-bits"><span class="std std-ref">Views and Participation Bits</span></a>.</p>
+</div>
+</section>
+<section id="result-columns">
+<h2>Result Columns<a class="headerlink" href="#result-columns" title="Link to this heading">#</a></h2>
+<p>Every result has two kinds of column:</p>
+<ul>
+<li><p><strong>Per query</strong>, with <code class="docutils literal notranslate"><span class="pre">Q</span></code> rows:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_batch_hit_ranges_t.query_status" title="ovspatialquery_batch_hit_ranges_t.query_status"><code class="xref c c-member docutils literal notranslate"><span class="pre">query_status</span></code></a>, the status of the row.
+A row that failed has a non-success status and no hits.</p></li>
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_batch_hit_ranges_t.hit_offsets" title="ovspatialquery_batch_hit_ranges_t.hit_offsets"><code class="xref c c-member docutils literal notranslate"><span class="pre">hit_offsets</span></code></a> and
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_batch_hit_ranges_t.hit_counts" title="ovspatialquery_batch_hit_ranges_t.hit_counts"><code class="xref c c-member docutils literal notranslate"><span class="pre">hit_counts</span></code></a>. Row <code class="docutils literal notranslate"><span class="pre">i</span></code>’s hits are rows
+<code class="docutils literal notranslate"><span class="pre">hit_offsets[i]</span></code> to <code class="docutils literal notranslate"><span class="pre">hit_offsets[i]</span> <span class="pre">+</span> <span class="pre">hit_counts[i]</span></code> of the per-hit columns. A miss is a count
+of zero.</p></li>
+<li><p><a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_batch_hit_ranges_t.truncated" title="ovspatialquery_batch_hit_ranges_t.truncated"><code class="xref c c-member docutils literal notranslate"><span class="pre">truncated</span></code></a>, nonzero when the row’s
+hit limit or the slot’s remaining capacity left out a match.</p></li>
+</ul>
+</li>
+<li><p><strong>Per hit</strong>, with <code class="docutils literal notranslate"><span class="pre">H</span></code> rows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">object_ids</span></code>, always present.</p></li>
+<li><p>The columns that the plan requests with <code class="docutils literal notranslate"><span class="pre">result_fields</span></code>. Columns that are not requested are
+absent. A raycast or sweep plan can request:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POSITION</span></code>, <code class="docutils literal notranslate"><span class="pre">NORMAL</span></code>, and <code class="docutils literal notranslate"><span class="pre">DISTANCE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SOURCE_FEATURE</span></code>, for exact plans only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GEOMETRY_IDENTITY</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MATERIAL</span></code>, a <code class="docutils literal notranslate"><span class="pre">material_ids</span></code> column with each hit’s
+<a class="reference internal" href="populations.html#identity"><span class="std std-ref">material</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QUERY_POSITION</span></code>, the query shape’s position at contact, for sweeps only.</p></li>
+</ul>
+<p>An overlap plan can request only <code class="docutils literal notranslate"><span class="pre">GEOMETRY_IDENTITY</span></code> and <code class="docutils literal notranslate"><span class="pre">MATERIAL</span></code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>In Python, every result column is a DLPack producer on the plan’s device. <code class="docutils literal notranslate"><span class="pre">wp.from_dlpack(column)</span></code>
+wraps it as a Warp array without a copy, so a Warp kernel can consume the results where they
+were computed. <a class="reference internal" href="#cuda-plans">CUDA Plans</a> shows a kernel that reads them on the GPU. Any other
+DLPack consumer, such as <code class="docutils literal notranslate"><span class="pre">torch.from_dlpack(column)</span></code>, reads device columns the same way.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For a CPU result, or a CUDA result kept in <a class="reference internal" href="#results-read-on-the-host">host memory</a>,
+<code class="docutils literal notranslate"><span class="pre">result.to_numpy()</span></code> copies every column into NumPy arrays with the same field names, so they
+outlive the operation.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A DLPack view borrows the operation’s storage. Closing the operation while such a view is alive
+raises <code class="docutils literal notranslate"><span class="pre">BufferError</span></code>, so copy what must outlive the operation.</p>
+</div>
+</section>
+<section id="cuda-plans">
+<h2>CUDA Plans<a class="headerlink" href="#cuda-plans" title="Link to this heading">#</a></h2>
+<p>To run a plan on a CUDA device, create the instance with a byte budget for the device and create
+the plan with that device. A CUDA plan never runs on the CPU. If CUDA or the family is
+unavailable, creating the plan returns <code class="docutils literal notranslate"><span class="pre">NOT_SUPPORTED</span></code>.</p>
+<p>A CUDA launch is ordered with CUDA events, so the host thread never blocks on the device. The
+following figure shows one launch, from its inputs to the release of its result storage:</p>
+<figure class="ovsq-anim" data-anim="cuda-ordering" data-w="760" data-h="370"><div class="ovsq-anim-stage" role="img" aria-label="A sequence diagram with four lanes. On the producer stream, a kernel writes the input columns and records cuda_wait_event. On the host thread, enqueue returns the operation and its reservation at once; the launch waits, queued, on cuda_stream until cuda_wait_event, then runs and records result_ready. Before the launch runs, the host queues consumer kernels on the reservation&#x27;s columns; they wait on result_ready on the consumer stream, run, and record consumer_done. The host does not wait. Later, a status poll observes COMPLETED and the host calls destroy_op_after_cuda with consumer_done, and the library releases the result storage after that event."><noscript><p class="ovsq-anim-noscript">A sequence diagram with four lanes. On the producer stream, a kernel writes the input columns and records cuda_wait_event. On the host thread, enqueue returns the operation and its reservation at once; the launch waits, queued, on cuda_stream until cuda_wait_event, then runs and records result_ready. Before the launch runs, the host queues consumer kernels on the reservation&#x27;s columns; they wait on result_ready on the consumer stream, run, and record consumer_done. The host does not wait. Later, a status poll observes COMPLETED and the host calls destroy_op_after_cuda with consumer_done, and the library releases the result storage after that event.</p></noscript></div><figcaption>The host only queues work. Every wait happens on a device stream.</figcaption></figure><p>The steps in the figure are:</p>
+<ol class="arabic simple">
+<li><p><strong>Produce the inputs.</strong> Pass your stream as <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code>. In C, set <code class="docutils literal notranslate"><span class="pre">cuda_sync.has_stream</span></code> to
+1 and <code class="docutils literal notranslate"><span class="pre">cuda_sync.stream</span></code> to the stream. Stream 0 is CUDA’s legacy default stream, not “no
+stream.” The library reads the input columns
+on it after the work already queued there. If another stream writes the inputs, also pass an
+event that it records after those writes as <code class="docutils literal notranslate"><span class="pre">cuda_wait_event</span></code>. The library waits on that event
+before it reads.</p></li>
+<li><p><strong>Enqueue the launch.</strong> <code class="docutils literal notranslate"><span class="pre">enqueue</span></code> returns the operation and the reservation at once, without
+waiting for the device.</p></li>
+<li><p><strong>Queue the consumers.</strong> The reservation’s columns and the fetched columns share the same
+storage. You can therefore queue consumer kernels on the reservation’s columns before the
+query has run. Each consumer waits on
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_batch_result_common_t.result_ready" title="ovspatialquery_batch_result_common_t.result_ready"><code class="xref c c-member docutils literal notranslate"><span class="pre">result_ready</span></code></a>, one event that
+covers every column of the launch.</p></li>
+<li><p><strong>Observe completion without blocking.</strong> Later, for example on the next frame, poll the
+operation with <code class="docutils literal notranslate"><span class="pre">status()</span></code> or <code class="docutils literal notranslate"><span class="pre">wait(0)</span></code> until it reports a terminal state.</p></li>
+<li><p><strong>Retire the operation with an event.</strong> Record one event, <code class="docutils literal notranslate"><span class="pre">consumer_done</span></code>, after all
+consumers, and pass it to
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_destroy_op_after_cuda" title="ovspatialquery_destroy_op_after_cuda"><code class="xref c c-func docutils literal notranslate"><span class="pre">destroy_op_after_cuda</span></code></a>. In Python, call
+<code class="docutils literal notranslate"><span class="pre">close_after_cuda(consumer_done)</span></code>. The library releases the result storage after that event
+completes.</p></li>
+</ol>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>’s <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code> and <code class="docutils literal notranslate"><span class="pre">cuda_wait_event</span></code> take a handle or an object that exposes
+one, such as a Warp stream. The wrapper hands the stream to each input column’s <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code>, so
+the producer’s pending writes are ordered before the library reads. Exporting a result or
+reservation column with <code class="docutils literal notranslate"><span class="pre">__dlpack__(stream=...)</span></code> queues the wait on <code class="docutils literal notranslate"><span class="pre">result_ready</span></code> on the
+consumer’s stream. <code class="docutils literal notranslate"><span class="pre">wp.from_dlpack(column)</span></code> passes Warp’s current stream, so a kernel launched on
+that stream reads the results after the query.</p>
+<section id="cuda-example">
+<h3>CUDA Example<a class="headerlink" href="#cuda-example" title="Link to this heading">#</a></h3>
+<p>The following program runs the four rays of the <a class="reference internal" href="#raycast-batch-example">CPU example</a> on a CUDA
+device. A Warp kernel reads the result columns on the GPU, and the host copies only the kernel’s
+output, to print it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovspatialquery</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchResultField</span><span class="p">,</span>
+    <span class="n">Device</span><span class="p">,</span>
+    <span class="n">DeviceBudget</span><span class="p">,</span>
+    <span class="n">GeometryType</span><span class="p">,</span>
+    <span class="n">HitMode</span><span class="p">,</span>
+    <span class="n">InstanceConfig</span><span class="p">,</span>
+    <span class="n">Library</span><span class="p">,</span>
+    <span class="n">RaycastPlanConfig</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">wp</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">LOG_WARNING</span>  <span class="c1"># skip Warp's start-up banner</span>
+<span class="n">CPU</span><span class="p">,</span> <span class="n">GPU</span> <span class="o">=</span> <span class="s2">"cpu"</span><span class="p">,</span> <span class="s2">"cuda:0"</span>
+
+
+<span class="nd">@wp</span><span class="o">.</span><span class="n">kernel</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">closest_distance</span><span class="p">(</span>
+    <span class="n">counts</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">),</span>
+    <span class="n">offsets</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">),</span>
+    <span class="n">distances</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="n">ray</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">tid</span><span class="p">()</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># a miss stores no hit</span>
+    <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="n">ray</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">wp</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">offsets</span><span class="p">[</span><span class="n">ray</span><span class="p">])]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">consume</span><span class="p">(</span><span class="n">reservation</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Reads the result columns on the GPU, ordered after the query, without a copy."""</span>
+    <span class="c1"># from_dlpack exports each column on the current stream, which then waits on result_ready.</span>
+    <span class="k">with</span> <span class="n">wp</span><span class="o">.</span><span class="n">ScopedStream</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span><span class="p">)</span>
+        <span class="n">wp</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span>
+            <span class="n">closest_distance</span><span class="p">,</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">reservation</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_counts</span><span class="p">),</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">reservation</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_offsets</span><span class="p">),</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">reservation</span><span class="o">.</span><span class="n">candidate</span><span class="o">.</span><span class="n">distances</span><span class="p">),</span>
+                <span class="n">out</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>  <span class="c1"># the column views end here, before the operation is retired</span>
+
+
+<span class="c1"># CUDA work needs a byte budget for the device.</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">InstanceConfig</span><span class="p">(</span><span class="n">device_budgets</span><span class="o">=</span><span class="p">(</span><span class="n">DeviceBudget</span><span class="p">(</span><span class="n">Device</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">),))</span>
+<span class="k">with</span> <span class="n">Library</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="c1"># The same four unit boxes as the CPU example, published from CPU arrays.</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">explicit</span><span class="p">()</span>
+    <span class="n">adapter</span><span class="o">.</span><span class="n">register_boxes</span><span class="p">(</span>
+        <span class="n">definition_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">half_extents</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">create_population</span><span class="p">()</span>
+    <span class="n">population</span><span class="o">.</span><span class="n">enqueue_set</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">object_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_types</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">BOX</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">translations</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span>
+        <span class="p">),</span>
+        <span class="n">rotations_xyzw</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">create_raycast_plan</span><span class="p">(</span>
+        <span class="n">RaycastPlanConfig</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">hit_mode</span><span class="o">=</span><span class="n">HitMode</span><span class="o">.</span><span class="n">CLOSEST</span><span class="p">,</span>
+            <span class="n">maximum_query_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">maximum_hits_per_query</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">hit_capacity_per_slot</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">result_fields</span><span class="o">=</span><span class="n">BatchResultField</span><span class="o">.</span><span class="n">DISTANCE</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The rays are written on a Warp stream, and the launch is queued on the same stream.</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">GPU</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">wp</span><span class="o">.</span><span class="n">ScopedStream</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="n">origins</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span>
+        <span class="p">)</span>
+        <span class="n">directions</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span><span class="p">)</span>
+        <span class="n">max_distances</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span><span class="p">)</span>
+    <span class="n">operation</span><span class="p">,</span> <span class="n">reservation</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span>
+        <span class="n">origins</span><span class="o">=</span><span class="n">origins</span><span class="p">,</span>
+        <span class="n">unit_directions</span><span class="o">=</span><span class="n">directions</span><span class="p">,</span>
+        <span class="n">max_distances</span><span class="o">=</span><span class="n">max_distances</span><span class="p">,</span>
+        <span class="n">cuda_stream</span><span class="o">=</span><span class="n">stream</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The reservation's columns exist at enqueue, so the consumer is queued before the query</span>
+    <span class="c1"># has run. The host has not waited for the GPU yet.</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">consume</span><span class="p">(</span><span class="n">reservation</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>
+    <span class="n">consumer_done</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">record_event</span><span class="p">()</span>
+
+    <span class="c1"># Retire the operation after its consumer. The library takes the event and releases the</span>
+    <span class="c1"># result slot once it completes; leaving the block waits for that release.</span>
+    <span class="n">operation</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="n">operation</span><span class="o">.</span><span class="n">close_after_cuda</span><span class="p">(</span><span class="n">consumer_done</span><span class="o">.</span><span class="n">cuda_event</span><span class="p">)</span>
+    <span class="n">consumer_done</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># the library now owns the event</span>
+
+    <span class="k">for</span> <span class="n">ray</span><span class="p">,</span> <span class="n">distance</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">distances</span><span class="o">.</span><span class="n">numpy</span><span class="p">()):</span>  <span class="c1"># copy to the host only to print</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">ray</span><span class="si">}</span><span class="s2">: miss"</span> <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">ray</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It prints this output:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ray 0: 3.50
+ray 1: 5.50
+ray 2: miss
+ray 3: 9.50
+</pre></div>
+</div>
+</div>
+<p>The program never waits on the host for the query before it queues the consumer. Closing the
+plan, here by leaving the instance’s block, waits for the library to release the slot retired
+with <code class="docutils literal notranslate"><span class="pre">close_after_cuda</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Retire every CUDA operation that returned result columns with <code class="docutils literal notranslate"><span class="pre">destroy_op_after_cuda</span></code>, even after
+a failure, unless its plan keeps its results in <a class="reference internal" href="#results-read-on-the-host">host memory</a>. In
+Python, <code class="docutils literal notranslate"><span class="pre">close()</span></code> and leaving the operation’s <code class="docutils literal notranslate"><span class="pre">with</span></code> block refuse any other CUDA operation. Release the consumer’s DLPack views first, because <code class="docutils literal notranslate"><span class="pre">close_after_cuda</span></code> raises
+<code class="docutils literal notranslate"><span class="pre">BufferError</span></code> while one is alive. <code class="docutils literal notranslate"><span class="pre">close_after_cuda</span></code> takes ownership of the event, so a Warp
+event passed to it sets <code class="docutils literal notranslate"><span class="pre">owner</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">copy=True</span></code> on a CUDA plan, the library queues the copy on <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code> before <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>
+returns. Later writes on the same stream are ordered after the copy. Before you overwrite an
+input from another stream, make that stream wait on an event that you record on <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code>
+after <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>.</p>
+</div>
+</section>
+<section id="results-read-on-the-host">
+<h3>Results Read on the Host<a class="headerlink" href="#results-read-on-the-host" title="Link to this heading">#</a></h3>
+<p>Some programs run a CUDA plan but read every hit on the host, for example a tool or a sensor
+whose consumer is CPU code. Copying each result column from the device costs one copy call per
+column on every launch. Two patterns avoid most of that cost:</p>
+<ol class="arabic simple">
+<li><p><strong>Keep the results in host memory.</strong> Add <code class="docutils literal notranslate"><span class="pre">HOST_MAPPED</span></code> to the plan’s <code class="docutils literal notranslate"><span class="pre">result_fields</span></code>. The
+GPU writes every result column into page-locked host memory, and the host reads it in place.</p></li>
+<li><p><strong>Copy only the stored rows.</strong> For a plan whose results stay on the GPU and that the host
+reads only occasionally, wait for the operation and read <code class="docutils literal notranslate"><span class="pre">H</span></code> from <code class="docutils literal notranslate"><span class="pre">stored_hit_count</span></code>. Then copy
+the per-query columns and only the first <code class="docutils literal notranslate"><span class="pre">H</span></code> rows of each per-hit column into pinned host
+buffers that you allocate once. Synchronize once after the copies. This is faster than
+queuing full-capacity copies on <code class="docutils literal notranslate"><span class="pre">cuda_stream</span></code> immediately after <code class="docutils literal notranslate"><span class="pre">enqueue</span></code>.</p></li>
+</ol>
+<p>A plan with <code class="docutils literal notranslate"><span class="pre">HOST_MAPPED</span></code> behaves as follows:</p>
+<ul class="simple">
+<li><p>Each result column reports the DLPack device <code class="docutils literal notranslate"><span class="pre">kDLCUDAHost</span></code>, pinned host memory that the plan’s
+device can also address. <code class="docutils literal notranslate"><span class="pre">execution_device</span></code> stays the plan’s CUDA device.</p></li>
+<li><p>The host can read the columns after a wait, a status poll, or a fetch reports that the
+operation completed or failed. No stream synchronization is needed. A failed launch leaves the
+same failed rows with no hits that a device result shows. <code class="docutils literal notranslate"><span class="pre">DEVICE_LOST</span></code> is the exception: it
+makes no promise about the columns.</p></li>
+<li><p>When no work that you queued on the GPU reads the columns, retire the operation with
+<a class="reference internal" href="../reference/c-core.html#c.ovspatialquery_destroy_op" title="ovspatialquery_destroy_op"><code class="xref c c-func docutils literal notranslate"><span class="pre">destroy_op</span></code></a> and no event. In Python, call <code class="docutils literal notranslate"><span class="pre">close()</span></code> or
+leave the operation’s <code class="docutils literal notranslate"><span class="pre">with</span></code> block. A GPU consumer of the columns still works, reading them
+over the bus, and then retires the operation with <code class="docutils literal notranslate"><span class="pre">destroy_op_after_cuda</span></code>.</p></li>
+<li><p>Creating the plan charges the columns to the instance’s <code class="docutils literal notranslate"><span class="pre">host_byte_budget</span></code> and returns
+<code class="docutils literal notranslate"><span class="pre">HOST_BUDGET</span></code> when they do not fit. The plan keeps its device working storage as well.</p></li>
+<li><p>Each launch adds one copy pass on the GPU, and reading pinned host memory is slower than
+reading ordinary memory. For a plan whose results stay on the GPU, do not set the bit.</p></li>
+<li><p>A CPU plan accepts <code class="docutils literal notranslate"><span class="pre">HOST_MAPPED</span></code> and ignores it, so one plan configuration serves both devices.</p></li>
+</ul>
+<p>The following program runs the four rays of the <a class="reference internal" href="#cuda-example">CUDA example</a> with <code class="docutils literal notranslate"><span class="pre">HOST_MAPPED</span></code>
+and reads the results on the host:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wp</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovspatialquery</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchResultField</span><span class="p">,</span>
+    <span class="n">Device</span><span class="p">,</span>
+    <span class="n">DeviceBudget</span><span class="p">,</span>
+    <span class="n">GeometryType</span><span class="p">,</span>
+    <span class="n">HitMode</span><span class="p">,</span>
+    <span class="n">InstanceConfig</span><span class="p">,</span>
+    <span class="n">Library</span><span class="p">,</span>
+    <span class="n">RaycastPlanConfig</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">wp</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">LOG_WARNING</span>  <span class="c1"># skip Warp's start-up banner</span>
+<span class="n">CPU</span><span class="p">,</span> <span class="n">GPU</span> <span class="o">=</span> <span class="s2">"cpu"</span><span class="p">,</span> <span class="s2">"cuda:0"</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">InstanceConfig</span><span class="p">(</span><span class="n">device_budgets</span><span class="o">=</span><span class="p">(</span><span class="n">DeviceBudget</span><span class="p">(</span><span class="n">Device</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">),))</span>
+<span class="k">with</span> <span class="n">Library</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">library</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="k">as</span> <span class="n">instance</span><span class="p">:</span>
+    <span class="c1"># The same four unit boxes as the CUDA example.</span>
+    <span class="n">adapter</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">explicit</span><span class="p">()</span>
+    <span class="n">adapter</span><span class="o">.</span><span class="n">register_boxes</span><span class="p">(</span>
+        <span class="n">definition_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">half_extents</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">create_population</span><span class="p">()</span>
+    <span class="n">population</span><span class="o">.</span><span class="n">enqueue_set</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">object_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_types</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">BOX</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">geometry_values</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">uint64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+        <span class="n">translations</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span>
+        <span class="p">),</span>
+        <span class="n">rotations_xyzw</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">CPU</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="c1"># HOST_MAPPED keeps the result columns in pinned host memory the GPU writes.</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">create_raycast_plan</span><span class="p">(</span>
+        <span class="n">RaycastPlanConfig</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">population</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span>
+            <span class="n">hit_mode</span><span class="o">=</span><span class="n">HitMode</span><span class="o">.</span><span class="n">CLOSEST</span><span class="p">,</span>
+            <span class="n">maximum_query_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">maximum_hits_per_query</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">hit_capacity_per_slot</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">result_fields</span><span class="o">=</span><span class="n">BatchResultField</span><span class="o">.</span><span class="n">DISTANCE</span> <span class="o">|</span> <span class="n">BatchResultField</span><span class="o">.</span><span class="n">HOST_MAPPED</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">stream</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">GPU</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">wp</span><span class="o">.</span><span class="n">ScopedStream</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="n">origins</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span>
+        <span class="p">)</span>
+        <span class="n">directions</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span><span class="p">)</span>
+        <span class="n">max_distances</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">GPU</span><span class="p">)</span>
+    <span class="n">operation</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plan</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span>
+        <span class="n">origins</span><span class="o">=</span><span class="n">origins</span><span class="p">,</span>
+        <span class="n">unit_directions</span><span class="o">=</span><span class="n">directions</span><span class="p">,</span>
+        <span class="n">max_distances</span><span class="o">=</span><span class="n">max_distances</span><span class="p">,</span>
+        <span class="n">cuda_stream</span><span class="o">=</span><span class="n">stream</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The host may read the columns once the wait has observed the end; to_numpy() copies</span>
+    <span class="c1"># them so they outlive the operation. Nothing on the GPU reads them, so leaving the</span>
+    <span class="c1"># block closes the operation without a consumer event.</span>
+    <span class="k">with</span> <span class="n">operation</span><span class="p">:</span>
+        <span class="n">operation</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">fetch_raycast_batch</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+    <span class="n">counts</span><span class="p">,</span> <span class="n">offsets</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_counts</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">hit_ranges</span><span class="o">.</span><span class="n">hit_offsets</span>
+    <span class="k">for</span> <span class="n">ray</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">counts</span><span class="p">):</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">candidate</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">offsets</span><span class="p">[</span><span class="n">ray</span><span class="p">]]</span> <span class="k">if</span> <span class="n">count</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">ray</span><span class="si">}</span><span class="s2">: miss"</span> <span class="k">if</span> <span class="n">distance</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"ray </span><span class="si">{</span><span class="n">ray</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It prints this output:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ray 0: 3.50
+ray 1: 5.50
+ray 2: miss
+ray 3: 9.50
+</pre></div>
+</div>
+</div>
+<p>Python array libraries differ in whether they accept pinned host memory. The following table
+lists what each library does with a <code class="docutils literal notranslate"><span class="pre">HOST_MAPPED</span></code> column:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Reads a <code class="docutils literal notranslate"><span class="pre">kDLCUDAHost</span></code> Column</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NumPy</p></td>
+<td><p>2.2.6</p></td>
+<td><p>Yes, with <code class="docutils literal notranslate"><span class="pre">numpy.from_dlpack</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Warp</p></td>
+<td><p>1.18.0</p></td>
+<td><p>Yes, as a CPU array, with <code class="docutils literal notranslate"><span class="pre">wp.from_dlpack</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>PyTorch</p></td>
+<td><p>2.11.0</p></td>
+<td><p>No, <code class="docutils literal notranslate"><span class="pre">torch.from_dlpack</span></code> refuses the device type</p></td>
+</tr>
+<tr class="row-odd"><td><p>CuPy</p></td>
+<td><p>14.2.0</p></td>
+<td><p>No, <code class="docutils literal notranslate"><span class="pre">cupy.from_dlpack</span></code> refuses the device type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A column exports only after the operation is terminal. It ignores the <code class="docutils literal notranslate"><span class="pre">stream</span></code> that a consumer
+passes to <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code>, other than the ambiguous 0, because no device work remains to wait for.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="queries.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Queries and Results</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pairs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pair Discovery</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plan-lifecycle">Plan Lifecycle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raycast-batch-example">Raycast Batch Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-columns">Input Columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result-columns">Result Columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda-plans">CUDA Plans</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuda-example">CUDA Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-read-on-the-host">Results Read on the Host</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA CORPORATION &amp; AFFILIATES.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

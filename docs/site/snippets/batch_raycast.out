@@ -1,0 +1,5 @@
+source ordinal 1
+ray 0: object 20 at 3.50
+ray 1: object 21 at 5.50
+ray 2: miss
+ray 3: object 23 at 9.50

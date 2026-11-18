@@ -1,0 +1,2001 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Z"
+    metersPerUnit = 1
+)
+
+class Xform "RackPrototype"
+{
+    def Cube "Upright_0"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (-1.15, -0.45, 1.5)
+        float3 xformOp:scale = (0.1, 0.1, 3)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Upright_1"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (1.15, -0.45, 1.5)
+        float3 xformOp:scale = (0.1, 0.1, 3)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Upright_2"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (-1.15, 0.45, 1.5)
+        float3 xformOp:scale = (0.1, 0.1, 3)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Upright_3"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (1.15, 0.45, 1.5)
+        float3 xformOp:scale = (0.1, 0.1, 3)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Shelf_0"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (0, 0, 0.3)
+        float3 xformOp:scale = (2.4, 1, 0.05)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Shelf_1"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (0, 0, 1.3)
+        float3 xformOp:scale = (2.4, 1, 0.05)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "Shelf_2"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (0, 0, 2.3)
+        float3 xformOp:scale = (2.4, 1, 0.05)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+
+def Xform "World"
+{
+    def Cube "Floor"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (24.7, 22, -0.05)
+        float3 xformOp:scale = (60, 60, 0.1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Xform "Racks"
+    {
+        def Xform "Rack_000" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_001" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_002" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_003" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_004" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_005" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_006" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_007" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_008" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_009" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_010" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_011" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_012" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_013" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_014" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_015" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_016" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_017" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_018" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_019" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_020" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_021" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_022" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_023" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_024" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_025" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_026" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_027" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_028" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_029" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_030" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_031" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_032" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_033" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_034" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_035" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_036" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_037" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_038" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_039" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_040" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_041" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_042" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_043" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_044" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_045" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_046" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_047" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_048" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_049" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_050" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_051" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_052" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_053" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_054" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_055" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_056" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_057" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_058" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_059" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_060" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_061" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_062" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_063" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_064" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_065" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_066" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_067" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_068" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_069" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_070" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_071" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_072" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_073" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_074" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_075" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_076" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_077" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_078" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_079" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_080" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_081" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_082" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_083" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_084" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_085" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_086" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_087" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_088" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_089" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_090" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_091" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_092" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_093" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_094" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_095" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_096" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_097" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_098" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_099" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 16, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_100" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_101" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_102" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_103" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_104" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_105" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_106" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_107" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_108" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_109" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_110" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_111" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_112" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_113" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_114" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_115" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_116" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_117" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_118" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_119" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 20, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_120" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_121" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_122" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_123" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_124" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_125" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_126" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_127" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_128" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_129" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_130" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_131" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_132" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_133" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_134" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_135" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_136" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_137" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_138" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_139" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 24, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_140" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_141" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_142" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_143" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_144" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_145" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_146" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_147" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_148" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_149" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_150" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_151" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_152" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_153" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_154" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_155" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_156" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_157" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_158" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_159" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 28, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_160" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_161" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_162" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_163" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_164" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_165" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_166" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_167" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_168" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_169" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_170" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_171" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_172" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_173" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_174" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_175" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_176" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_177" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_178" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_179" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 32, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_180" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_181" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_182" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_183" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_184" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_185" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_186" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_187" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_188" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_189" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_190" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_191" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_192" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_193" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_194" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_195" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_196" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_197" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_198" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_199" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 36, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_200" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_201" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_202" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_203" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_204" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_205" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_206" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_207" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_208" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_209" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_210" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_211" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_212" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_213" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_214" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_215" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_216" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_217" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_218" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_219" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 40, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_220" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (0, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_221" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (2.6, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_222" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (5.2, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_223" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (7.8, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_224" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (10.4, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_225" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (13, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_226" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (15.6, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_227" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (18.2, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_228" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (20.8, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_229" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (23.4, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_230" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (26, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_231" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (28.6, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_232" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (31.2, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_233" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (33.8, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_234" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (36.4, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_235" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (39, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_236" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (41.6, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_237" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (44.2, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_238" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (46.8, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+        def Xform "Rack_239" (
+            instanceable = true
+            references = </RackPrototype>
+        )
+        {
+            double3 xformOp:translate = (49.4, 44, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+}

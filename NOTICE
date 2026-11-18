@@ -1,0 +1,55 @@
+ovspatialquery
+Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+NVIDIA-owned ovspatialquery source is licensed under Apache License 2.0.
+The SDK and wheel also contain the following third-party components, whose
+original copyright notices and license terms are preserved separately:
+
+NVIDIA PhysX SDK
+Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
+Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
+Copyright (c) 2008-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+The published PhysX Geometry libraries are statically linked into ovspatialquery.
+Source terms: third_party/physx/LICENSE.
+Source package/provenance record: deps/physx-license-provenance.json.
+Installed SDK/wheel terms and provenance: licenses/physx-LICENSE.md and
+licenses/physx-PROVENANCE.json.
+
+DLPack
+Copyright (c) 2017 - by Contributors.
+The SDK includes the DLPack v1.3 interface header.
+Source header and notices: include/dlpack/dlpack.h.
+Apache-2.0 text: LICENSES/Apache-2.0.txt.
+Installed SDK terms: licenses/dlpack-LICENSE.txt.
+
+The CUDA-capable distribution contains PTX generated from NVIDIA-owned
+ovspatialquery source. NVRTC is a build tool and is not redistributed; the
+CUDA driver and CUDA runtime are not included. GPU execution requires a
+separately installed compatible NVIDIA driver.
+
+Ovstage runtime binaries, the Viewer application, downloaded demo assets,
+benchmark datasets and build tools are not included in the SDK or wheel.
+Their separate terms apply when those components are obtained or distributed.
+
+The optional numbered lessons use two separately licensed NVIDIA packages that
+are not included in this source, SDK or wheel: Ovstage, installed from PyPI
+(pypi.org), and OvRTX, installed from the NVIDIA package index (pypi.nvidia.com).
+The pinned versions are listed in examples/requirements-*.txt. Both packages are
+licensed under the NVIDIA Software License Agreement and the Product Specific
+Terms for NVIDIA Omniverse, which NVIDIA has consolidated into the Product
+Specific Terms for NVIDIA AI Products
+(https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/).
+Each pinned wheel ships that agreement as its LICENSE file, together with its
+THIRD-PARTY-NOTICES.txt.
+
+Source distributions also include the vendored NVIDIA Packman client under
+tools/packman/. Its original copyright and Apache-2.0 notices are preserved;
+the Apache-2.0 text is provided in LICENSES/Apache-2.0.txt. Downloaded tool
+packages are separate from this client source.
+
+Documentation packaging preserves the license and notice files of bundled
+third-party HTML assets. The source copies under tools/docs/licenses/vendor/
+include Bootstrap (MIT.txt), Font Awesome (LicenseRef-Font-Awesome.txt),
+clipboard.js (LicenseRef-ClipboardJS.txt), and CC BY 4.0 text (CC-BY-4.0.txt).
+These terms apply to their respective content, not to all project source.
+The installed guide carries the notices for its actual bundled assets.

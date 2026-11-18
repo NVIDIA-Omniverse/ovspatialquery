@@ -1,0 +1,199 @@
+{
+  "shapes": [
+    {
+      "path": "/World/Floor",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        0.0,
+        -0.25,
+        0.0
+      ],
+      "scale": [
+        60.0,
+        0.5,
+        20.0
+      ],
+      "filter_data": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Wall",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        -8.0,
+        1.5,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        3.0,
+        2.0
+      ],
+      "filter_data": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Robot",
+      "kind": "sphere",
+      "radius": 0.8,
+      "translate": [
+        -4.0,
+        1.0,
+        0.3
+      ],
+      "filter_data": [
+        0,
+        32,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Ghost",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        -1.0,
+        1.5,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        3.0,
+        3.0
+      ],
+      "filter_data": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Crate",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        2.0,
+        0.6,
+        -0.4
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "filter_data": [
+        0,
+        0,
+        8,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Sensor",
+      "kind": "sphere",
+      "radius": 0.6,
+      "translate": [
+        5.0,
+        1.4,
+        0.6
+      ],
+      "filter_data": [
+        0,
+        0,
+        0,
+        2147483648
+      ]
+    },
+    {
+      "path": "/World/Row/Shelf",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        9.0,
+        1.5,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        6.0
+      ],
+      "filter_data": [
+        2,
+        0,
+        8,
+        0
+      ]
+    },
+    {
+      "path": "/World/Row/Gate",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        13.0,
+        1.5,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        6.0
+      ],
+      "filter_data": [
+        1,
+        0,
+        0,
+        2147483648
+      ]
+    },
+    {
+      "path": "/World/Props/Lamp",
+      "kind": "sphere",
+      "radius": 0.5,
+      "translate": [
+        16.0,
+        1.0,
+        0.0
+      ],
+      "filter_data": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "/World/Props/Backstop",
+      "kind": "box",
+      "size": 1.0,
+      "translate": [
+        20.0,
+        1.5,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        3.0,
+        6.0
+      ],
+      "filter_data": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

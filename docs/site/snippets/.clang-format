@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Programs shown in the guide must fit its code column without scrolling, and read as prose:
+# no column alignment, which pads short declarations out to the longest type name.
+BasedOnStyle: InheritParentConfig
+ColumnLimit: 90
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None

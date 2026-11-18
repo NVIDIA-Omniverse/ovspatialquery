@@ -1,0 +1,44 @@
+{
+  "/World/Row/Wall": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "/World/Row/Robot": [
+    0,
+    32,
+    0,
+    0
+  ],
+  "/World/Row/Ghost": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "/World/Row/Crate": [
+    0,
+    0,
+    8,
+    0
+  ],
+  "/World/Row/Sensor": [
+    0,
+    0,
+    0,
+    2147483648
+  ],
+  "/World/Row/Shelf": [
+    2,
+    0,
+    8,
+    0
+  ],
+  "/World/Row/Gate": [
+    1,
+    0,
+    0,
+    2147483648
+  ]
+}

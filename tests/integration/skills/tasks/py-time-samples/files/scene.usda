@@ -1,0 +1,46 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+    metersPerUnit = 1
+    startTimeCode = 0
+    endTimeCode = 10
+    timeCodesPerSecond = 24
+    framesPerSecond = 24
+)
+
+def Xform "World"
+{
+    def Xform "Rig"
+    {
+        double3 xformOp:translate = (1, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+
+        def Cube "Mover"
+        {
+            double size = 1
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            double3 xformOp:translate.timeSamples = {
+                0: (0, 0, 0),
+                10: (10, 0, 0),
+            }
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+
+    def Cube "Wall"
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double3 xformOp:translate = (7, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Sphere "Guide"
+    {
+        double radius = 0.25
+        float3[] extent = [(-0.25, -0.25, -0.25), (0.25, 0.25, 0.25)]
+        double3 xformOp:translate = (-2, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

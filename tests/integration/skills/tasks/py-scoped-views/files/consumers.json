@@ -1,0 +1,36 @@
+{
+  "never": [
+    "/World/Editor"
+  ],
+  "consumers": {
+    "navigation": {
+      "include": [],
+      "exclude": [
+        "/World/Robot",
+        "/World/Props/Scaffolding",
+        "/World/Env/Lights"
+      ]
+    },
+    "grasp": {
+      "include": [
+        "/World/Props",
+        "/World/Editor/Probe"
+      ],
+      "exclude": [
+        "/World/Props/Scaffolding"
+      ]
+    },
+    "inspection": {
+      "include": [
+        "/World/Env",
+        "/World/Robot",
+        "/World/Robot/Arm",
+        "/World/Props/Scaffolding/Ladder"
+      ],
+      "exclude": [
+        "/World/Robot",
+        "/World/Env/Lights"
+      ]
+    }
+  }
+}

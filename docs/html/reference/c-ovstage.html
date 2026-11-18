@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovstage Source &#8212; ovspatialquery</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/ovsq/ovsq.css?v=b3c2b5e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
+
+
+
+    <script src="../_static/documentation_options.js?v=c7fef49e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script defer="defer" src="../_static/ovsq/anim.js?v=81228ec5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-concept.js?v=f5e1a203"></script>
+    <script defer="defer" src="../_static/ovsq/anims/batch-plan.js?v=9fe63f9b"></script>
+    <script defer="defer" src="../_static/ovsq/anims/box-sweep.js?v=8297c094"></script>
+    <script defer="defer" src="../_static/ovsq/anims/candidate-exact.js?v=06349d6d"></script>
+    <script defer="defer" src="../_static/ovsq/anims/cuda-ordering.js?v=2a84c909"></script>
+    <script defer="defer" src="../_static/ovsq/anims/first-query.js?v=a60129d5"></script>
+    <script defer="defer" src="../_static/ovsq/anims/model-map.js?v=dae7ab51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/overlap-modes.js?v=9c39d887"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-exclusions.js?v=f4d592f3"></script>
+    <script defer="defer" src="../_static/ovsq/anims/ovstage-scene.js?v=c532d33f"></script>
+    <script defer="defer" src="../_static/ovsq/anims/pair-reporter.js?v=2bd60276"></script>
+    <script defer="defer" src="../_static/ovsq/anims/query-families.js?v=b8a5c307"></script>
+    <script defer="defer" src="../_static/ovsq/anims/raycast-modes.js?v=c05d3b51"></script>
+    <script defer="defer" src="../_static/ovsq/anims/sphere-sweep.js?v=17df453a"></script>
+    <script defer="defer" src="../_static/ovsq/anims/version-window.js?v=75e183b8"></script>
+    <script defer="defer" src="../_static/ovsq/anims/views-bits.js?v=7407af61"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/c-ovstage';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Explicit Source" href="c-explicit.html" />
+    <link rel="prev" title="Core API" href="c-core.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovspatialquery - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovspatialquery - Home"/>
+  
+  
+    <p class="title logo__title">ovspatialquery</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../first-query.html">Your First Query</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/populations.html">Populations, Versions, and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/queries.html">Queries and Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/batches.html">Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/limits.html">Budgets, Lifetimes, and Errors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="c-core.html">Core API</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">ovstage Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-explicit.html">Explicit Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-pairs.html">Pair Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../agents.html">Coding Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovstage Source</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovstage-source">
+<h1>ovstage Source<a class="headerlink" href="#ovstage-source" title="Link to this heading">#</a></h1>
+<p>This page is generated from <code class="docutils literal notranslate"><span class="pre">ovspatialquery_ovstage.h</span></code>, the installed header that is the contract. Use it to publish populations from a sealed ovstage stage.</p>
+<div class="ovsq-cref docutils container">
+<p>Preferred ovstage source adapter.</p>
+<p>The adapter reads sphere, box, capsule, convex, and triangle-mesh prims from a sealed ovstage stage and publishes them into the same population and query model every source uses; ovstage types do not appear in the core header. One stage may feed several populations through different filters, each publishing on its own clock. There is no custom (USER) geometry path from ovstage, and the adapter calls no application callbacks.</p>
+<p>Typical lifetime (status checks omitted):</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// `stage` is already sealed. Keep it and its path dictionary alive.</span>
+<span class="n">ovspatialquery_ovstage_population_desc_t</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">stage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stage</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">robot_filter</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">common</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">retained_ordinal_capacity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">},</span>
+<span class="p">};</span>
+<span class="n">ovspatialquery_create_ovstage_population</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">robots</span><span class="p">);</span>
+
+<span class="c1">// Reads sealed ovstage ordinal 100 and publishes it with the same value.</span>
+<span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovspatialquery_enqueue_ovstage_population_set</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">robots</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+<span class="n">ovspatialquery_wait_op</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">.</span><span class="n">op_id</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">OVSPATIALQUERY_TIMEOUT_INFINITE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">wait_result</span><span class="p">);</span>
+<span class="n">ovspatialquery_destroy_op</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">op</span><span class="p">.</span><span class="n">op_id</span><span class="p">);</span>
+
+<span class="c1">// Queries now select head 100 or an exact retained ordinal.</span>
+<span class="n">ovspatialquery_raycast_closest_sync</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">raycast</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hit</span><span class="p">);</span>
+
+<span class="c1">// After sealing source ordinal 104, publish a complete new snapshot.</span>
+<span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovspatialquery_enqueue_ovstage_population_update</span><span class="p">(</span>
+<span class="w">    </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">robots</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">);</span>
+<span class="c1">// Wait, then destroy the operation.</span>
+
+<span class="c1">// Destroy every other dependent plan/reporter/operation first.</span>
+<span class="n">ovspatialquery_destroy_population</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">robots</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Each publication captures one sealed ordinal synchronously inside the enqueue call and prepares that copy asynchronously, so the caller seals the ordinal first and keeps filter-relevant ovstage writes quiescent until the call returns; preparation never rereads the stage. An object is a prim path: its object ID’s <code class="docutils literal notranslate"><span class="pre">value</span></code> is that path’s <code class="docutils literal notranslate"><span class="pre">ovx_primpath_t</span></code> in the stage’s path dictionary, which the caller keeps alive until population destruction. A prim authored again at a path that left the population therefore continues the same object, and a pair reporter advancing across the gap reports it exited and re-entered. Populations whose stages return the same <code class="docutils literal notranslate"><span class="pre">ovstage_get_path_dictionary</span></code> report the same ID for the same prim, so a caller merging their hits compares IDs directly. Populations over one stage always do; separate stages may not, because ovstage may give each stage its own dictionary.</p>
+<p>A hit’s material (<a class="reference internal" href="c-core.html#c.ovspatialquery_hit_identity_t" title="ovspatialquery_hit_identity_t"><code class="xref c c-struct docutils literal notranslate"><span class="pre">ovspatialquery_hit_identity_t</span></code></a>) is a path value in the same dictionary: the first target of <code class="docutils literal notranslate"><span class="pre">material:binding:physics</span></code> on the prim or its nearest ancestor that has one, else of <code class="docutils literal notranslate"><span class="pre">material:binding</span></code> the same way, else zero, as omni.physx resolves a collider’s physics material. An exact contact on a mesh face reports the binding of a face GeomSubset child of the <code class="docutils literal notranslate"><span class="pre">materialBind</span></code> family that lists the face, its own <code class="docutils literal notranslate"><span class="pre">material:binding:physics</span></code>, or, when the mesh has no physics binding, its own <code class="docutils literal notranslate"><span class="pre">material:binding</span></code>; overlapping subsets resolve in path order, the later winning. The adapter reads the bindings at the sealed ordinal of each host-prepared publication, so a changed binding appears in the next one. Collection bindings, binding strength, and the bindings of a native instance’s prototype are not read. A device-prepared publication (ON_DEVICE or ON_DEVICE_HOST_READABLE) reports zero.</p>
+<p>The types this header takes from ovstage (<code class="docutils literal notranslate"><span class="pre">ovstage_instance_t</span></code>, <code class="docutils literal notranslate"><span class="pre">ovx_primpath_t</span></code>, and <code class="docutils literal notranslate"><span class="pre">ovstage_filter_t</span></code>, which both descriptors embed by value) have the layout of the ovstage releases <code class="docutils literal notranslate"><span class="pre">stage</span></code> accepts. If ovstage changes one of them, the descriptors here change in the ovspatialquery release that adopts that ovstage release, under the core’s evolution rule, and no other ovspatialquery header changes. This header is compiled against the ovstage 0.4 headers, where <code class="docutils literal notranslate"><span class="pre">ovx_primpath_t</span></code> and <code class="docutils literal notranslate"><span class="pre">ovx_token_t</span></code> are one-member structs with the size and passing of 0.3’s integers.</p>
+<dl class="c enum">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t">
+<span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_exclusion_reason_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t" title="Link to this definition">#</a><br /></dt>
+<dd><p>Per-prim content reasons reported by a successful publication.</p>
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_NO_SPATIAL_SOURCE">
+<span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OVSPATIALQUERY_OVSTAGE_EXCLUSION_NO_SPATIAL_SOURCE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_NO_SPATIAL_SOURCE" title="Link to this definition">#</a><br /></dt>
+<dd><p>No _worldExtent row, or the row contains the missing-bounds value.</p>
+</dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_TYPE">
+<span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_TYPE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_TYPE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The selected prim’s type has no supported geometry family.</p>
+</dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_SHAPE">
+<span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_SHAPE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_UNSUPPORTED_SHAPE" title="Link to this definition">#</a><br /></dt>
+<dd><p>A Sphere or Capsule has non-uniform scale or shear outside the tolerance below.</p>
+</dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_MALFORMED_GEOMETRY">
+<span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OVSPATIALQUERY_OVSTAGE_EXCLUSION_MALFORMED_GEOMETRY</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_MALFORMED_GEOMETRY" title="Link to this definition">#</a><br /></dt>
+<dd><p>Invalid topology, points, or transform, including a zero determinant.</p>
+</dd></dl>
+
+<dl class="c enumerator">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_RESHAPE_PENDING">
+<span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OVSPATIALQUERY_OVSTAGE_EXCLUSION_RESHAPE_PENDING</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">5</span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_exclusion_reason_t.OVSPATIALQUERY_OVSTAGE_EXCLUSION_RESHAPE_PENDING" title="Link to this definition">#</a><br /></dt>
+<dd><p>Experimental: a device-prepared shape change awaits host rebuilding at the next publication.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_scope_t">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_scope_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_scope_t" title="Link to this definition">#</a><br /></dt>
+<dd><p>Narrows an ovstage population or view by prim path, so a caller can select everything under a root except some subtrees, which an ovstage filter cannot express. Walking from a prim up through its ancestors, the nearest path listed in either list decides: an include admits it, an exclude removes it, and at equal depth the exclude wins. Paths compare by element, so <code class="docutils literal notranslate"><span class="pre">/World/Env</span></code> does not cover <code class="docutils literal notranslate"><span class="pre">/World/Environment</span></code>; an include below an exclude re-includes that subtree. An empty include list stands for <code class="docutils literal notranslate"><span class="pre">/</span></code>, so a zero-initialized scope selects everything the filter selects. Entries are nonzero path values from the population’s path dictionary, <code class="docutils literal notranslate"><span class="pre">/</span></code> included; each pointer is null exactly when its count is zero. Creation validates, deduplicates, and deep-copies both lists, charged to the host budget, and returns INVALID_ARGUMENT for an entry the dictionary cannot decompose. A prim outside the scope is not selected, as if the filter had rejected it, so it is never reported as an exclusion and its attributes are not read. The scope is fixed for the life of its population or view.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_scope_t.include_paths">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ovx_primpath_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">include_paths</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_scope_t.include_paths" title="Link to this definition">#</a><br /></dt>
+<dd><p>include_count entries</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_scope_t.exclude_paths">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ovx_primpath_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">exclude_paths</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_scope_t.exclude_paths" title="Link to this definition">#</a><br /></dt>
+<dd><p>exclude_count entries</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_scope_t.include_count">
+<span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">include_count</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_scope_t.include_count" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_scope_t.exclude_count">
+<span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exclude_count</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_scope_t.exclude_count" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_population_desc_t">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_population_desc_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_population_desc_t" title="Link to this definition">#</a><br /></dt>
+<dd><dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_population_desc_t.stage">
+<span class="n"><span class="pre">ovstage_instance_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">stage</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_population_desc_t.stage" title="Link to this definition">#</a><br /></dt>
+<dd><p>Sealed source read by publication calls; it outlives the population. Its runtime version must be a 0.3 or 0.4 ovstage release, any patch; another version returns NOT_SUPPORTED at creation. A 0.4 release orders ordinals as int64; pre-release 0.4 builds that kept 0.3’s uint64 ordinals report the same version and are not supported. Convex hulls and physics materials are read from the prims’ <code class="docutils literal notranslate"><span class="pre">physics</span></code> and <code class="docutils literal notranslate"><span class="pre">material:binding</span></code> properties: ovstage 0.3’s PHYSICS domain populates them, and on 0.4, which has no such domain, the caller populates them through a selector; without them a mesh publishes as a triangle mesh and reports no physics material. A convex hull’s vertex limit is read from its <code class="docutils literal notranslate"><span class="pre">physxConvexHullCollision</span></code> properties, which a 0.4 selector populates the same way; without them the limit is 64.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_population_desc_t.filter">
+<span class="n"><span class="pre">ovstage_filter_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">filter</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_population_desc_t.filter" title="Link to this definition">#</a><br /></dt>
+<dd><p>Selects the stage prims in this population; deep-copied at creation. The filter language is ovstage’s own, an AND of attribute predicates, and this adapter defines no selection vocabulary of its own except for the empty filter. ovstage’s empty filter matches every prim, including the pseudo-root, Xforms, Scopes, and ovstage’s own bookkeeping prims, which no population can publish. The adapter’s empty filter (<code class="docutils literal notranslate"><span class="pre">count</span></code> zero) therefore selects every prim whose <code class="docutils literal notranslate"><span class="pre">usd-prim-type</span></code> is Sphere, Cube, Capsule, or Mesh, or the matching instance-proxy type (CubeInstance and so on): ovstage writes one row per proxy of a native instance, at its own path and world matrix. An explicit filter selects proxies in ovstage’s terms, by <code class="docutils literal notranslate"><span class="pre">usd-path</span></code> or an instance type; <code class="docutils literal notranslate"><span class="pre">usd-prim-type</span> <span class="pre">IN</span> <span class="pre">[Cube]</span></code> names authored cubes only. Every filter drops, uncounted, the prims that only define what instances draw: ovstage’s prototype copies (prims at or under a <code class="docutils literal notranslate"><span class="pre">PrototypeRootAPI</span></code> root), and a PointInstancer’s prototype prims and RENDERING’s copies of them (prims at or under one of its prototype targets, or carrying <code class="docutils literal notranslate"><span class="pre">_instancerPath</span></code>). No point instance is published. Only RENDERING (or ALL) writes proxy rows, so on a stage without any a matched native-instancing copy makes set and update return NOT_SUPPORTED instead of publishing the stage without its instances. ovstage evaluates the filter at each publication, except that a filter of exactly one <code class="docutils literal notranslate"><span class="pre">usd-path</span> <span class="pre">IN</span></code> predicate names its prims: the adapter interns those paths once through the stage’s path dictionary and each publication reads the prims that exist at them, which selects the same prims as ovstage’s evaluation of that predicate without its per-path cost. A selected prim of another type is excluded as UNSUPPORTED_TYPE; a supported prim without <code class="docutils literal notranslate"><span class="pre">_worldExtent</span></code> state or with missing bounds is NO_SPATIAL_SOURCE.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_population_desc_t.scope">
+<a class="reference internal" href="#c.ovspatialquery_ovstage_scope_t" title="ovspatialquery_ovstage_scope_t"><span class="n"><span class="pre">ovspatialquery_ovstage_scope_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scope</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_population_desc_t.scope" title="Link to this definition">#</a><br /></dt>
+<dd><p>Prims the population may hold, applied together with <code class="docutils literal notranslate"><span class="pre">filter</span></code>. The adapter keeps each selected prim’s answer, charged to the host budget.</p>
+<p>Implementation note: it evaluates a prim’s path once while the prim stays selected, so a publication pays only for prims it has not seen.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_population_desc_t.common">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_population_desc_t" title="ovspatialquery_population_desc_t"><span class="n"><span class="pre">ovspatialquery_population_desc_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">common</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_population_desc_t.common" title="Link to this definition">#</a><br /></dt>
+<dd><p>Configures how many prior population heads remain selectable.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_view_desc_t">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_view_desc_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_view_desc_t" title="Link to this definition">#</a><br /></dt>
+<dd><dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_view_desc_t.filter">
+<span class="n"><span class="pre">ovstage_filter_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">filter</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_view_desc_t.filter" title="Link to this definition">#</a><br /></dt>
+<dd><p>Stable subset filter, deep-copied at view creation and resolved like a population’s, empty included.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_view_desc_t.scope">
+<a class="reference internal" href="#c.ovspatialquery_ovstage_scope_t" title="ovspatialquery_ovstage_scope_t"><span class="n"><span class="pre">ovspatialquery_ovstage_scope_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scope</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_view_desc_t.scope" title="Link to this definition">#</a><br /></dt>
+<dd><p>Narrows the view’s selection from its parent’s objects, evaluated like a population’s scope.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_participation_table_t">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_participation_table_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_participation_table_t" title="Link to this definition">#</a><br /></dt>
+<dd><p>Provisional per-path categories captured by future ovstage publications.</p>
+<p>An object whose prim path is listed takes that entry’s bits; every other object takes <code class="docutils literal notranslate"><span class="pre">default_bits</span></code>, so a listed path can also drop a default bit. Paths are nonzero values from the population’s path dictionary and appear at most once (INVALID_ARGUMENT otherwise); order is free. <code class="docutils literal notranslate"><span class="pre">paths</span></code> and <code class="docutils literal notranslate"><span class="pre">bits</span></code> are null exactly when <code class="docutils literal notranslate"><span class="pre">count</span></code> is zero. A listed path that is absent at a publication contributes nothing and still counts against the host budget. No installed table means all 128 bits set for every object.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_participation_table_t.default_bits">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_participation_bits_t" title="ovspatialquery_participation_bits_t"><span class="n"><span class="pre">ovspatialquery_participation_bits_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_bits</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_participation_table_t.default_bits" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_participation_table_t.paths">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ovx_primpath_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">paths</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_participation_table_t.paths" title="Link to this definition">#</a><br /></dt>
+<dd><p>count entries</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_participation_table_t.bits">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="c-core.html#c.ovspatialquery_participation_bits_t" title="ovspatialquery_participation_bits_t"><span class="n"><span class="pre">ovspatialquery_participation_bits_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">bits</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_participation_table_t.bits" title="Link to this definition">#</a><br /></dt>
+<dd><p>count entries</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_participation_table_t.count">
+<span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">count</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_participation_table_t.count" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_create_ovstage_population">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_result_t" title="ovspatialquery_result_t"><span class="n"><span class="pre">ovspatialquery_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_create_ovstage_population</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#c.ovspatialquery_ovstage_population_desc_t" title="ovspatialquery_ovstage_population_desc_t"><span class="n"><span class="pre">ovspatialquery_ovstage_population_desc_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">desc</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">out_population</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_create_ovstage_population" title="Link to this definition">#</a><br /></dt>
+<dd><p>Creates a NOT_READY population with no head and deep-copies the filter. The caller keeps <code class="docutils literal notranslate"><span class="pre">stage</span></code> and its path dictionary alive until the population is destroyed, because object IDs are values in that dictionary. The adapter assigns object IDs from prim paths and instance-wide geometry references; the caller does not create those values.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_create_ovstage_view">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_result_t" title="ovspatialquery_result_t"><span class="n"><span class="pre">ovspatialquery_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_create_ovstage_view</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#c.ovspatialquery_ovstage_view_desc_t" title="ovspatialquery_ovstage_view_desc_t"><span class="n"><span class="pre">ovspatialquery_ovstage_view_desc_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">desc</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_view_handle_t" title="ovspatialquery_view_handle_t"><span class="n"><span class="pre">ovspatialquery_view_handle_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">out_view</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_create_ovstage_view" title="Link to this definition">#</a><br /></dt>
+<dd><p>Creates a filter view. It becomes ready on the next successful parent publication and then shares all parent versions and acceleration data.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_set_ovstage_participation_map">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_result_t" title="ovspatialquery_result_t"><span class="n"><span class="pre">ovspatialquery_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_set_ovstage_participation_map</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#c.ovspatialquery_ovstage_participation_table_t" title="ovspatialquery_ovstage_participation_table_t"><span class="n"><span class="pre">ovspatialquery_ovstage_participation_table_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">table</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_set_ovstage_participation_map" title="Link to this definition">#</a><br /></dt>
+<dd><p>Atomically replaces the participation table used by future publications.</p>
+<p><code class="docutils literal notranslate"><span class="pre">population</span></code> must have been created by <a class="reference internal" href="#c.ovspatialquery_create_ovstage_population" title="ovspatialquery_create_ovstage_population"><code class="xref c c-func docutils literal notranslate"><span class="pre">create_ovstage_population</span></code></a>, because the table is a feature of this adapter alone. The call validates and deep-copies a non-null <code class="docutils literal notranslate"><span class="pre">table</span></code> before success, so the caller can release its arrays after return. Passing null clears the table and restores all bits set for every object in future publications.</p>
+<p>The function returns BUSY while a set/update operation is pending; otherwise successful return is the linearization point, and concurrent setters and publication enqueues on the same population are serialized. Failure returns INVALID_ARGUMENT, INVALID_HANDLE, BUSY, HOST_BUDGET, OUT_OF_MEMORY, or INTERNAL and preserves the installed table. Its storage is charged to the instance host budget.</p>
+<p>The call does not change the current head, retained versions, admitted work, or pair-reporter baselines. Each later successfully admitted ovstage set or update captures one complete installed table, looks up each object’s path, and publishes the resulting bit column atomically with geometry, poses, bounds, object/view membership, the new head, and retention; a later table replacement cannot affect that work.</p>
+<p>Exact retained queries therefore keep the bits stored at their publication. Pair reporters observe bit-caused enters/exits only after advancing to a later published ordinal; same-ordinal results never change. Reporter capacity failure still preserves its accepted baseline.</p>
+<p>A category-only change becomes visible only after a later sealed ovstage ordinal is published. Immediate between-ordinal mutation is not supported because it would require a second public version system. The implementation may share unchanged geometry and acceleration data; all table storage and publication materialization remain subject to hard budgets.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_enqueue_ovstage_population_set">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_enqueue_result_t" title="ovspatialquery_enqueue_result_t"><span class="n"><span class="pre">ovspatialquery_enqueue_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_enqueue_ovstage_population_set</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">target_ordinal</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_enqueue_ovstage_population_set" title="Link to this definition">#</a><br /></dt>
+<dd><p>Captures one sealed source snapshot before successful admission returns. Capture runs synchronously inside this call on the calling thread: before returning, it copies the filtered subset of geometry definitions, instance bindings, paths, bounds, and one complete installed participation table out of ovstage, which is why the caller keeps filter-relevant ovstage writes quiescent until the call returns. Only preparation runs asynchronously, on that copy. This first complete set may use any nonnegative ovstage ordinal, including zero. <code class="docutils literal notranslate"><span class="pre">target_ordinal</span></code> must equal the ordinal read from ovstage because the adapter does not translate or renumber it: capturing ovstage ordinal 104 publishes population ordinal 104 and query results report 104. A successful operation publishes atomically; failure leaves the population NOT_READY. Per-prim content never fails a publication: the adapter omits the prim and reports its object ID and reason in the complete sorted exclusion list. Caller/configuration errors, unsupported runtimes, missing instance proxy rows, budgets, and device loss still fail the operation or admission.</p>
+<p>An instance proxy takes its family from <code class="docutils literal notranslate"><span class="pre">_protoPrimType</span></code> and its definition from <code class="docutils literal notranslate"><span class="pre">_protoPath</span></code>. Proxies of a prototype share geometry for transforms differing by a rigid motion and positive uniform scale, separately for each determinant sign. Other transforms share only a bitwise-equal shape metric.</p>
+<p>The adapter splits each prim’s linear world block L into a placement, a proper rotation and a positive uniform scale s, and a shape K that keeps the surface t + L p exactly, so no world matrix is approximated; only a Sphere’s or Capsule’s radius, below, may grow within the tolerance to contain it. Nonfinite/out-of-domain input, zero determinant, malformed topology, and invalid hulls are MALFORMED_GEOMETRY. Whether K is uniform, mirrored, axis-aligned, or sheared is decided within one small relative tolerance, the same on host and device, with no absolute scale epsilon. Families use the split as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Family                 Uniform/mirror    Non-uniform axes    Shear
+Mesh or convexHull     apply K           apply K             apply K
+Cube                   BOX               BOX, scaled extents CONVEX corners
+Sphere or Capsule      exact             UNSUPPORTED_SHAPE   UNSUPPORTED_SHAPE
+</pre></div>
+</div>
+<p>Within tolerance a Sphere uses the largest singular value as its scale; a Capsule keeps its segment exactly, including the direction of K times its authored axis, and uses the largest singular value of K for its local radius. The stored Capsule contains the authored surface; its outward deviation is bounded by (sigma_max - sigma_min) times the authored radius. A transform-only edit that moves a prim rigidly, within the same tolerance, keeps its prepared shape.</p>
+<p>Implementation note: the split is the polar factorization L = R’ P, with P = sqrt(L^T L), s = cbrt(abs(det L)), R = R’ and K = P/s for a positive determinant, R = -R’ and K = -P/s otherwise. The tolerance is tau = 2^-20: K counts as +/-I when max|L^T L/s^2 - I| &lt;= 2*tau, and axes count as orthogonal when each off-diagonal entry of L^T L divided by its two axis lengths is within 2*tau. A prepared shape is retained across a transform-only edit when A = L K^-1/s has max|A^T A-I| &lt;= 2*tau and det(A) &gt; 0; its pose rotation is the normalized quaternion of A.</p>
+<p>A Mesh with PhysicsMeshCollisionAPI and <code class="docutils literal notranslate"><span class="pre">physics:approximation</span> <span class="pre">=</span> <span class="pre">&quot;convexHull&quot;</span></code> is CONVEX geometry: the backend registers its authored points as the explicit convex table does under a <code class="docutils literal notranslate"><span class="pre">hull_vertex_limit</span></code>, so queries answer for the convex a PhysX simulation of the stage collides with. The limit is <code class="docutils literal notranslate"><span class="pre">physxConvexHullCollision:hullVertexLimit</span></code> when the stage carries it and 64, PhysxSchema’s default, otherwise; a negative value counts as unauthored and the rest is clamped to 8 to 64, as that simulation reads it. Fewer than four non-coplanar points, or points PhysX cooks no valid hull for, are excluded as MALFORMED_GEOMETRY. Backends may produce slightly different valid hulls, so CONVEX contacts are not bit-identical across devices. Other approximation values remain unspecified.</p>
+<p>Triangle meshes use authored faces, ignoring <code class="docutils literal notranslate"><span class="pre">subdivisionScheme</span></code>. The adapter skips <code class="docutils literal notranslate"><span class="pre">holeIndices</span></code> faces and reverses each triangle for authored <code class="docutils literal notranslate"><span class="pre">leftHanded</span></code> orientation and again for a mirrored K, so culling and normals follow the authored front face. Hits preserve authored face and corner ordinals. A triangle without area, judged as for explicit triangle meshes on the authored points with K applied, is dropped and the rest of the Mesh published; each set or update judges the points it reads, so a triangle can leave or return as they move, and lists the Meshes it read that dropped triangles, with their counts, for <a class="reference internal" href="#c.ovspatialquery_fetch_ovstage_dropped_triangles" title="ovspatialquery_fetch_ovstage_dropped_triangles"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_fetch_ovstage_dropped_triangles()</span></code></a>; the calling thread’s diagnostic also names the first few. All-hole meshes, and meshes left with no triangle, are MALFORMED_GEOMETRY. <code class="docutils literal notranslate"><span class="pre">doubleSided</span></code> is immutable mesh-definition state. A publication that reads or derives a mesh, or reads a convex hull, charges the query structure and build scratch of that mesh or of the hull’s triangle surface at admission, as <a class="reference internal" href="c-explicit.html#c.ovspatialquery_enqueue_triangle_mesh_registration" title="ovspatialquery_enqueue_triangle_mesh_registration"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_enqueue_triangle_mesh_registration()</span></code></a> describes, and returns HOST_BUDGET when they do not fit.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_enqueue_ovstage_population_update">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_enqueue_result_t" title="ovspatialquery_enqueue_result_t"><span class="n"><span class="pre">ovspatialquery_enqueue_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_enqueue_ovstage_population_update</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">base_ordinal</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">target_ordinal</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_enqueue_ovstage_population_update" title="Link to this definition">#</a><br /></dt>
+<dd><p>Reacquires one complete target snapshot with the same synchronous capture as <a class="reference internal" href="#c.ovspatialquery_enqueue_ovstage_population_set" title="ovspatialquery_enqueue_ovstage_population_set"><code class="xref c c-func docutils literal notranslate"><span class="pre">enqueue_ovstage_population_set</span></code></a>. <code class="docutils literal notranslate"><span class="pre">base_ordinal</span></code> must equal the current head and the target must strictly advance it; skipped source ordinals are not replayed. The call captures the complete installed participation table for <code class="docutils literal notranslate"><span class="pre">target_ordinal</span></code>. Publication fails atomically if budgets cannot preserve the configured latest N prior heads. Per-prim content is excluded under the set rules, so invalid content can advance the head with fewer objects; a caller that requires a clean version can retain its previous exact ordinal.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_enqueue_ovstage_population_set_with_execution">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_enqueue_result_t" title="ovspatialquery_enqueue_result_t"><span class="n"><span class="pre">ovspatialquery_enqueue_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_enqueue_ovstage_population_set_with_execution</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">target_ordinal</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="c-core.html#c.ovspatialquery_dynamic_execution_t" title="ovspatialquery_dynamic_execution_t"><span class="n"><span class="pre">ovspatialquery_dynamic_execution_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">execution</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_enqueue_ovstage_population_set_with_execution" title="Link to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#c.ovspatialquery_enqueue_ovstage_population_set" title="ovspatialquery_enqueue_ovstage_population_set"><code class="xref c c-func docutils literal notranslate"><span class="pre">enqueue_ovstage_population_set</span></code></a> with a choice of where the version is prepared. A null <code class="docutils literal notranslate"><span class="pre">execution</span></code>, or ON_HOST on a CPU device with zero <code class="docutils literal notranslate"><span class="pre">cuda_sync.has_stream</span></code> and <code class="docutils literal notranslate"><span class="pre">cuda_sync.wait_event</span></code>, is that call exactly; ON_HOST on a CUDA device is INVALID_ARGUMENT, because the host path reads nothing on a stream.</p>
+<p>ON_DEVICE and ON_DEVICE_HOST_READABLE prepare the version on the CUDA device <code class="docutils literal notranslate"><span class="pre">execution-&gt;device</span></code> and need a stream (<code class="docutils literal notranslate"><span class="pre">cuda_sync.has_stream</span></code> 1, any stream value, the legacy default stream 0 included). They read poses through ovstage’s experimental placement extension, at the extension version this library was built against; a stage without it (a build serving another extension version) returns NOT_SUPPORTED before admission, and the library never prepares such a publication on the host instead. A population with an ovstage view returns NOT_SUPPORTED too, because no view can select a device version.</p>
+<p>Capture stays synchronous. Inside the call the adapter reads on the host, at the sealed target ordinal, the prims the filter matches bucket by bucket and their definition attributes, those of the prototype prims its instance proxies name included, and compares them with the previous device publication. Only when they differ, or a participation table was installed since, does it reread identities and definitions as the host path does and publish the new membership. It then enqueues one device read of <code class="docutils literal notranslate"><span class="pre">omni:fabric:worldMatrix</span></code> (and of <code class="docutils literal notranslate"><span class="pre">worldMatrix</span></code> for prims without one) on <code class="docutils literal notranslate"><span class="pre">cuda_sync.stream</span></code>, of the whole snapshot at the target for an update as for a set, because ovstage keeps no change history for some pose writers (<code class="docutils literal notranslate"><span class="pre">update_from_usd_time</span></code>); the host never reads a pose. Device kernels validate the poses and prepare the version behind that read and a nonzero <code class="docutils literal notranslate"><span class="pre">cuda_sync.wait_event</span></code>. An ovstage write of the world-matrix column (<code class="docutils literal notranslate"><span class="pre">compute_hierarchy</span></code>) issued before that device work has read the poses may wait for it.</p>
+<p>Implementation note: the library holds ovstage’s read groups until its kernels have consumed them.</p>
+<p>Both host- and device-prepared versions derive world bounds from each prim’s geometry and world matrix. <code class="docutils literal notranslate"><span class="pre">_worldExtent</span></code> decides only which prims have a spatial source; a stale extent does not change the published box. Device rows never fail publication for content. Invalid matrices become MALFORMED_GEOMETRY; a Sphere or Capsule outside its exact transform family becomes UNSUPPORTED_SHAPE and returns when its transform is supported again. A BOX takes its current axis extents every publication. Other shapes keep their prepared shape only across a rigid change of their transform, as in a set. A changed mesh/hull shape, or a Cube becoming sheared, is RESHAPE_PENDING for that version.</p>
+<p>A RESHAPE_PENDING prim is rebuilt for the first publication enqueued after the one that excluded it completes, whether or not that operation was fetched or destroyed, and returns unless another reason excludes it. It is therefore absent from exactly one version when each publication follows the previous one’s completion, and from more when publications outrun completion. The exclusion list is complete and sorted at completion; its tensors remain valid until operation destruction.</p>
+<p>Implementation note: the kernel records row exclusions in budgeted pinned host storage, and the next enqueue checks completion without blocking, rereads only the pending prims, and rebuilds their definitions, keeping every other slot’s definition and device tables.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_enqueue_ovstage_population_update_with_execution">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_enqueue_result_t" title="ovspatialquery_enqueue_result_t"><span class="n"><span class="pre">ovspatialquery_enqueue_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_enqueue_ovstage_population_update_with_execution</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_population_handle_t" title="ovspatialquery_population_handle_t"><span class="n"><span class="pre">ovspatialquery_population_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">population</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">base_ordinal</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_ordinal_t" title="ovspatialquery_ordinal_t"><span class="n"><span class="pre">ovspatialquery_ordinal_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">target_ordinal</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="c-core.html#c.ovspatialquery_dynamic_execution_t" title="ovspatialquery_dynamic_execution_t"><span class="n"><span class="pre">ovspatialquery_dynamic_execution_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">execution</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_enqueue_ovstage_population_update_with_execution" title="Link to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="#c.ovspatialquery_enqueue_ovstage_population_update" title="ovspatialquery_enqueue_ovstage_population_update"><code class="xref c c-func docutils literal notranslate"><span class="pre">enqueue_ovstage_population_update</span></code></a> with a choice of where the version is prepared, under the rules of <a class="reference internal" href="#c.ovspatialquery_enqueue_ovstage_population_set_with_execution" title="ovspatialquery_enqueue_ovstage_population_set_with_execution"><code class="xref c c-func docutils literal notranslate"><span class="pre">enqueue_ovstage_population_set_with_execution</span></code></a>. A device-prepared update may name the newest admitted device publication as its base, so a caller publishes every step without waiting, and names the CUDA device its base was prepared on (NOT_SUPPORTED otherwise). A poses-only update compares each prim’s pose and K with its base’s on the device, bit for bit, and records exactly the moved prims as its changed slots, so CUDA pair reporters patch from it; a membership change makes them recompute. Its host staging charge is a set’s of the same population, so an instance whose host budget covers the set and the updates it keeps pending admits it.</p>
+</dd></dl>
+
+<dl class="c struct">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_dropped_triangles_t">
+<span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_ovstage_dropped_triangles_t</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_dropped_triangles_t" title="Link to this definition">#</a><br /></dt>
+<dd><p>Triangles without area that one successful publication dropped, per Mesh prim: the machine-readable form of the report the set paragraph describes. A publication lists every Mesh prim whose points or topology it read and that dropped at least one triangle, so a set lists all of them and an update those it read again; a Mesh excluded from the version is not listed.</p>
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_dropped_triangles_t.objects">
+<span class="n"><span class="pre">DLTensor</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">objects</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_dropped_triangles_t.objects" title="Link to this definition">#</a><br /></dt>
+<dd><p>Host uint64[D] object IDs of the listed Mesh prims, sorted by value. The library owns this tensor and its storage until the operation is destroyed.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt class="sig sig-object c" id="c.ovspatialquery_ovstage_dropped_triangles_t.dropped_triangle_counts">
+<span class="n"><span class="pre">DLTensor</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dropped_triangle_counts</span></span></span><a class="headerlink" href="#c.ovspatialquery_ovstage_dropped_triangles_t.dropped_triangle_counts" title="Link to this definition">#</a><br /></dt>
+<dd><p>Host uint64[D], parallel to objects: how many of the prim’s triangles, after triangulation, were dropped. Both tensors have shape [0] when D is zero.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_fetch_ovstage_dropped_triangles">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_result_t" title="ovspatialquery_result_t"><span class="n"><span class="pre">ovspatialquery_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_fetch_ovstage_dropped_triangles</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_op_id_t" title="ovspatialquery_op_id_t"><span class="n"><span class="pre">ovspatialquery_op_id_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">op_id</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="#c.ovspatialquery_ovstage_dropped_triangles_t" title="ovspatialquery_ovstage_dropped_triangles_t"><span class="n"><span class="pre">ovspatialquery_ovstage_dropped_triangles_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">out_result</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_fetch_ovstage_dropped_triangles" title="Link to this definition">#</a><br /></dt>
+<dd><p>Fetches the dropped-triangle list of one successful population publication, under the rules of <a class="reference internal" href="c-core.html#c.ovspatialquery_fetch_population_update" title="ovspatialquery_fetch_population_update"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_fetch_population_update()</span></code></a>: repeatable, NOT_READY while pending, and OPERATION_FAILED after failed work. A publication of an explicit population lists nothing.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ovspatialquery_query_ovstage_capability">
+<a class="reference internal" href="c-core.html#c.ovspatialquery_result_t" title="ovspatialquery_result_t"><span class="n"><span class="pre">ovspatialquery_result_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ovspatialquery_query_ovstage_capability</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_instance_handle_t" title="ovspatialquery_instance_handle_t"><span class="n"><span class="pre">ovspatialquery_instance_handle_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">instance</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">ovstage_instance_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">stage</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">DLDevice</span></span><span class="w"> </span><span class="n"><span class="pre">device</span></span></em>,</dd>
+<dd><em class="sig-param"><a class="reference internal" href="c-core.html#c.ovspatialquery_capability_t" title="ovspatialquery_capability_t"><span class="n"><span class="pre">ovspatialquery_capability_t</span></span></a><span class="w"> </span><span class="n"><span class="pre">capability</span></span></em></dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#c.ovspatialquery_query_ovstage_capability" title="Link to this definition">#</a><br /></dt>
+<dd><p><a class="reference internal" href="c-core.html#c.ovspatialquery_query_capability" title="ovspatialquery_query_capability"><code class="xref c c-func docutils literal notranslate"><span class="pre">ovspatialquery_query_capability()</span></code></a> for populations of <code class="docutils literal notranslate"><span class="pre">stage</span></code>. A null <code class="docutils literal notranslate"><span class="pre">stage</span></code> returns INVALID_ARGUMENT, and a stage <a class="reference internal" href="#c.ovspatialquery_create_ovstage_population" title="ovspatialquery_create_ovstage_population"><code class="xref c c-func docutils literal notranslate"><span class="pre">create_ovstage_population</span></code></a> refuses returns NOT_SUPPORTED. PREPARE_ON_DEVICE also needs the stage’s runtime to provide the placement extension the device publication calls read poses through; those calls refuse through the same check. Every other key has the core answer.</p>
+</dd></dl>
+
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="c-core.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Core API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="c-explicit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Explicit Source</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+<div class="bd-sidebar-secondary"></div>
+
+
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Your Privacy Choices</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2026, NVIDIA CORPORATION &amp; AFFILIATES.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

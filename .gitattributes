@@ -1,0 +1,21 @@
+# Normalize text files on commit to LF endings by default
+* text=auto
+# Make sure Windows batch files preserve CR/LF line endings, otherwise they may not be able to execute.  Windows
+# batch files require a CR/LF for labels to work properly, otherwise they may fail when labels straddle 512-byte
+# block boundaries.  This is important when files are downloaded through a zip archive that was authored on a
+# Linux machine (the default behavior on GitHub)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+# Make sure shell scripts have LF line endings, even when checked out on a Windows client with autocrlf=true
+*.sh text eol=lf
+tools/packman/packman text eol=lf
+# Keep the selected commit available after git archive removes repository metadata.
+.git_archival.txt export-subst text eol=lf
+# Legal payload identities must survive Windows checkout unchanged.
+LICENSE text eol=lf
+NOTICE text eol=lf
+LICENSES/** text eol=lf
+third_party/physx/LICENSE text eol=lf
+deps/physx-license-provenance.json text eol=lf
+# Make sure schema files have LF line endings
+*.usda text eol=lf

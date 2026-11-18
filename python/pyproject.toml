@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[build-system]
+requires = ["setuptools==83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovspatialquery"
+version = "0.1.1.dev0"
+description = "Spatial queries for NVIDIA Omniverse: raycasts, sweeps, overlaps and pair queries over published geometry, on CPU and CUDA"
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+authors = [{ name = "NVIDIA Corporation" }]
+keywords = [
+    "nvidia",
+    "omniverse",
+    "ovspatialquery",
+    "spatial-query",
+    "raycast",
+    "sweep",
+    "overlap",
+    "collision-detection",
+    "broadphase",
+    "physx",
+    "ovstage",
+    "openusd",
+    "cuda",
+    "dlpack",
+    "robotics",
+    "simulation",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: GPU :: NVIDIA CUDA",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: C",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Software Development :: Libraries",
+]
+
+# The wheel's PyPI page: absolute links only, to where the public release lands.
+[project.urls]
+Homepage = "https://github.com/NVIDIA-Omniverse/ovspatialquery"
+Documentation = "https://nvidia-omniverse.github.io/ovspatialquery/"
+Repository = "https://github.com/NVIDIA-Omniverse/ovspatialquery"
+Changelog = "https://github.com/NVIDIA-Omniverse/ovspatialquery/blob/main/CHANGELOG.md"
+Support = "https://forums.developer.nvidia.com/c/omniverse/300"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Optional guide programs: CPython 3.12 on Linux x86-64, Linux AArch64 and Windows x64.
+numpy==2.2.6 --hash=sha256:c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2 --hash=sha256:f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87 --hash=sha256:fd83c01228a688733f1ded5201c678f0c53ecc1006ffbc404db9f7a899ac6249 --hash=sha256:fe27749d33bb772c80dcd84ae7e8df2adc920ae8297400dabec45f0dedb3f6de
+warp-lang==1.18.0 --hash=sha256:090962bfae7dd22ade0d8e0258f41635e0e58980f15bcc9e7a7d312819dfe440 --hash=sha256:1769e55746739f2e244a2b412123003c462ec3d977dfb5f420f924a8553d30aa --hash=sha256:d76ab8c7d4f4897405fa0a744d38812fc44cfc8162c40e658dc9ca7790b6a645
+ovstage==0.4.0.1794520352 --hash=sha256:7473a79763af4f8fe8dc70cbd4d99468d822a8f96a0c58891c25801390958f0a --hash=sha256:b63c91a11d04e07c30b7ee31647e2a00918f0b1ded3dd4e939326d31cda4e462 --hash=sha256:c611727f27ba21222649137ffaed83c35ece44374e8e6686c660d1fa21b2d4ab

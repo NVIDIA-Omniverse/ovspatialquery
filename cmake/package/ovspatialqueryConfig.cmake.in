@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Installed ovspatialquery SDK package.
+#
+#   find_package(ovspatialquery CONFIG REQUIRED [COMPONENTS ovstage])
+#   target_link_libraries(app PRIVATE ovspatialquery::ovspatialquery)
+#
+# A version request X.Y accepts any X.Y.z SDK.
+#
+# Defines the imported shared library ovspatialquery::ovspatialquery, whose
+# include directory holds both <ovspatialquery/...> and <dlpack/dlpack.h>.
+# The optional component "ovstage" is found only when this SDK carries the
+# Ovstage companion header. This package does not find Ovstage: its consumers
+# also call find_package(ovstage CONFIG REQUIRED) and link ovstage::ovstage.
+# That package is under the ovstage Python package's directory
+# (site-packages/ovstage) and is found when that directory is on
+# CMAKE_PREFIX_PATH.
+#
+# Sets:
+#   ovspatialquery_HAS_OVSTAGE_COMPANION  ON when ovspatialquery_ovstage.h is installed
+#   ovspatialquery_HAS_CUDA_BACKEND       ON when the library can run CUDA work
+#   ovspatialquery_CUDA_PTX               the PTX the library loads from its own
+#                                         directory (empty without CUDA); deploy it
+#                                         next to the shared library
+
+get_filename_component(_ovspatialquery_root
+    "${CMAKE_CURRENT_LIST_DIR}/@_OVSPATIALQUERY_CONFIG_TO_ROOT@" ABSOLUTE)
+
+set(ovspatialquery_HAS_OVSTAGE_COMPANION @OVSPATIALQUERY_BUILD_OVSTAGE_COMPANION@)
+set(ovspatialquery_HAS_CUDA_BACKEND @OVSPATIALQUERY_HAS_CUDA_BACKEND@)
+set(ovspatialquery_CUDA_PTX "")
+if(ovspatialquery_HAS_CUDA_BACKEND)
+    set(ovspatialquery_CUDA_PTX
+        "${_ovspatialquery_root}/@_OVSPATIALQUERY_INSTALLED_LIBRARY_DIR@/ovspatialquery_cuda.ptx")
+endif()
+
+foreach(_ovspatialquery_component IN LISTS ovspatialquery_FIND_COMPONENTS)
+    if(_ovspatialquery_component STREQUAL "ovstage" AND ovspatialquery_HAS_OVSTAGE_COMPANION)
+        set(ovspatialquery_ovstage_FOUND TRUE)
+    else()
+        set(ovspatialquery_${_ovspatialquery_component}_FOUND FALSE)
+        if(ovspatialquery_FIND_REQUIRED_${_ovspatialquery_component})
+            set(ovspatialquery_FOUND FALSE)
+            set(ovspatialquery_NOT_FOUND_MESSAGE
+                "ovspatialquery at ${_ovspatialquery_root} has no component '${_ovspatialquery_component}'")
+        endif()
+    endif()
+endforeach()
+unset(_ovspatialquery_component)
+
+if(NOT DEFINED ovspatialquery_FOUND OR ovspatialquery_FOUND)
+    if(NOT TARGET ovspatialquery::ovspatialquery)
+        add_library(ovspatialquery::ovspatialquery SHARED IMPORTED)
+        set_target_properties(ovspatialquery::ovspatialquery PROPERTIES
+            IMPORTED_LOCATION
+                "${_ovspatialquery_root}/@_OVSPATIALQUERY_INSTALLED_LIBRARY_DIR@/@_OVSPATIALQUERY_LIBRARY_FILE@"
+            INTERFACE_INCLUDE_DIRECTORIES "${_ovspatialquery_root}/@CMAKE_INSTALL_INCLUDEDIR@"
+            INTERFACE_COMPILE_DEFINITIONS OVSPATIALQUERY_USE_DLL)
+        if(WIN32)
+            set_target_properties(ovspatialquery::ovspatialquery PROPERTIES
+                IMPORTED_IMPLIB
+                    "${_ovspatialquery_root}/@CMAKE_INSTALL_LIBDIR@/@_OVSPATIALQUERY_IMPORT_LIBRARY_FILE@")
+        endif()
+    endif()
+endif()
+unset(_ovspatialquery_root)

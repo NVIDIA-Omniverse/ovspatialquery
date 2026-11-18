@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "component": "NVIDIA PhysX SDK",
+  "package": "physxsdk@5.13.0.aa39b064-release-ovphysx-0.8",
+  "source_commit": "7d6f6ac8b83e1610bdf715f1f2f1d6b718aee586",
+  "source_path": "physx/LICENSE.md",
+  "source_git_blob": "001a3281169d6ade30cd1a44544029254ba490a8",
+  "license_expression": "Apache-2.0",
+  "installed_license": "physx-LICENSE.md",
+  "installed_license_git_blob": "20e4bd85661f5fbc86e0a8aac3934ddabe776160",
+  "installed_license_sha256": "c1b9df1275e769f3dbab000d1e457a2d4b0f28eb5da6c77e48dc37eeba202ed7",
+  "installed_license_size": 11359,
+  "static_linked": true,
+  "source_release": "ovphysx-0.8.0"
+}

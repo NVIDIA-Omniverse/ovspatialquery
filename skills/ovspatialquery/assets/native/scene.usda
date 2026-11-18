@@ -1,0 +1,62 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    upAxis = "Y"
+    metersPerUnit = 1
+)
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+def Xform "World"
+{
+    def Xform "Targets"
+    {
+        # World box [0,2] x [-1,1] x [-1,1].
+        def Cube "Box"
+        {
+            double size = 2
+            float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+            double3 xformOp:translate = (1, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Cube "OffRay"
+        {
+            double size = 1.5
+            float3[] extent = [(-0.75, -0.75, -0.75), (0.75, 0.75, 0.75)]
+            double3 xformOp:translate = (3.2, 0, -3)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        # The parent Xform moves the mesh; world AABB is [4,5] x [3,5] x [-1,1].
+        # Triangle at local x=1, quad at local x=2 (world x=5).
+        def Xform "MeshParent"
+        {
+            double3 xformOp:translate = (3, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Mesh "Fin"
+            {
+                int[] faceVertexCounts = [4, 3]
+                int[] faceVertexIndices = [0, 1, 2, 3, 4, 5, 6]
+                point3f[] points = [(2, -1, -1), (2, -1, 1), (2, 1, 1), (2, 1, -1), (1, -1, -1), (1, 0, 1), (1, 1, -1)]
+                float3[] extent = [(1, -1, -1), (2, 1, 1)]
+            }
+        }
+    }
+
+    # Visual-only beam along the first ray. It must stay out of the population,
+    # otherwise that ray reports it at distance 0.
+    def Cube "Beam"
+    {
+        double size = 2
+        float3[] extent = [(-1, -1, -1), (1, 1, 1)]
+        double3 xformOp:translate = (-2, 0, 0)
+        double3 xformOp:scale = (2, 0.05, 0.05)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def DistantLight "Sun"
+    {
+    }
+}
